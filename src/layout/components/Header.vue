@@ -1,5 +1,5 @@
 <template>
   <div id="nav">
-    <span class="title">Navbar</span>
+    <span class="title">Cake OMS</span>
   </div>
 </template>

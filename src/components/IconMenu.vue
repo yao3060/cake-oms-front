@@ -19,7 +19,7 @@ export default defineComponent({
   name: 'IconMenu',
   props: {
     link:{
-      type: Object as PropType<IconLink[]>,
+      type: Object as PropType<IconLink>,
       required: true
     },
     span: {

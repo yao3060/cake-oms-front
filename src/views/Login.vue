@@ -75,9 +75,11 @@ export default defineComponent({
       'password': '',
       'remember': true
     })
+
     const validate = (item: any) => {
         console.log("validate", item);
-    };
+    }
+
     const ruleForm = ref<any>(null)
 
     const submit = () => {
@@ -86,7 +88,7 @@ export default defineComponent({
           console.log('success', formData)
           setToken('mobile_admin_token_' + (+new Date()))
           router.push({
-            name: 'About',
+            name: 'Home',
             query: {
               ...route.query,
             },

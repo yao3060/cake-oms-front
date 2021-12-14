@@ -1,3 +1,3 @@
-export { default as Header } from './Header'
-export { default as AppMain } from './AppMain'
-export { default as Footer } from './Footer'
+export { default as Header } from './Header.vue'
+export { default as AppMain } from './AppMain.vue'
+export { default as Footer } from './Footer.vue'
