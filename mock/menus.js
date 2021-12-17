@@ -17,6 +17,11 @@ Mock.mock("/api/v1/menus", 'get', {
     },
     {
       "icon": 'JD',
+      "name": 'About',
+      "to": "/about"
+    },
+    {
+      "icon": 'JD',
       "name": 'Products',
       "to": "/products"
     }

@@ -49,6 +49,21 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: '/members',
+    name: 'Members',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/Members/index.vue')
+      },
+      {
+        path: ':id',
+        component: () => import('@/views/Members/Single.vue')
+      }
+    ]
+  },
+  {
     path: '/about',
     name: 'About',
     component: Layout,
@@ -56,6 +71,17 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '',
         component: () => import('../views/About.vue')
+      }
+    ]
+  },
+  {
+    path: '/me',
+    name: 'Me',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/Members/Me.vue')
       }
     ]
   },

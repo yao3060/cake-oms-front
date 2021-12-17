@@ -1,4 +1,5 @@
 <template>
+
   <nut-col :span="span">
     <div class="flex-content">
       <router-link :to="link.to">

@@ -14,7 +14,7 @@
   </nut-tabbar>
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed, watchEffect } from "vue"
+import { defineComponent, ref,  watchEffect } from "vue"
 import { MenuItem } from '@nutui/nutui';
 import { useRoute } from "vue-router";
 
@@ -44,9 +44,9 @@ export default defineComponent({
         "to": "/products"
       },
       {
-        "title": "店铺",
-        'icon': "shop",
-        "to": "/shops"
+        "title": "员工",
+        'icon': "people",
+        "to": "/members"
       },
       {
         "title": "我",

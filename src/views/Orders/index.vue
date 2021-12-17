@@ -28,14 +28,13 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import OrderItem from './components/OrderItem.vue'
-import Loading from '@/components/Loading.vue'
 import Order from '@/types/Order'
 import { getOrders } from '@/api/orders'
 
 export default defineComponent({
   name: 'OrdersIndex',
   components: {
-    OrderItem, Loading
+    OrderItem
   },
   setup(){
     const orders = ref<Order[]>([]);

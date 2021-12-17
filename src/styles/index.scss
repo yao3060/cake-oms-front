@@ -1,56 +1,30 @@
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
+html,
 body {
   height: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, Arial, sans-serif;
+  width: 100%;
+  background: #fff;
   margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
 }
-
-label {
-  font-weight: 700;
-}
-
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
-
 #app {
+  background: #fff;
   height: 100%;
-  background-color: #f7f8fa;
-
-  #nav {
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    right: 0;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    background: #fff;
-    font-weight: 700;
-    font-size: 20px;
-    color: #333;
-    box-shadow: 0 4px 10px #ccc;
-  }
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
-
-.no-padding {
-  padding: 0px !important;
-}
-
-.padding-content {
-  padding: 4px 0;
-}
-
 .main-container {
-  padding: 60px 10px;
+  padding: 0px 10px;
+}
+
+.nut-navbar__title {
+  font-weight: 700;
+  font-size: 20px;
 }

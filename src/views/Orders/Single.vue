@@ -77,12 +77,11 @@ import Order from '@/types/Order'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSingleOrder } from '@/api/orders'
-import Loading from '@/components/Loading.vue'
 
 export default defineComponent({
   name: 'SingleOrder',
   components: {
-   Loading
+
   },
   setup () {
     const route = useRoute()
