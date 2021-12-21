@@ -28,3 +28,19 @@ body {
   font-weight: 700;
   font-size: 20px;
 }
+
+.full-width-uploader {
+  .nut-uploader__upload {
+    width: 100%;
+  }
+}
+
+.orders-container {
+  .nut-cell-group {
+    box-shadow: 0 0 3px #ccc;
+  }
+  .nut-pagination {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+}

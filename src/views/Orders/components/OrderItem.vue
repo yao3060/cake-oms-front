@@ -2,26 +2,52 @@
   <nut-cell-group>
     <nut-cell
       class="store-name"
-      :title="order.shopName"
-      :to="`/orders/${order.orderNo}`"
+      :title="order.store_name"
+      :to="`/orders/${order.order_number}`"
     >
       <template #link>
         <nut-button
           size="mini"
           type="primary"
         >
-          {{ order.orderStateDesc }}
+          {{ order.order_status }}
         </nut-button>
       </template>
     </nut-cell>
     <nut-cell
-      title="下单时间"
-      :desc="order.mealTm"
+      title="订单号"
+      :desc="order.order_number"
     />
     <nut-cell
-      title="支付方式"
-      :desc="order.payTypeDesc"
+      title="下单时间"
+      :desc="order.created_at"
     />
+    <nut-cell>
+      <nut-row>
+        <nut-col :span="8">
+          <div class="flex-content">
+            支付
+          </div>
+        </nut-col>
+        <nut-col :span="16">
+          <div class="order-total">
+            <nut-price
+              :price="order.total"
+              size="small"
+              :need-symbol="false"
+              :thousands="true"
+              class="total"
+            />
+            <nut-button
+              size="mini"
+              type="primary"
+            >
+              {{ order.payment_method }}
+            </nut-button>
+          </div>
+        </nut-col>
+      </nut-row>
+    </nut-cell>
   </nut-cell-group>
 </template>
 
@@ -45,5 +71,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .store-name {
   font-weight: bold;
+}
+.order-total {
+  text-align:right;
+  .total {
+    margin-right: 10px;
+  }
 }
 </style>

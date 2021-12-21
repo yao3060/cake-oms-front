@@ -16,9 +16,10 @@
       />
 
       <nut-pagination
-        v-model="currentPage"
-        :total-items="25"
-        :items-per-page="5"
+        v-model="query.page"
+        :total-items="total"
+        :items-per-page="query.per_page"
+        mode="simple"
         @change="pageChange"
       />
     </div>
@@ -38,22 +39,33 @@ export default defineComponent({
   },
   setup(){
     const orders = ref<Order[]>([]);
-    const currentPage = ref(1)
-    const perPage = ref(10)
-        const loading =ref(false)
+    const total = ref(0)
+    const loading =ref(false)
 
-    const pageChange = (value: number) => {
-      currentPage.value = value
-    }
-
-    onMounted(async () => {
-        loading.value = true
-      const response =  await getOrders()
-      orders.value = response.data
-        loading.value = false
+    const query = ref({
+      page:1,
+      per_page: 2
     })
 
-    return { orders, currentPage, perPage, pageChange, loading}
+    const pageChange = (value: number) => {
+      console.log('page changed', value)
+      query.value.page = value
+      getItems()
+    }
+
+    const getItems = async () => {
+      loading.value = true
+      const response =  await getOrders(query.value)
+      orders.value = response.data
+      total.value = response.total
+      loading.value = false
+    }
+
+    onMounted( () => {
+      getItems()
+    })
+
+    return { orders, query, total, pageChange, loading}
   }
 })
 </script>

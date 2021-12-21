@@ -8,6 +8,9 @@
       <h1 class="title">
         Login Page
       </h1>
+      <h3 class="title">
+        {{ store.state.test }}
+      </h3>
       <nut-form
         ref="ruleForm"
         :model-value="formData"
@@ -63,10 +66,13 @@ import { defineComponent, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { setToken } from '@/utils/auth'
 
+import { useStore } from '@/store'
+
 export default defineComponent({
   name: 'Login',
   setup() {
-
+    const loading =ref(false)
+    const store = useStore()
     const router = useRouter()
     const route = useRoute()
 
@@ -75,24 +81,32 @@ export default defineComponent({
       'password': '',
       'remember': true
     })
-
+    // eslint-disable-next-line
     const validate = (item: any) => {
         console.log("validate", item);
     }
-
+    // eslint-disable-next-line
     const ruleForm = ref<any>(null)
 
     const submit = () => {
+      // eslint-disable-next-line
       ruleForm.value.validate().then(({valid, errors}: any) => {
         if(valid) {
-          console.log('success', formData)
-          setToken('mobile_admin_token_' + (+new Date()))
-          router.push({
-            name: 'Home',
-            query: {
-              ...route.query,
-            },
+          loading.value = true
+          store.dispatch('userModule/login2', formData)
+          .then((res:any)=>{
+            console.log(res)
+            loading.value =false
+            router.push({
+              name: 'Home',
+              query: {
+                ...route.query,
+              },
+            })
+          }).catch((err:any) => {
+            loading.value =false
           })
+
         } else {
           console.log('error', errors)
         }
@@ -100,13 +114,15 @@ export default defineComponent({
     }
 
     const reset = () => {
+      store.dispatch('testModule/increment')
       ruleForm.value.reset();
     }
-    return {submit, reset, formData, ruleForm, validate}
+    return {submit, reset, formData, ruleForm,
+     validate, store}
   }
 });
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .login-page {
   background-color: #080710;
   height: 100vh;
@@ -145,12 +161,14 @@ export default defineComponent({
     bottom: -80px;
 }
 
+.title {
+  text-align: center;
+  color: #fff;
+}
 h1.title{
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
-    text-align: center;
-    color: #fff;
 }
 .login-form {
   width: 320px;

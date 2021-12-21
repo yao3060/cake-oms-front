@@ -18,6 +18,17 @@
       </nut-grid-item>
     </nut-grid>
     <nut-divider />
+
+    <nut-uploader
+      v-model:file-list="uploadedMedia"
+      :url="uploadUrl"
+      :headers="uploadHeaders"
+      upload-icon-size="2rem"
+      xhr-state="201"
+      class="full-width-uploader"
+      @success="onSuccess"
+    />
+
     <div class="hero">
       <h1>Lorem Ipsum</h1>
       <h3>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</h3>
@@ -49,11 +60,26 @@ export default defineComponent({
     onMounted(async () => {
       loading.value = true
       const response = await getHomeMenus()
-      icons.value = response.data
+      icons.value = response
       loading.value = false
    })
 
-    return {icons, loading, iconSize}
+   const uploadUrl = "http://localhost:8000/wp-json/wp/v2/media";
+   const uploadHeaders = ref({
+     Authorization: "Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMCIsImlhdCI6MTY0MDA1NTY3OCwibmJmIjoxNjQwMDU1Njc4LCJleHAiOjE2NDA2NjA0NzgsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.N8xeOvXxql16UWtQHCPKRBoFegNp3MiXziKVL8M1Bsk"
+   })
+   const uploadedMedia = ref([])
+
+   const onSuccess = ({responseText}: any) => {
+     const newImage = {
+      name: responseText.title.rendered,
+      url: responseText.source_url,
+      type: responseText.media_type
+    }
+     console.log('onSuccess', newImage)
+   }
+
+    return {icons, loading, iconSize, uploadUrl, uploadHeaders, uploadedMedia, onSuccess}
   }
 })
 </script>
@@ -66,4 +92,6 @@ export default defineComponent({
 .hero {
   text-align: center
 }
+
+
 </style>

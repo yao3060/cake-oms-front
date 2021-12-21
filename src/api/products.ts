@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function getHomeMenus(): any {
+export function getProducts(): any {
   return request({
-    url: '/oms/v1/menus',
+    url: '/v1/products',
     method: 'get',
   })
 }

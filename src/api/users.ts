@@ -1,9 +1,11 @@
 import request from '@/utils/request'
+import LoginInfo from '@/types/LoginInfo'
 
-export function login(): any {
+export function login(data: LoginInfo): any {
   return request({
-    url: '/v1/login',
+    url: '/jwt-auth/v1/token',
     method: 'post',
+    data
   })
 }
 

@@ -1,10 +1,11 @@
 interface Order {
-  orderNo: string | number,
-  shopName: string,
-  orderStateDesc: string,
-  mealTm: string,
-  payTypeDesc: string,
-  orderDetailInfos: Array<any>
+  order_number: string | number,
+  store_name: string,
+  order_status: string,
+  created_at: string,
+  payment_method: string,
+  items: Array<any>,
+  total: string
 }
 
 export default Order

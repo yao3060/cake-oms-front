@@ -9,7 +9,7 @@ const service = axios.create({
 })
 
 const JWTToken = getToken()
-if (!JWTToken) {
+if (JWTToken !== undefined) {
   // Alter defaults after instance has been created
   service.defaults.headers.common['Authorization'] = `Bearer ${JWTToken}`
 }
@@ -27,28 +27,27 @@ service.interceptors.request.use((config) => {
 )
 
 // response interceptor
-service.interceptors.response.use(
-  response => {
-    return response.data
-  },
-  error => {
+service.interceptors.response.use(response => {
+  // console.log('response interceptor', response.data)
+  return response.data
+}, error => {
 
-    console.log('Request:' + error) // for debug
+  console.log('Request:' + error) // for debug
 
-    if (error.response.status < 500) {
-      const errorCodes = ['disabled_token', 'unauthorized', 'other_clients_logged_in']
-      if (error.response.data.code && errorCodes.indexOf(error.response.data.code.toLowerCase()) >= 0) {
-        // to re-login
-        console.log('You have been logged out, you can cancel to stay on this page, or log in again')
-      } else {
-        return error.response
-      }
+  if (error.response.status < 500) {
+    const errorCodes = ['disabled_token', 'unauthorized', 'other_clients_logged_in']
+    if (error.response.data.code && errorCodes.indexOf(error.response.data.code.toLowerCase()) >= 0) {
+      // to re-login
+      console.log('You have been logged out, you can cancel to stay on this page, or log in again')
+    } else {
+      return error.response
     }
-
-    console.log(error.response.data.message)
-
-    return Promise.reject(error)
   }
+
+  console.log(error.response.data.message)
+
+  return Promise.reject(error)
+}
 )
 
 export default service

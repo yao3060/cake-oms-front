@@ -3,7 +3,10 @@
     <h1 class="title">
       Members
     </h1>
-    <nut-grid :border="false">
+    <nut-grid
+      :border="false"
+      :column-num="3"
+    >
       <nut-grid-item
         v-for="i in 20"
         :key="i"
@@ -11,8 +14,9 @@
         class="member"
       >
         <nut-avatar
+          icon="my"
           size="large"
-          :icon="avatar"
+          shape="square"
         />
         <span class="name">Name</span>
         <span class="number">No1024</span>
@@ -42,8 +46,11 @@ export default defineComponent({
     .name {
       line-height: 1.5em;
     }
+    .name {
+      padding: 5px 0;
+    }
     .number {
-      font-size: 0.875em;
+      font-size: 12px;
       color: #666;
     }
 }

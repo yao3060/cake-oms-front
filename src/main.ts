@@ -11,12 +11,12 @@ import Permission from '@/directives/permission'
 
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store, { key } from './store'
 
-import "../mock"
+// import "../mock"
 
 const app = createApp(App)
-app.use(store)
+app.use(store, key)
 app.use(router)
 app.use(NutUI)
 app.component("Loading", Loading)
