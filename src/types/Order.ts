@@ -1,4 +1,5 @@
 interface Order {
+  id: number,
   order_number: string | number,
   store_name: string,
   order_status: string,

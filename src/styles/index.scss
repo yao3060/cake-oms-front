@@ -44,3 +44,13 @@ body {
     justify-content: space-between;
   }
 }
+
+.order-product {
+  .nut-uploader {
+    .nut-uploader__upload,
+    .nut-uploader__preview-img {
+      width: 64px;
+      height: 64px;
+    }
+  }
+}

@@ -3,7 +3,7 @@
     <nut-cell
       class="store-name"
       :title="order.store_name"
-      :to="`/orders/${order.order_number}`"
+      :to="`/orders/${order.id}`"
     >
       <template #link>
         <nut-button
