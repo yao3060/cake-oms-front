@@ -39,7 +39,9 @@
                 style="width: 64px; height:64px;"
                 @success="onSuccess"
                 @delete="onDelete"
+                @file-item-click="onItemClick"
               />
+              <nut-imagepreview :show="showPreview" :images="imgData" @close="hideFn" />
             </nut-col>
             <nut-col :span="8">
               <span>{{ item.id }}. {{ item.product_name }}</span>
@@ -57,7 +59,7 @@
 
 <script lang="ts">
 import Order from '@/types/Order'
-import { defineComponent, onMounted, ref, reactive } from 'vue'
+import { defineComponent, onMounted, ref, toRefs, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSingleOrder } from '@/api/orders'
 import { getToken } from '@/utils/auth'
@@ -72,6 +74,14 @@ export default defineComponent({
     const orderNo = route.params.orderNo
     const order = ref<Order>()
     const loading = ref(false)
+
+    const imagePreviewData = reactive({
+      showPreview: false,
+      imgData: [{ src: '' }]
+    });
+    const hideFn = () => {
+      imagePreviewData.showPreview = false;
+    }
 
     const uploadUrl = process.env.VUE_APP_BASE_API + "/wp/v2/media";
     const uploadHeaders = ref({
@@ -111,6 +121,13 @@ export default defineComponent({
       uploadedMedias[file.file.id] = []
     }
 
+    const onItemClick = ({ fileItem }: any) => {
+      console.log('onItemClick', fileItem)
+      const { url } = fileItem
+      imagePreviewData.imgData[0].src = url
+      imagePreviewData.showPreview = true
+    }
+
     onMounted(async () => {
       loading.value = true
       const response = await getSingleOrder(orderNo)
@@ -136,8 +153,9 @@ export default defineComponent({
     }
 
     return {
-      order, loading, uploadedMedias, uploadUrl,
-      uploadHeaders, onDelete, onSuccess
+      order, loading, uploadedMedias, uploadUrl, uploadHeaders,
+      onDelete, onSuccess, onItemClick,
+      ...toRefs(imagePreviewData), hideFn
     }
   }
 })
