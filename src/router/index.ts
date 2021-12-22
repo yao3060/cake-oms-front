@@ -33,7 +33,13 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: ':orderNo',
+        name: 'SingleOrder',
         component: () => import('@/views/Orders/Single.vue')
+      },
+      {
+        path: ':orderNo/items/:itemId',
+        name: 'OrderProduct',
+        component: () => import('@/views/Orders/Product.vue')
       }
     ]
   },

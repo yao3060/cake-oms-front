@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^2.3.4",
     "@nutui/nutui": "^3.1.12",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
