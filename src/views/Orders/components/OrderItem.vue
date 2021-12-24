@@ -1,33 +1,19 @@
 <template>
   <nut-cell-group>
-    <nut-cell
-      class="store-name"
-      :title="order.store_name"
-      :to="`/orders/${order.id}`"
-    >
+    <nut-cell class="store-name" :title="order.store_name" :to="`/orders/${order.id}`">
       <template #link>
         <nut-button
           size="mini"
-          type="primary"
-        >
-          {{ order.order_status }}
-        </nut-button>
+          :type="OrderStatus[order.order_status].type"
+        >{{ OrderStatus[order.order_status]?.label }}</nut-button>
       </template>
     </nut-cell>
-    <nut-cell
-      title="订单号"
-      :desc="order.order_number"
-    />
-    <nut-cell
-      title="下单时间"
-      :desc="order.created_at"
-    />
+    <nut-cell title="订单号" :desc="order.order_number" />
+    <nut-cell title="下单时间" :desc="order.created_at" />
     <nut-cell>
       <nut-row>
         <nut-col :span="8">
-          <div class="flex-content">
-            支付
-          </div>
+          <div class="flex-content">支付</div>
         </nut-col>
         <nut-col :span="16">
           <div class="order-total">
@@ -38,12 +24,7 @@
               :thousands="true"
               class="total"
             />
-            <nut-button
-              size="mini"
-              type="primary"
-            >
-              {{ order.payment_method }}
-            </nut-button>
+            <nut-button size="mini" type="primary">{{ order.payment_method }}</nut-button>
           </div>
         </nut-col>
       </nut-row>
@@ -52,18 +33,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType} from 'vue'
+import { defineComponent, PropType } from 'vue'
 import Order from '@/types/Order'
+import { OrderStatus } from '@/types/OrderStatus'
 
 export default defineComponent({
-  props:{
+  props: {
     order: {
       type: Object as PropType<Order>,
       required: true
     }
   },
-  setup () {
-    return {  }
+  setup() {
+    return { OrderStatus }
   }
 })
 </script>
@@ -73,7 +55,7 @@ export default defineComponent({
   font-weight: bold;
 }
 .order-total {
-  text-align:right;
+  text-align: right;
   .total {
     margin-right: 10px;
   }

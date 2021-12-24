@@ -2,13 +2,12 @@
   <div class="home-page-icons">
     <Loading message="加载中" :loading="loading" />
 
-    <nut-divider />
-    <div class="hero" @click="myNotify">
-      <h1>Click me</h1>
-      <h3>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</h3>
-      <h3>"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."</h3>
+    <div class="statistics">
+      <Statistics title="新订单" color="#40c9c6" icon="order" :start="0" :end="2000" />
+      <Statistics title="新订单" color="#36a3f7" icon="order" :start="0" :end="1998" />
+      <Statistics title="新订单" color="#f4516c" icon="order" :start="0" :end="8333" />
     </div>
-    <nut-divider />
+
     <!-- Admin can see this -->
     <h1 v-permission="['administer']">administer</h1>
   </div>
@@ -16,10 +15,12 @@
 
 <script lang="ts">
 import { getCurrentInstance, ref, defineComponent, onMounted } from 'vue'
+import Statistics from '@/components/Statistics.vue'
 
 export default defineComponent({
   name: 'Home',
   components: {
+    Statistics
   },
   setup() {
     const loading = ref(false)
@@ -34,7 +35,7 @@ export default defineComponent({
   }
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .home-page-icons {
   .icon-name {
     padding-top: 10px;

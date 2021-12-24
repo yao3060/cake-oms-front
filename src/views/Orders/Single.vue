@@ -1,11 +1,19 @@
 <template>
   <Loading message="加载中" :loading="loading" />
   <div v-if="order" class="order-container">
-    <OrderStatus :status="order.order_status" @updateStatus="updateStatus" />
+    <OrderStatusComponent
+      :order-id="order.id"
+      :status="order.order_status"
+      @updateStatus="updateStatus"
+    />
     <nut-cell-group v-if="order">
       <nut-cell class="store-name" :title="order.store_name">
         <template #link>
-          <nut-button size="mini" shape="square" type="primary">{{ order.order_status }}</nut-button>
+          <nut-button
+            size="mini"
+            shape="square"
+            :type="OrderStatus[order.order_status].type"
+          >{{ OrderStatus[order.order_status].label }}</nut-button>
           <nut-button class="print-button" size="mini" shape="square" type="success">打印</nut-button>
         </template>
       </nut-cell>
@@ -23,20 +31,26 @@ import { defineComponent, onMounted, ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
-import OrderStatus from './components/OrderStatus.vue'
+import OrderStatusComponent from './components/OrderStatus.vue'
+import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
 
 export default defineComponent({
   name: 'SingleOrder',
   components: {
-    OrderProducts, OrderStatus
+    OrderProducts, OrderStatusComponent
   },
   setup() {
     const route = useRoute()
-    const orderNo = route.params.orderNo
+    const orderNo = +route.params.orderNo
     const order = reactive<Order>({
-      id: 0, order_number: '',
-      store_name: '', order_status: '',
-      created_at: '', payment_method: '', items: [], total: ''
+      id: 0,
+      order_number: '',
+      store_name: '',
+      order_status: 'pending',
+      created_at: '',
+      payment_method: '',
+      items: [],
+      total: ''
     })
     const loading = ref(false)
 
@@ -47,13 +61,13 @@ export default defineComponent({
       loading.value = false
     })
 
-    const updateStatus = (index: number, label: string) => {
-      console.log('update status', index, label)
-      order.order_status = label
+    const updateStatus = (index: number, key: OrderStatusKey) => {
+      console.log('update status', index, key)
+      order.order_status = key
     }
 
     return {
-      order, loading, updateStatus
+      order, loading, updateStatus, OrderStatus
     }
   }
 })

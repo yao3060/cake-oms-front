@@ -8,9 +8,18 @@ export function getOrders(params: any): any {
   })
 }
 
-export function getSingleOrder(orderNo: any): any {
+export function getSingleOrder(orderId: number): any {
   return request({
-    url: `/oms/v1/orders/${orderNo}`,
+    url: `/oms/v1/orders/${orderId}`,
     method: 'get',
+  })
+}
+
+
+export function updateSingleOrder(orderId: number, data: Record<string, unknown>): any {
+  return request({
+    url: `/oms/v1/orders/${orderId}`,
+    method: 'put',
+    data
   })
 }

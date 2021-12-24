@@ -1,30 +1,43 @@
 <template>
   <nut-steps :current="stepCurrent">
-    <nut-step title="准备中" @click="onClickStep(1, '准备中')">1</nut-step>
-    <nut-step title="制作中" @click="onClickStep(2, '制作中')">2</nut-step>
-    <nut-step title="已完成" @click="onClickStep(3, '已完成')">3</nut-step>
+    <nut-step
+      v-for="(status,index) in OrderStatus"
+      :key="index"
+      :title="status.label"
+      @click="onClickStep(status.id, index)"
+    >{{ status.id }}</nut-step>
   </nut-steps>
 </template>
 
 <script lang="ts">
-import { getCurrentInstance, defineComponent, ref } from 'vue'
+import { getCurrentInstance, defineComponent, ref, watchEffect, PropType } from 'vue'
+import { updateSingleOrder } from '@/api/orders'
+import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
 
 export default defineComponent({
-  name: 'OrderStatus',
+  name: 'OrderStatusComponent',
   props: {
     status: {
-      type: String,
-      required: true,
-      default: '0'
+      type: String as PropType<OrderStatusKey>,
+      required: true
+    },
+    orderId: {
+      type: Number,
+      required: true
     }
   },
   emits: ['updateStatus'],
   setup(props, { emit }) {
-    const stepCurrent = ref(1)
-    const app = getCurrentInstance()
 
-    const onClickStep = (index: number, label: string) => {
+    const app = getCurrentInstance()
+    const stepCurrent = ref(1)
+
+    const onClickStep = async (index: number, label: string) => {
       if (index == stepCurrent.value + 1) {
+        const response = await updateSingleOrder(props.orderId, {
+          status: 'processing'
+        })
+        console.log(response)
         stepCurrent.value = index
         emit('updateStatus', index, label)
       } else {
@@ -33,8 +46,12 @@ export default defineComponent({
       }
     }
 
+    watchEffect(() => {
+      stepCurrent.value = OrderStatus[props.status]?.id
+    })
+
     return {
-      onClickStep, stepCurrent
+      onClickStep, stepCurrent, OrderStatus
     }
   },
 
