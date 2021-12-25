@@ -129,13 +129,16 @@ export default defineComponent({
     const setUploadedMedias = (items: any) => {
       if (items.length > 1) {
         items.forEach((item: any) => {
-          uploadedMedias[item.id] = [{
-            id: parseInt(item.id),
-            name: item.product_name,
-            url: item.media_url,
-            type: 'image',
-            status: 'success'
-          }]
+          console.log('setUploadedMedias', item)
+          if (item.media_id) {
+            uploadedMedias[item.id] = [{
+              id: parseInt(item.id),
+              name: item.product_name,
+              url: item.media_url,
+              type: 'image',
+              status: 'success'
+            }]
+          }
         })
       }
     }
