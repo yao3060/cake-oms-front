@@ -17,8 +17,8 @@
           <nut-button class="print-button" size="mini" shape="square" type="success">打印</nut-button>
         </template>
       </nut-cell>
-      <nut-cell title="Time" :desc="order.created_at" />
-      <nut-cell title="OrderNo" :desc="`${order.order_number}`" />
+      <nut-cell title="下单时间" :desc="order.created_at" />
+      <nut-cell title="订单号" :desc="`${order.order_number}`" />
       <nut-cell title="付款方式" :desc="order.payment_method" />
       <OrderProducts :items="order.items" />
     </nut-cell-group>
@@ -41,7 +41,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    const orderNo = +route.params.orderNo
+    const orderId = +route.params.orderId
     const order = reactive<Order>({
       id: 0,
       order_number: '',
@@ -56,7 +56,7 @@ export default defineComponent({
 
     onMounted(async () => {
       loading.value = true
-      const response = await getSingleOrder(orderNo)
+      const response = await getSingleOrder(orderId)
       Object.assign(order, response)
       loading.value = false
     })

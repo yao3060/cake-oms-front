@@ -20,7 +20,7 @@
             v-model:file-list="uploadedMedias[item.id]"
             :url="uploadUrl"
             :headers="uploadHeaders"
-            :data="{ product_id: item.id }"
+            :data="{ product_id: item.id, action: 'add_featured_image' }"
             xhr-state="201"
             style="width: 64px; height:64px;"
             @success="onSuccess"
@@ -103,15 +103,17 @@ export default defineComponent({
 
     const onSuccess = ({ responseText, option, fileItem }: any) => {
       console.log('onSuccess', responseText, option, fileItem)
-      const productId = responseText.product_id
-      const newImage: FileItem = {
-        id: responseText.id,
-        name: fileItem.name,
-        url: responseText.source_url,
-        status: 'success',
-        type: responseText.media_type
-      }
-      uploadedMedias[productId] = [newImage]
+      // const productId = responseText.product_id
+      fileItem.id = responseText.id
+      fileItem.url = responseText.source_url
+      // const newImage: FileItem = {
+      //   id: responseText.id,
+      //   name: fileItem.name,
+      //   url: responseText.source_url,
+      //   status: 'success',
+      //   type: responseText.media_type
+      // }
+      // uploadedMedias[productId] = [newImage]
     }
 
     const onDelete = ({ file }: any) => {
@@ -127,9 +129,9 @@ export default defineComponent({
     }
 
     const setUploadedMedias = (items: any) => {
-      if (items.length > 1) {
+      console.log('setUploadedMedias', items)
+      if (items.length > 0) {
         items.forEach((item: any) => {
-          console.log('setUploadedMedias', item)
           if (item.media_id) {
             uploadedMedias[item.id] = [{
               id: parseInt(item.id),
@@ -152,7 +154,7 @@ export default defineComponent({
       onSuccess, onDelete, onItemClick,
       tableTitle,
       ...toRefs(imagePreviewData), hideFn,
-      orderId: +route.params.orderNo
+      orderId: +route.params.orderId
     }
   }
 })
