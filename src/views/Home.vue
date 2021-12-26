@@ -9,7 +9,7 @@
     </div>
 
     <!-- Admin can see this -->
-    <h1 v-permission="['administer']">administer</h1>
+    <!-- <h1 v-permission="['administer']">administer</h1> -->
   </div>
 </template>
 

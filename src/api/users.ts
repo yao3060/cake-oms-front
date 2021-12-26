@@ -11,7 +11,10 @@ export function login(data: LoginInfo): any {
 
 export function me(): any {
   return request({
-    url: '/v1/me',
+    url: '/wp/v2/users/me',
     method: 'get',
+    params: {
+      context: "edit"
+    }
   })
 }

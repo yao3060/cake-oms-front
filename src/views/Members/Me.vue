@@ -1,37 +1,38 @@
 <template>
-  <div>
-    <UserProfileHeader
-      :user="user"
-      :auth-user="authUser"
-    />
-  </div>
+  <UserProfileHeader :user="me" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, reactive, toRefs } from 'vue'
 import UserProfileHeader from './components/UserProfileHeader.vue'
 import User from '@/types/User'
+import { me } from '@/api/users'
 
 export default defineComponent({
   name: 'Me',
   components: {
     UserProfileHeader
   },
-  setup () {
-    const user = ref<User>({
-      display_name: "我是谁",
-      title: '店长'
+  setup() {
+    const state = reactive({
+      me: {} as User
     })
-    const authUser = ref({})
 
-            return {
-                user ,
-                authUser
-            }
+    const getMyProfile = async () => {
+      const response = await me()
+      state.me = response
+    }
+
+    onMounted(() => {
+      getMyProfile()
+    })
+
+    return {
+      ...toRefs(state)
+    }
   }
 })
 </script>
 
 <style scoped>
-
 </style>

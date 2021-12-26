@@ -1,5 +1,7 @@
 interface User {
-  display_name: string,
-  title: string
+  id: number;
+  username: string;
+  nickname: string;
+  roles: Array<string>;
 }
 export default User
