@@ -9,7 +9,8 @@ export default createStore<RootStateTypes>({
     test: 'RootStateTest'
   },
   modules: {
-    testModule, userModule
+    testModule,
+    userModule
   }
 })
 

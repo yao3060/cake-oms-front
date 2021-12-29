@@ -1,9 +1,11 @@
 import { App, DirectiveBinding } from "vue"
-// const roles = []
+import store from '@/store'
 
 function checkPermission(el: HTMLElement, binding: DirectiveBinding): any {
   const { value } = binding
   const roles: Array<string> = ['administer', 'editor']
+
+  console.log('store.getters.roles', store.getters)
 
   if (value && value instanceof Array) {
     if (value.length > 0) {

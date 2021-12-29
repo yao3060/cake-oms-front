@@ -5,28 +5,16 @@
       <div class="shape" />
     </div>
     <div class="login-form">
-      <h1 class="title">
-        Login Page
-      </h1>
-      <h3 class="title">
-        {{ store.state.test }}
-      </h3>
-      <nut-form
-        ref="ruleForm"
-        :model-value="formData"
-      >
+      <h1 class="title">Login Page</h1>
+      <h3 class="title">{{ store.state.test }}</h3>
+      <nut-form ref="ruleForm" :model-value="formData">
         <nut-form-item
           label="用户名"
           prop="username"
           required
           :rules="[{ required: true, message: '请填写用户名' }]"
         >
-          <input
-            v-model="formData.username"
-            class="nut-input-text"
-            placeholder="admin"
-            type="text"
-          >
+          <input v-model="formData.username" class="nut-input-text" placeholder="admin" type="text" />
         </nut-form-item>
         <nut-form-item
           label="密码"
@@ -34,28 +22,11 @@
           required
           :rules="[{ required: true, message: '请填写密码' }]"
         >
-          <input
-            v-model="formData.password"
-            class="nut-input-text"
-            placeholder="admin"
-            type="text"
-          >
+          <input v-model="formData.password" class="nut-input-text" placeholder="admin" type="text" />
         </nut-form-item>
         <nut-cell>
-          <nut-button
-            type="primary"
-            size="normal"
-            style="margin:0 10px 0 90px"
-            @click="submit"
-          >
-            提交
-          </nut-button>
-          <nut-button
-            size="normal"
-            @click="reset"
-          >
-            重置
-          </nut-button>
+          <nut-button type="primary" size="normal" style="margin:0 10px 0 90px" @click="submit">提交</nut-button>
+          <nut-button size="normal" @click="reset">重置</nut-button>
         </nut-cell>
       </nut-form>
     </div>
@@ -64,14 +35,13 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { setToken } from '@/utils/auth'
 
 import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    const loading =ref(false)
+    const loading = ref(false)
     const store = useStore()
     const router = useRouter()
     const route = useRoute()
@@ -83,29 +53,28 @@ export default defineComponent({
     })
     // eslint-disable-next-line
     const validate = (item: any) => {
-        console.log("validate", item);
+      console.log("validate", item);
     }
     // eslint-disable-next-line
     const ruleForm = ref<any>(null)
 
     const submit = () => {
       // eslint-disable-next-line
-      ruleForm.value.validate().then(({valid, errors}: any) => {
-        if(valid) {
+      ruleForm.value.validate().then(({ valid, errors }: any) => {
+        if (valid) {
           loading.value = true
           store.dispatch('userModule/login2', formData)
-          .then((res:any)=>{
-            console.log(res)
-            loading.value =false
-            router.push({
-              name: 'Home',
-              query: {
-                ...route.query,
-              },
+            .then((res: any) => {
+              router.push({
+                name: 'Home',
+                query: {
+                  ...route.query,
+                },
+              })
+              loading.value = false
+            }).catch((err: any) => {
+              loading.value = false
             })
-          }).catch((err:any) => {
-            loading.value =false
-          })
 
         } else {
           console.log('error', errors)
@@ -117,8 +86,10 @@ export default defineComponent({
       store.dispatch('testModule/increment')
       ruleForm.value.reset();
     }
-    return {submit, reset, formData, ruleForm,
-     validate, store}
+    return {
+      submit, reset, formData, ruleForm,
+      validate, store
+    }
   }
 });
 </script>
@@ -127,58 +98,51 @@ export default defineComponent({
   background-color: #080710;
   height: 100vh;
 }
-.background{
+.background {
   width: 320px;
   height: 500px;
   max-width: 430px;
   max-height: 520px;
   position: absolute;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
 }
-.background .shape{
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    border-radius: 50%;
+.background .shape {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  border-radius: 50%;
 }
-.shape:first-child{
-    background: linear-gradient(
-        #1845ad,
-        #23a2f6
-    );
-    left: -80px;
-    top: -80px;
+.shape:first-child {
+  background: linear-gradient(#1845ad, #23a2f6);
+  left: -80px;
+  top: -80px;
 }
-.shape:last-child{
-    background: linear-gradient(
-        to right,
-        #ff512f,
-        #f09819
-    );
-    right: -30px;
-    bottom: -80px;
+.shape:last-child {
+  background: linear-gradient(to right, #ff512f, #f09819);
+  right: -30px;
+  bottom: -80px;
 }
 
 .title {
   text-align: center;
   color: #fff;
 }
-h1.title{
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 42px;
+h1.title {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 42px;
 }
 .login-form {
   width: 320px;
   height: 500px;
   max-width: 430px;
   max-height: 520px;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    padding: 0px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding: 0px;
 }
 </style>

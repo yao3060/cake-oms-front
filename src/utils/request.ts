@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
+import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 // create an axios instance
@@ -8,15 +9,16 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
-const JWTToken = getToken()
-if (JWTToken !== undefined) {
-  // Alter defaults after instance has been created
-  service.defaults.headers.common['Authorization'] = `Bearer ${JWTToken}`
-}
-
 // request interceptor
-service.interceptors.request.use((config) => {
+service.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfig => {
   // do something before request is sent
+  if (!config?.headers) {
+    throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
+  }
+  console.log('Add Authorization', config.headers)
+  if (store.getters['userModule/token']) {
+    config.headers.Authorization = 'Bearer ' + getToken()
+  }
   return config
 },
   error => {

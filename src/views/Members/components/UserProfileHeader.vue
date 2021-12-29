@@ -28,5 +28,6 @@ export default defineComponent({
   text-align: center;
   border-bottom: 1px dashed #ccc;
   padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 </style>

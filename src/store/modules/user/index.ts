@@ -42,6 +42,7 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
           username: data.username,
           password: data.password
         }).then((response: any) => {
+          console.log('login2', response)
           commit('SET_TOKEN', response.token)
           commit('SET_ID', response.id)
           commit('SET_EMAIL', response.user_email)
@@ -54,6 +55,14 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
       })
     }
   },
+  getters: {
+    token: (state) => {
+      return state.token
+    },
+    roles: (state) => {
+      return state.roles
+    }
+  }
 }
 
 export default userModule

@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^2.3.4",
-    "@nutui/nutui": "^3.1.12",
+    "@nutui/nutui": "^3.1.14",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "js-cookie": "^3.0.1",

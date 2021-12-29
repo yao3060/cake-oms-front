@@ -4,5 +4,5 @@ export default interface UserModuleTypes {
   email: string,
   nicename: string,
   display_name: string,
-  roles: Array<string>
+  roles: Array<string>,
 }
