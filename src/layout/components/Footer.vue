@@ -1,9 +1,5 @@
 <template>
-  <nut-tabbar
-    v-model:visible="active"
-    :bottom="true"
-    @tab-switch="tabSwitch"
-  >
+  <nut-tabbar v-model:visible="active" :bottom="true" @tab-switch="tabSwitch">
     <nut-tabbar-item
       v-for="(item, index) in menus"
       :key="index"
@@ -14,63 +10,64 @@
   </nut-tabbar>
 </template>
 <script lang="ts">
-import { defineComponent, ref,  watchEffect } from "vue"
-import { MenuItem } from '@nutui/nutui';
+import { defineComponent, ref, watchEffect } from "vue";
+import { MenuItem } from "@nutui/nutui";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
-  name: 'Footer',
+  name: "Footer",
   setup() {
-
     const tabSwitch = (item: MenuItem, index: number) => {
       console.log(item, index);
-    }
+    };
 
     const menus = ref([
       {
-        "index": 0,
-        "title": "首页",
-        'icon': "home",
-        "to": "/"
+        index: 0,
+        title: "首页",
+        icon: "home",
+        to: "/",
       },
       {
-        "title": "订单",
-        'icon': "order",
-        "to": "/orders"
+        title: "订单",
+        icon: "order",
+        to: "/orders",
       },
       {
-        "title": "商品",
-        'icon': "find",
-        "to": "/products"
+        title: "完成",
+        icon: "find",
+        to: "/products",
       },
       {
-        "title": "员工",
-        'icon': "people",
-        "to": "/members"
+        title: "员工",
+        icon: "people",
+        to: "/members",
       },
       {
-        "title": "我",
-        'icon': "my",
-        "to": "/me"
-      }
-    ])
+        title: "我",
+        icon: "my",
+        to: "/me",
+      },
+    ]);
 
-    const active = ref(0)
+    const active = ref(0);
 
-    const route = useRoute()
+    const route = useRoute();
     // switch foot menu according current route path
-    watchEffect(()=> {
-      if(route.path !== '/'){
-        const index = menus.value.findIndex((item) => item.to === route.path)
-        if(index !== -1 ){
-          active.value = index
+    watchEffect(() => {
+      if (route.path !== "/") {
+        const index = menus.value.findIndex((item) => item.to === route.path);
+        if (index !== -1) {
+          active.value = index;
         }
       }
-    })
+    });
 
     return {
-      tabSwitch, active, menus
-    }
-},
-})
+      tabSwitch,
+      active,
+      menus,
+    };
+  },
+});
 </script>

@@ -3,9 +3,27 @@
     <Loading message="加载中" :loading="loading" />
 
     <div class="statistics" v-if="showStats">
-      <Statistics title="新订单" color="#40c9c6" icon="order" :start="0" :end="2000" />
-      <Statistics title="新订单" color="#36a3f7" icon="order" :start="0" :end="1998" />
-      <Statistics title="新订单" color="#f4516c" icon="order" :start="0" :end="8333" />
+      <Statistics
+        title="新订单"
+        color="#40c9c6"
+        icon="order"
+        :start="0"
+        :end="2000"
+      />
+      <Statistics
+        title="新订单"
+        color="#36a3f7"
+        icon="order"
+        :start="0"
+        :end="1998"
+      />
+      <Statistics
+        title="新订单"
+        color="#f4516c"
+        icon="order"
+        :start="0"
+        :end="8333"
+      />
     </div>
 
     <!-- Admin can see this -->
@@ -14,32 +32,39 @@
 </template>
 
 <script lang="ts">
-import { getCurrentInstance, ref, defineComponent, onActivated, watch, onMounted } from 'vue'
-import Statistics from '@/components/Statistics.vue'
-import { useRoute } from 'vue-router'
+import {
+  getCurrentInstance,
+  ref,
+  defineComponent,
+  onActivated,
+  watch,
+  onMounted,
+} from "vue";
+import Statistics from "@/components/Statistics.vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   components: {
-    Statistics
+    Statistics,
   },
   setup() {
-    const loading = ref(false)
-    const app = getCurrentInstance()
-    const route = useRoute()
-    const showStats = ref(false)
+    const loading = ref(false);
+    const app = getCurrentInstance();
+    const route = useRoute();
+    const showStats = ref(false);
 
-    console.log("homepage route.path: ", route.path)
+    console.log("homepage route.path: ", route.path);
 
     onMounted(() => {
-      console.log('ComponentCustomProperties ', app)
-      app?.appContext.config.globalProperties.$toast.success('成功提示')
-      showStats.value = true
-    })
+      console.log("ComponentCustomProperties ", app);
+      app?.appContext.config.globalProperties.$toast.success("成功提示");
+      showStats.value = true;
+    });
 
-    return { loading, showStats }
+    return { loading, showStats };
   },
-})
+});
 </script>
 <style lang="scss">
 .home-page-icons {

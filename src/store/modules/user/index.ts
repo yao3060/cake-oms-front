@@ -53,11 +53,29 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
           resolve(response)
         }).catch((error: any) => reject(error))
       })
+    },
+    me({ commit }, data) {
+      console.log('userModele/me', data)
+      commit('SET_TOKEN', data.token)
+      return new Promise((resolve, reject) => {
+        me().then((response: any) => {
+          console.log('current user profile', response)
+          commit('SET_ID', response.id)
+          commit('SET_EMAIL', response.email)
+          commit('SET_NICENAME', response.nickname)
+          commit('SET_DISPLAY_NAME', response.nickname)
+          commit('SET_ROLES', response.roles)
+          resolve(response)
+        }).catch((error: any) => reject(error))
+      })
     }
   },
   getters: {
     token: (state) => {
       return state.token
+    },
+    nicename: (state) => {
+      return state.nicename
     },
     roles: (state) => {
       return state.roles
