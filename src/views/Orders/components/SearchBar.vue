@@ -6,35 +6,38 @@
     input-background="#fff"
     @search="search"
   >
-    <template v-slot:leftin>
-      <nut-icon size="14" name="search2"></nut-icon>
-    </template>
-    <template v-slot:rightout>搜索</template>
+    <template v-slot:rightout>刷新</template>
   </nut-searchbar>
 </template>
 
 <script lang="ts">
-import { getCurrentInstance, defineComponent, reactive, toRefs } from 'vue'
+import {
+  getCurrentInstance,
+  defineComponent,
+  reactive,
+  ref,
+  toRefs,
+} from "vue";
 
 export default defineComponent({
-  name: 'SearchBar',
-  emits: ['search'],
+  name: "SearchBar",
+  emits: ["search"],
   setup(props, { emit }) {
-    const app = getCurrentInstance()
-
+    const app = getCurrentInstance();
     const state = reactive({
-      keyword: ""
-    })
+      keyword: "",
+    });
 
     const search = () => {
-      emit('search', state.keyword);
-    }
+      emit("search", state.keyword);
+    };
 
     return {
-      ...toRefs(state), search
-    }
-  }
-})
+      ...toRefs(state),
+      search,
+    };
+  },
+});
 </script>
 
 <style scoped>

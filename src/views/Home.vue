@@ -2,28 +2,10 @@
   <div class="home-page-icons">
     <Loading message="加载中" :loading="loading" />
 
-    <div class="statistics" v-if="showStats">
-      <Statistics
-        title="新订单"
-        color="#40c9c6"
-        icon="order"
-        :start="0"
-        :end="2000"
-      />
-      <Statistics
-        title="新订单"
-        color="#36a3f7"
-        icon="order"
-        :start="0"
-        :end="1998"
-      />
-      <Statistics
-        title="新订单"
-        color="#f4516c"
-        icon="order"
-        :start="0"
-        :end="8333"
-      />
+    <div v-if="showStats" class="statistics">
+      <Statistics title="新订单" color="#40c9c6" icon="order" :start="0" :end="2000" />
+      <Statistics title="新订单" color="#36a3f7" icon="order" :start="0" :end="1998" />
+      <Statistics title="新订单" color="#f4516c" icon="order" :start="0" :end="8333" />
     </div>
 
     <!-- Admin can see this -->
@@ -32,14 +14,7 @@
 </template>
 
 <script lang="ts">
-import {
-  getCurrentInstance,
-  ref,
-  defineComponent,
-  onActivated,
-  watch,
-  onMounted,
-} from "vue";
+import { getCurrentInstance, ref, defineComponent, onMounted } from "vue";
 import Statistics from "@/components/Statistics.vue";
 import { useRoute } from "vue-router";
 
@@ -71,6 +46,10 @@ export default defineComponent({
   .icon-name {
     padding-top: 10px;
   }
+}
+
+.statistics {
+  padding: 10px;
 }
 
 .hero {

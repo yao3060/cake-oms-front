@@ -21,9 +21,12 @@ body {
   flex-direction: column;
 }
 .main-container {
-  padding: 0px 10px;
+  padding: 0px 0px;
 }
 
+.nut-navbar {
+  margin-bottom: 0;
+}
 .nut-navbar__title {
   font-weight: 700;
   font-size: 20px;
@@ -53,4 +56,11 @@ body {
       height: 64px;
     }
   }
+}
+
+.loader-inner {
+  margin: 50px auto;
+}
+.ball-grid-pulse > div {
+  background-color: #ccc;
 }
