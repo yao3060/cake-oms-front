@@ -1,4 +1,5 @@
 <template>
+  <CssLoading :loading="loading" />
   <div v-if="orders.length" class="orders-page">
     <SearchBar @search="SearchOrders" />
     <div class="orders-container">
@@ -13,8 +14,8 @@
       />
     </div>
   </div>
-  <div v-else class="css-loading">
-    <CssLoading />
+  <div v-else class="not-found">
+    <h1 v-if="!loading" style="text-align: center;">Not Found</h1>
   </div>
 </template>
 
@@ -24,7 +25,6 @@ import OrderItem from "./OrderItem.vue";
 import Order from "@/types/Order";
 import { getOrders } from "@/api/orders";
 import SearchBar from "./SearchBar.vue";
-import CssLoading from '@/components/CssLoading.vue'
 
 export default defineComponent({
   name: "OrderList",
@@ -44,7 +44,6 @@ export default defineComponent({
   components: {
     OrderItem,
     SearchBar,
-    CssLoading,
   },
 
   setup(props) {

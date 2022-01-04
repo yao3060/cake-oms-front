@@ -7,6 +7,8 @@ import "@nutui/nutui/dist/style.css"
 import 'loaders.css'
 import '@/styles/index.scss'
 
+import CssLoading from '@/components/CssLoading.vue'
+
 import Permission from '@/directives/permission'
 
 import App from './App.vue'
@@ -21,4 +23,5 @@ app.use(store, key)
 app.use(router)
 app.use(NutUI)
 app.use(Permission)
+app.component('CssLoading', CssLoading)
 app.mount('#app')

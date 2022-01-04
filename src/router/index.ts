@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { getToken } from '@/utils/auth' // get token from cookie
 
 /* Layout */
@@ -49,13 +49,13 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: '/products',
-    name: 'Products',
+    path: '/stores',
+    name: 'Stores',
     component: Layout,
     children: [
       {
         path: '',
-        component: () => import('@/views/Products/index.vue')
+        component: () => import('@/views/Stores/index.vue')
       }
     ]
   },
@@ -104,7 +104,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
 

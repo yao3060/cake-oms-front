@@ -34,9 +34,9 @@ export default defineComponent({
         to: "/orders",
       },
       {
-        title: "完成",
-        icon: "find",
-        to: "/products",
+        title: "店铺",
+        icon: "shop",
+        to: "/stores",
       },
       {
         title: "员工",
