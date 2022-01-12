@@ -1,12 +1,12 @@
 <template>
-  <Loading message="加载中" :loading="loading" />
-  <div v-if="order" class="order-container">
+  <CssLoading message="加载中" :loading="loading" />
+  <div v-if="order.id" class="order-container">
     <OrderStatusComponent
       :order-id="order.id"
       :status="order.order_status"
       @updateStatus="updateStatus"
     />
-    <nut-cell-group v-if="order">
+    <nut-cell-group>
       <nut-cell class="store-name" :title="order.store_name">
         <template #link>
           <nut-button
@@ -20,19 +20,34 @@
       <nut-cell title="下单时间" :desc="order.created_at" />
       <nut-cell title="订单号" :desc="`${order.order_number}`" />
       <nut-cell title="付款方式" :desc="order.payment_method" />
+      <nut-cell title="取货时间" :desc="order.pickup_time" />
+      <nut-cell title="派单编号" :desc="order.pickup_number" />
+      <nut-cell title="客户" :desc="contactInfo('billing', order)" />
+      <nut-cell title="收货人" :desc="contactInfo('shipping', order)" />
+
       <OrderProducts :items="order.items" />
     </nut-cell-group>
+
+    <nut-popup v-model:visible="showPopup" closeable :style="{ width: '100%' }">
+      <div class="contact-info">
+        <nut-textarea v-model="contact" />
+      </div>
+      <div style="padding: 20px;">
+        <nut-button block type="primary">提取信息</nut-button>
+      </div>
+    </nut-popup>
   </div>
 </template>
 
 <script lang="ts">
-import Order from '@/types/Order'
-import { defineComponent, onMounted, ref, reactive } from 'vue'
+
+import { defineComponent, onMounted, toRefs, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
 import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
+import Order from '@/types/Order'
 
 export default defineComponent({
   name: 'SingleOrder',
@@ -42,23 +57,19 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const orderId = +route.params.orderId
-    const order = reactive<Order>({
-      id: 0,
-      order_number: '',
-      store_name: '',
-      order_status: 'pending',
-      created_at: '',
-      payment_method: '',
-      items: [],
-      total: ''
+    const order = reactive({ id: 0 }) as Order
+
+    const state = reactive({
+      loading: false,
+      showPopup: true,
+      contact: '',
     })
-    const loading = ref(false)
 
     onMounted(async () => {
-      loading.value = true
+      state.loading = true
       const response = await getSingleOrder(orderId)
       Object.assign(order, response)
-      loading.value = false
+      state.loading = false
     })
 
     const updateStatus = (index: number, key: OrderStatusKey) => {
@@ -66,14 +77,28 @@ export default defineComponent({
       order.order_status = key
     }
 
+    const contactInfo = (type: string, order: Order) => {
+      if (type == 'billing') {
+        return `${order.billing_name} | ${order.billing_phone}`
+      }
+      if (type === 'shipping') {
+        return `${order.shipping_name} | ${order.shipping_phone}`
+      }
+      return ''
+    }
+
     return {
-      order, loading, updateStatus, OrderStatus
+      order,
+      updateStatus,
+      OrderStatus,
+      contactInfo,
+      ...toRefs(state)
     }
   }
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .actions {
   text-align: right;
   .nut-button {
@@ -88,5 +113,16 @@ export default defineComponent({
 }
 .print-button {
   margin-left: 10px;
+}
+.order-container {
+  .nut-cell {
+    .nut-cell__value {
+      color: #666;
+    }
+  }
+}
+
+.contact-info {
+  padding-top: 10px;
 }
 </style>
