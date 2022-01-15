@@ -16,7 +16,10 @@ export function getSingleOrder(orderId: number): any {
 }
 
 
-export function updateSingleOrder(orderId: number, data: Record<string, unknown>): any {
+export function updateSingleOrder(
+  orderId: number,
+  data: Record<string, unknown>
+): unknown {
   return request({
     url: `/oms/v1/orders/${orderId}`,
     method: 'put',
