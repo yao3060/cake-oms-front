@@ -59,7 +59,13 @@
             <nut-button block type="primary" @click="analysisAddress">提取信息</nut-button>
           </nut-col>
           <nut-col :span="12">
-            <nut-button block type="success" @click="updateOrderShippingInfo">更新</nut-button>
+            <nut-button
+              :disabled="canSubmitShippingInfo"
+              :loading="loading"
+              block
+              type="success"
+              @click="updateOrderShippingInfo"
+            >更新</nut-button>
           </nut-col>
         </nut-row>
       </div>
@@ -76,6 +82,7 @@ import OrderStatusComponent from './components/OrderStatus.vue'
 import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
 import Order from '@/types/Order'
 import smart from 'address-smart-parse'
+import in_array from 'in_array'
 
 export default defineComponent({
   name: 'SingleOrder',
@@ -90,17 +97,18 @@ export default defineComponent({
       shipping_name: '姓名：',
       shipping_phone: '手机号码：',
       shipping_address: '地址：',
-    }
+    } as Record<string, string>
 
     const state = reactive({
       loading: false,
       showPopup: false,
-      contact: "陕西省西安市雁塔区丈八沟街道高新四路高新大都荟710061 刘国良 13593464918 211381198512096810",
+      contact: "",
       contactObject: {} as {
         shipping_name: string;
         shipping_phone: string;
         shipping_address: string;
-      }
+      },
+      canSubmitShippingInfo: true
     })
 
     onMounted(async () => {
@@ -131,21 +139,27 @@ export default defineComponent({
       state.contactObject.shipping_name = address.name
       state.contactObject.shipping_phone = address.phone
       state.contactObject.shipping_address = address.address
+      if (!in_array(undefined, Object.values(address))) {
+        state.canSubmitShippingInfo = false
+      }
     }
 
     const updateOrderShippingInfo = async () => {
+      state.loading = true
       const response = await updateSingleOrder(orderId, state.contactObject)
       console.log(response)
       Object.assign(order, state.contactObject)
+      state.loading = false
+      state.showPopup = false
     }
 
     return {
+      ...toRefs(state),
       labels,
       order,
       updateStatus,
       OrderStatus,
       contactInfo,
-      ...toRefs(state),
       analysisAddress,
       updateOrderShippingInfo
     }
