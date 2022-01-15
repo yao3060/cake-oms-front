@@ -1,7 +1,7 @@
 <template>
+  <SearchBar @search="SearchOrders" />
   <CssLoading :loading="loading" />
   <div v-if="orders.length" class="orders-page">
-    <SearchBar @search="SearchOrders" />
     <div class="orders-container">
       <OrderItem v-for="(o, i) in orders" :key="i" :order="o" />
       <nut-pagination

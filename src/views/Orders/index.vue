@@ -1,5 +1,5 @@
 <template>
-  <nut-tabs v-model="tabValue">
+  <nut-tabs v-model="tabValue" @change="onChange">
     <nut-tabpane
       v-for="(status, index) in OrderStatus"
       :key="index"
@@ -12,9 +12,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted } from "vue";
+import { defineComponent, ref, reactive, onMounted, computed } from "vue";
 import OrderList from "./components/OrderList.vue";
 import { OrderStatus } from "@/types/OrderStatus";
+import { useStore } from "@/store";
 
 export default defineComponent({
   name: "OrdersIndex",
@@ -22,11 +23,25 @@ export default defineComponent({
     OrderList,
   },
   setup() {
-    const tabValue = ref('pending');
+    const tabValue = ref('pending')
+    const store = useStore()
+
+    onMounted(() => {
+      const storeTab = store.state.ordersTab
+      if (storeTab !== tabValue.value) {
+        tabValue.value = storeTab
+      }
+    })
+
+    const onChange = ({ title, paneKey }: any) => {
+      // remember current tab
+      store.state.ordersTab = paneKey
+    }
 
     return {
       tabValue,
       OrderStatus,
+      onChange
     };
   },
 });

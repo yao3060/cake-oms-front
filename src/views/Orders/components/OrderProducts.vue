@@ -1,5 +1,5 @@
 <template>
-  <nut-cell-group title="订单商品">
+  <nut-cell-group title="订单商品" class="order-items-container">
     <nut-cell class="table-title">
       <nut-row>
         <nut-col :span="6">{{ tableTitle.feature }}</nut-col>
@@ -30,7 +30,10 @@
           <nut-imagepreview :show="showPreview" :images="imgData" @close="hideFn" />
         </nut-col>
         <nut-col :span="10">
-          <router-link :to="`/orders/${orderId}/items/${item.id}`">{{ item.product_name }}</router-link>
+          <router-link
+            class="order-item-name"
+            :to="`/orders/${orderId}/items/${item.id}`"
+          >{{ item.product_name }}</router-link>
         </nut-col>
         <nut-col :span="4">{{ item.quantity }}</nut-col>
         <nut-col :span="4">
@@ -45,6 +48,7 @@
 import { defineComponent, watchEffect, PropType, reactive, toRefs } from 'vue'
 import { getToken } from '@/utils/auth'
 import { useRoute } from 'vue-router';
+import { deleteOrderProductFeaturedImage } from '@/api/products';
 
 interface OrderItem {
   id: number,
@@ -102,23 +106,16 @@ export default defineComponent({
     })
 
     const onSuccess = ({ responseText, option, fileItem }: any) => {
-      console.log('onSuccess', responseText, option, fileItem)
-      // const productId = responseText.product_id
-      fileItem.id = responseText.id
-      fileItem.url = responseText.source_url
-      // const newImage: FileItem = {
-      //   id: responseText.id,
-      //   name: fileItem.name,
-      //   url: responseText.source_url,
-      //   status: 'success',
-      //   type: responseText.media_type
-      // }
-      // uploadedMedias[productId] = [newImage]
+      const response = JSON.parse(responseText)
+      fileItem.id = response.id
+      fileItem.url = response.source_url
     }
 
-    const onDelete = ({ file }: any) => {
-      console.log('delete 事件触发', file)
-      uploadedMedias[file.file.id] = []
+    const onDelete = async (file: FileItem, fileList: FileItem[]) => {
+      console.log('delete 事件触发', file, fileList);
+      uploadedMedias[file.id] = []
+      // delete item featured image by item id
+      await deleteOrderProductFeaturedImage(file.id)
     }
 
     const onItemClick = ({ fileItem }: any) => {
@@ -150,15 +147,26 @@ export default defineComponent({
     })
 
     return {
-      uploadedMedias, uploadUrl, uploadHeaders,
-      onSuccess, onDelete, onItemClick,
+      uploadedMedias,
+      uploadUrl,
+      uploadHeaders,
+      onSuccess,
+      onDelete,
+      onItemClick,
       tableTitle,
-      ...toRefs(imagePreviewData), hideFn,
+      ...toRefs(imagePreviewData),
+      hideFn,
       orderId: +route.params.orderId
     }
   }
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.order-items-container {
+  .order-item-name {
+    text-decoration: none;
+    color: #333;
+  }
+}
 </style>

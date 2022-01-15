@@ -15,6 +15,13 @@ export function getSingleOrder(orderId: number): any {
   })
 }
 
+export function printSingleOrder(id: number) {
+  return request({
+    url: `/oms/v1/orders/${id}/print`,
+    method: 'get',
+  })
+}
+
 
 export function updateSingleOrder(orderId: number, data: Record<string, unknown>): any {
   return request({

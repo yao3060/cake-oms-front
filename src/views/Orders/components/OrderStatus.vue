@@ -33,9 +33,10 @@ export default defineComponent({
     const stepCurrent = ref(1)
 
     const onClickStep = async (index: number, label: string) => {
+      console.log('onClickStep', index, label)
       if (index == stepCurrent.value + 1) {
         const response = await updateSingleOrder(props.orderId, {
-          status: 'processing'
+          status: label
         })
         console.log(response)
         stepCurrent.value = index

@@ -1,31 +1,33 @@
 <template>
-  <div class="nut-card">
-    <div class="nut-card__left" style="margin-top: 20px; border:1px dashed #ccc;">
-      <img :src="item.media_url || placeholder" />
+  <div class="single-order-item">
+    <div class="nut-card">
+      <div class="nut-card__left" style="margin-top: 20px; border:1px dashed #ccc;">
+        <img :src="item.media_url || placeholder" />
+      </div>
+      <div class="nut-card__right">
+        <nut-cell-group v-if="item">
+          <nut-cell title="名称" :desc="item.product_name"></nut-cell>
+          <nut-cell title="数量" :desc="`${item.quantity}`"></nut-cell>
+          <nut-cell title="价格" :desc="item.price"></nut-cell>
+          <nut-cell title="小计" :desc="item.total"></nut-cell>
+        </nut-cell-group>
+      </div>
     </div>
-    <div class="nut-card__right">
-      <nut-cell-group v-if="item">
-        <nut-cell title="名称" :desc="item.product_name"></nut-cell>
-        <nut-cell title="数量" :desc="`${item.quantity}`"></nut-cell>
-        <nut-cell title="价格" :desc="item.price"></nut-cell>
-        <nut-cell title="小计" :desc="item.total"></nut-cell>
-      </nut-cell-group>
-    </div>
+    <nut-divider content-position="left" style="padding-bottom: 20px;">更多图片</nut-divider>
+    <nut-uploader
+      :url="uploadUrl"
+      :headers="uploadHeaders"
+      :data="{ product_id: item.id, action: 'add_gallery_image' }"
+      v-model:file-list="itemGallery"
+      xhr-state="201"
+      maximum="4"
+      multiple
+      @success="onSuccess"
+      @delete="onDelete"
+      @file-item-click="onItemClick"
+    ></nut-uploader>
+    <nut-imagepreview :show="showPreview" :images="imgData" @close="hideFn" />
   </div>
-  <nut-divider content-position="left" style="padding-bottom: 20px;">更多图片</nut-divider>
-  <nut-uploader
-    :url="uploadUrl"
-    :headers="uploadHeaders"
-    :data="{ product_id: item.id, action: 'add_gallery_image' }"
-    v-model:file-list="itemGallery"
-    xhr-state="201"
-    maximum="4"
-    multiple
-    @success="onSuccess"
-    @delete="onDelete"
-    @file-item-click="onItemClick"
-  ></nut-uploader>
-  <nut-imagepreview :show="showPreview" :images="imgData" @close="hideFn" />
 </template>
 
 <script lang="ts">
@@ -150,5 +152,8 @@ export default defineComponent({
 .nut-cell-group__warp .nut-cell {
   padding-top: 8px;
   padding-bottom: 8px;
+}
+.single-order-item {
+  padding: 0 10px;
 }
 </style>

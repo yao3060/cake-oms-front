@@ -39,4 +39,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.profile {
+  padding: 20px;
+}
 </style>

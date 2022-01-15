@@ -14,6 +14,13 @@ export function getOrderProduct(itemId: number, orderId: number): any {
   })
 }
 
+export function deleteOrderProductFeaturedImage(id: number) {
+  return request({
+    url: `/oms/v1/order-items/${id}/image`,
+    method: 'delete',
+  })
+}
+
 export function deleteOrderProductGalleryImage(
   id: number,
   itemId: number,

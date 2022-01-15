@@ -3,7 +3,8 @@ import UserModuleTypes from '@/store/modules/user/interface'
 
 // root state
 export default interface RootStateTypes {
-  test: string
+  test: string;
+  ordersTab: string;
 }
 
 export interface AllStateTypes extends RootStateTypes {
