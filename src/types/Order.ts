@@ -9,6 +9,14 @@ interface Order {
   payment_method: string;
   items: Array<any>;
   total: string;
+  pickup_time: string;
+  pickup_number: string | number;
+  billing_name: string;
+  billing_phone: string;
+  shipping_name: string;
+  shipping_phone: string;
+  shipping_address: string;
 }
+
 
 export default Order
