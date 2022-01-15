@@ -14,7 +14,13 @@
             shape="square"
             :type="OrderStatus[order.order_status].type"
           >{{ OrderStatus[order.order_status].label }}</nut-button>
-          <nut-button class="print-button" size="mini" shape="square" type="success">打印</nut-button>
+          <nut-button
+            class="print-button"
+            size="mini"
+            shape="square"
+            type="success"
+            @click="printIt(order.id)"
+          >打印</nut-button>
         </template>
       </nut-cell>
       <nut-cell title="下单时间" :desc="order.created_at" />
@@ -76,13 +82,12 @@
 <script lang="ts">
 import { defineComponent, onMounted, toRefs, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { getSingleOrder, updateSingleOrder } from '@/api/orders'
+import { getSingleOrder, updateSingleOrder, printSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
 import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
 import Order from '@/types/Order'
 import smart from 'address-smart-parse'
-import in_array from 'in_array'
 
 export default defineComponent({
   name: 'SingleOrder',
@@ -139,7 +144,7 @@ export default defineComponent({
       state.contactObject.shipping_name = address.name
       state.contactObject.shipping_phone = address.phone
       state.contactObject.shipping_address = address.address
-      if (!in_array(undefined, Object.values(address))) {
+      if (address.name && address.phone && address.address) {
         state.canSubmitShippingInfo = false
       }
     }
@@ -153,6 +158,11 @@ export default defineComponent({
       state.showPopup = false
     }
 
+    const printIt = async (id: number) => {
+      const response = await printSingleOrder(id)
+      console.log('PrintIt', response)
+    }
+
     return {
       ...toRefs(state),
       labels,
@@ -161,7 +171,8 @@ export default defineComponent({
       OrderStatus,
       contactInfo,
       analysisAddress,
-      updateOrderShippingInfo
+      updateOrderShippingInfo,
+      printIt
     }
   }
 })
