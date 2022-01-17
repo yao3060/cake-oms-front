@@ -16,6 +16,7 @@ interface Order {
   shipping_name: string;
   shipping_phone: string;
   shipping_address: string;
+  note: string;
 }
 
 

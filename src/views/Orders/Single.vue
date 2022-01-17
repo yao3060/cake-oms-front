@@ -41,9 +41,33 @@
         </template>
       </nut-cell-group>
 
+      <nut-cell-group title="备注" desc="edit">
+        <nut-cell title="我是标题" desc="描述文字">
+          <div>{{ order.note }}</div>
+        </nut-cell>
+        <template #desc>
+          <nut-button
+            :style="{ float: 'right', marginTop: '-30px', marginRight: '15px' }"
+            size="mini"
+            type="primary"
+            @click="() => showNotePopup = !showNotePopup"
+          >编辑</nut-button>
+        </template>
+      </nut-cell-group>
+
       <OrderProducts :items="order.items" />
     </nut-cell-group>
 
+    <nut-popup v-model:visible="showNotePopup" closeable :style="{ width: '100%' }">
+      <nut-textarea v-model="order.note" />
+      <div style="padding:20px 10px;">
+        <nut-row :gutter="10">
+          <nut-col :span="12" :offset="12">
+            <nut-button :loading="loading" block type="success" @click="updateOrderNote">更新</nut-button>
+          </nut-col>
+        </nut-row>
+      </div>
+    </nut-popup>
     <nut-popup v-model:visible="showPopup" closeable :style="{ width: '100%' }">
       <div class="contact-info">
         <nut-textarea
@@ -107,6 +131,7 @@ export default defineComponent({
     const state = reactive({
       loading: false,
       showPopup: false,
+      showNotePopup: false,
       contact: "",
       contactObject: {} as {
         shipping_name: string;
@@ -158,6 +183,14 @@ export default defineComponent({
       state.showPopup = false
     }
 
+    const updateOrderNote = async () => {
+      state.loading = true
+      const response = await updateSingleOrder(orderId, { note: order.note })
+      console.log(response)
+      state.loading = false
+      state.showNotePopup = false
+    }
+
     const printIt = async (id: number) => {
       const response = await printSingleOrder(id)
       console.log('PrintIt', response)
@@ -172,6 +205,7 @@ export default defineComponent({
       contactInfo,
       analysisAddress,
       updateOrderShippingInfo,
+      updateOrderNote,
       printIt
     }
   }
