@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import LoginInfo from '@/types/LoginInfo'
+import { AxiosPromise } from 'axios'
 
 export function login(data: LoginInfo): any {
   return request({
@@ -16,5 +17,13 @@ export function me(): any {
     params: {
       context: "edit"
     }
+  })
+}
+
+export function getMembers(params: Record<string, string | number>): any {
+  return request({
+    url: '/oms/v1/members',
+    method: 'get',
+    params
   })
 }

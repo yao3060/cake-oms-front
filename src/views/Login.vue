@@ -22,11 +22,22 @@
           required
           :rules="[{ required: true, message: '请填写密码' }]"
         >
-          <input v-model="formData.password" class="nut-input-text" placeholder="admin" type="text" />
+          <input
+            v-model="formData.password"
+            class="nut-input-text"
+            placeholder="admin"
+            type="password"
+          />
         </nut-form-item>
         <nut-cell>
-          <nut-button type="primary" size="normal" style="margin:0 10px 0 90px" @click="submit">提交</nut-button>
-          <nut-button size="normal" @click="reset">重置</nut-button>
+          <nut-button
+            :loading="loading"
+            type="primary"
+            size="normal"
+            style="margin:0 10px 0 90px"
+            @click="submit"
+          >{{ labels.submit }}</nut-button>
+          <nut-button size="normal" @click="reset">{{ labels.reset }}</nut-button>
         </nut-cell>
       </nut-form>
     </div>
@@ -46,10 +57,15 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
 
+    const labels = {
+      submit: '提交',
+      reset: '重置'
+    }
+
     const formData = reactive({
-      'username': '',
-      'password': '',
-      'remember': true
+      username: '',
+      password: '',
+      remember: true
     })
     // eslint-disable-next-line
     const validate = (item: any) => {
@@ -87,6 +103,8 @@ export default defineComponent({
       ruleForm.value.reset();
     }
     return {
+      loading,
+      labels,
       submit, reset, formData, ruleForm,
       validate, store
     }

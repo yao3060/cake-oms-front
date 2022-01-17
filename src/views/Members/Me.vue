@@ -1,5 +1,5 @@
 <template>
-  <div class="profile" v-if="me.hasOwnProperty('id')">
+  <div v-if="me.hasOwnProperty('id')" class="profile">
     <UserProfileHeader :user="me" />
     <Stores :stores="me.stores" />
   </div>
@@ -40,6 +40,6 @@ export default defineComponent({
 
 <style scoped>
 .profile {
-  padding: 20px;
+  padding: 15px;
 }
 </style>

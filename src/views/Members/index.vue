@@ -1,26 +1,47 @@
 <template>
-  <div class="members-container">
-    <nut-grid :column-num="3">
-      <nut-grid-item v-for="i in 20" :key="i" :to="`/members/${i}`" class="member">
-        <nut-avatar icon="my" size="large" shape="square" />
-        <span class="name">Name</span>
-        <span class="number">No1024</span>
-      </nut-grid-item>
-    </nut-grid>
+  <CssLoading :loading="loading" />
+  <div class="members-container" v-if="members.length">
+    <nut-cell
+      v-for="(member, index) in members"
+      :key="index"
+      :title="member.display_name"
+      :sub-title="member.roles.join(',')"
+      :desc="member.mobile_phone"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted } from 'vue'
+import { getMembers } from '@/api/users'
+interface Member {
+  id: number;
+  display_name: string;
+  user_email: string;
+  mobile_phone: string;
+  wechat: string;
+  roles: Array<string>
+}
 
 export default defineComponent({
   name: 'Members',
   setup() {
 
-    const avatar = ref("https://img12.360buyimg.com/imagetools/jfs/t1/143702/31/16654/116794/5fc6f541Edebf8a57/4138097748889987.png")
+    const state = reactive({
+      loading: true,
+      members: [] as Member[]
+    })
+
+    onMounted(async () => {
+      state.loading = true
+      const response = await getMembers({})
+      console.log('get members', response)
+      state.members = response
+      state.loading = false
+    })
 
     return {
-      avatar
+      ...toRefs(state)
     }
   }
 })
