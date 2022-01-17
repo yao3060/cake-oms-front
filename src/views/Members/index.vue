@@ -1,26 +1,38 @@
 <template>
   <div class="members-container">
-    <nut-grid :column-num="3">
-      <nut-grid-item v-for="i in 20" :key="i" :to="`/members/${i}`" class="member">
-        <nut-avatar icon="my" size="large" shape="square" />
-        <span class="name">Name</span>
-        <span class="number">No1024</span>
-      </nut-grid-item>
-    </nut-grid>
+    <nut-cell
+      v-for="i in 20"
+      :key="i"
+      :to="`/members/${i}`"
+      title="Name"
+      sub-title="店员"
+      desc="No1024"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted } from 'vue'
+import { getUsers } from '@/api/users'
 
 export default defineComponent({
   name: 'Members',
   setup() {
 
-    const avatar = ref("https://img12.360buyimg.com/imagetools/jfs/t1/143702/31/16654/116794/5fc6f541Edebf8a57/4138097748889987.png")
+    const state = reactive({
+      loading: false,
+      users: {}
+    })
+
+    onMounted(async () => {
+      const response = await getUsers({
+        'user-group': 'no003'
+      })
+      console.log('get users', response.data)
+    })
 
     return {
-      avatar
+      ...toRefs(state)
     }
   }
 })
