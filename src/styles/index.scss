@@ -62,7 +62,12 @@ body {
 }
 
 .small-cell {
-  padding: 8px 16px;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  .nut-cell__value {
+    font-size: 0.75rem;
+    color:#666;
+  }
 }
 
 .loader-inner {
