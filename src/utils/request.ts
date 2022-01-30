@@ -36,7 +36,7 @@ service.interceptors.response.use(response => {
 
   console.log('Request:' + error) // for debug
 
-  if (error.response.status < 500) {
+  if (error?.response?.status < 500) {
     const errorCodes = ['disabled_token', 'unauthorized', 'other_clients_logged_in']
     if (error.response.data.code && errorCodes.indexOf(error.response.data.code.toLowerCase()) >= 0) {
       // to re-login
@@ -46,10 +46,7 @@ service.interceptors.response.use(response => {
     }
   }
 
-  console.log(error.response.data.message)
-
   return Promise.reject(error)
-}
-)
+})
 
 export default service

@@ -97,7 +97,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.orders-container {
-  padding: 0px 10px;
-}
 </style>

@@ -41,6 +41,9 @@ body {
 .orders-container {
   .nut-cell-group {
     box-shadow: 0 0 3px #ccc;
+    .store-name {
+      border-bottom: 1px solid #efefef;
+    }
   }
   .nut-pagination {
     flex-wrap: nowrap;
@@ -56,6 +59,10 @@ body {
       height: 64px;
     }
   }
+}
+
+.small-cell {
+  padding: 8px 16px;
 }
 
 .loader-inner {

@@ -7,7 +7,7 @@ import userModule from './modules/user'
 export default createStore<RootStateTypes>({
   state: {
     test: 'RootStateTest',
-    ordersTab: 'pending',
+    ordersTab: 'unverified',
   },
   modules: {
     testModule,

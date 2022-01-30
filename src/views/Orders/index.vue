@@ -8,11 +8,14 @@
     >
       <OrderList v-if="index === tabValue" :status="index" :current-status="tabValue" />
     </nut-tabpane>
+    <nut-tabpane :key="allTabIndex" title="所有单" pane-key="all">
+      <OrderList v-if="'all' === tabValue" status="all" :current-status="tabValue" />
+    </nut-tabpane>
   </nut-tabs>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted, computed } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import OrderList from "./components/OrderList.vue";
 import { OrderStatus } from "@/types/OrderStatus";
 import { useStore } from "@/store";
@@ -41,6 +44,7 @@ export default defineComponent({
     return {
       tabValue,
       OrderStatus,
+      allTabIndex: () => Object.keys(OrderStatus).length + 1,
       onChange
     };
   },

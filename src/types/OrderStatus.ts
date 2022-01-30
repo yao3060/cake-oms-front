@@ -4,21 +4,26 @@ export interface OrderStatusInfo {
   type: string;
 }
 
-export type OrderStatusKey = "pending" | "processing" | "completed";
+export type OrderStatusKey = "unverified" | "verified" | "processing" | "completed";
 
 export const OrderStatus: Record<OrderStatusKey, OrderStatusInfo> = {
-  pending: {
+  unverified: {
     id: 1,
-    label: "准备中",
+    label: "未审核",
+    type: "default",
+  },
+  verified: {
+    id: 2,
+    label: "已审核",
     type: "info",
   },
   processing: {
-    id: 2,
+    id: 3,
     label: "制作中",
     type: "primary"
   },
   completed: {
-    id: 3,
+    id: 4,
     label: "已完成",
     type: "success"
   }

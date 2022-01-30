@@ -23,14 +23,14 @@
           >打印</nut-button>
         </template>
       </nut-cell>
-      <nut-cell title="下单时间" :desc="order.created_at" />
-      <nut-cell title="订单号" :desc="`${order.order_number}`" />
-      <nut-cell title="付款方式" :desc="order.payment_method" />
-      <nut-cell title="取货时间" :desc="order.pickup_time" />
-      <nut-cell title="派单编号" :desc="order.pickup_number" />
+      <nut-cell class="small-cell" title="下单时间" :desc="order.created_at" />
+      <nut-cell class="small-cell" title="订单号" :desc="`${order.order_number}`" />
+      <nut-cell class="small-cell" title="付款方式" :desc="order.payment_method" />
+      <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
+      <nut-cell class="small-cell" title="派单编号" :desc="order.pickup_number" />
       <nut-cell-group title="收货人" desc="edit">
-        <nut-cell title="收货人" :desc="contactInfo('shipping', order)" />
-        <nut-cell title="收货人" :desc="order.shipping_address" />
+        <nut-cell class="small-cell" title="收货人" :desc="contactInfo('shipping', order)" />
+        <nut-cell class="small-cell" title="地址" :desc="order.shipping_address" />
         <template #desc>
           <nut-button
             :style="{ float: 'right', marginTop: '-30px', marginRight: '15px' }"
