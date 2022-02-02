@@ -2,8 +2,8 @@
   <nut-cell-group title="订单商品" class="order-items-container">
     <nut-cell class="table-title">
       <nut-row>
-        <nut-col :span="6">{{ tableTitle.feature }}</nut-col>
-        <nut-col :span="10">{{ tableTitle.product }}</nut-col>
+        <nut-col :span="12">{{ tableTitle.product }}</nut-col>
+        <nut-col :span="4">{{ tableTitle.price }}</nut-col>
         <nut-col :span="4">{{ tableTitle.quantity }}</nut-col>
         <nut-col :span="4">{{ tableTitle.total }}</nut-col>
       </nut-row>
@@ -15,29 +15,21 @@
       class="order-product"
     >
       <nut-row>
-        <nut-col :span="6">
-          <nut-uploader
-            v-model:file-list="uploadedMedias[item.id]"
-            :url="uploadUrl"
-            :headers="uploadHeaders"
-            :data="{ product_id: item.id, action: 'add_featured_image' }"
-            xhr-state="201"
-            style="width: 64px; height:64px;"
-            @success="onSuccess"
-            @delete="onDelete"
-            @file-item-click="onItemClick"
-          />
-          <nut-imagepreview :show="showPreview" :images="imgData" @close="hideFn" />
-        </nut-col>
-        <nut-col :span="10">
+        <nut-col :span="12">
           <router-link
             class="order-item-name"
             :to="`/orders/${orderId}/items/${item.id}`"
           >{{ item.product_name }}</router-link>
         </nut-col>
-        <nut-col :span="4">{{ item.quantity }}</nut-col>
         <nut-col :span="4">
           <nut-price :price="item.price" size="small" :need-symbol="true" :thousands="false" />
+        </nut-col>
+        <nut-col :span="4">{{ item.quantity }}</nut-col>
+        <nut-col :span="4">
+          <nut-price :price="item.total" size="small" :need-symbol="true" :thousands="false" />
+        </nut-col>
+        <nut-col :span="24">
+          <OrderItemImages :order-id="orderId" :item-id="item.id" :images="item.images" />
         </nut-col>
       </nut-row>
     </nut-cell>
@@ -49,14 +41,18 @@ import { defineComponent, watchEffect, PropType, reactive, toRefs } from 'vue'
 import { getToken } from '@/utils/auth'
 import { useRoute } from 'vue-router';
 import { deleteOrderProductFeaturedImage } from '@/api/products';
+import OrderItemImages from "./OrderItemImages.vue";
+import OrderItemImage from "@/types/OrderItemImage";
 
 interface OrderItem {
-  id: number,
-  media_id: number | string,
-  media_url: string,
-  product_name: string,
-  quantity: number | string,
-  price: string,
+  id: number;
+  media_id: number | string;
+  media_url: string;
+  product_name: string;
+  images: OrderItemImage[];
+  quantity: number | string;
+  price: string;
+  total: string;
 }
 
 interface FileItem {
@@ -74,6 +70,7 @@ interface uploadedMediaType {
 
 export default defineComponent({
   name: 'OrderProducts',
+  components: { OrderItemImages },
   props: {
     items: {
       type: Array as PropType<OrderItem[]>,
@@ -92,6 +89,7 @@ export default defineComponent({
     const tableTitle = {
       feature: '图片',
       product: '商品',
+      price: '单价',
       quantity: '数量',
       total: '小计'
     }

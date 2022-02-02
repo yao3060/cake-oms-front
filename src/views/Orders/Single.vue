@@ -7,7 +7,7 @@
       @updateStatus="updateStatus"
     />
     <nut-cell-group>
-      <nut-cell class="store-name" :title="order.store_name">
+      <!-- <nut-cell class="store-name" :title="order.store_name">
         <template #link>
           <nut-button
             size="mini"
@@ -22,13 +22,28 @@
             @click="printIt(order.id)"
           >打印</nut-button>
         </template>
+      </nut-cell>-->
+      <nut-cell class="store-name" :title="`${order.billing_name}: ${order.billing_phone}`">
+        <template #link>
+          <nut-price
+            :price="order.total"
+            size="normal"
+            :need-symbol="true"
+            :thousands="true"
+            class="total"
+          />
+        </template>
       </nut-cell>
-      <nut-cell class="small-cell" title="下单时间" :desc="order.created_at" />
-      <nut-cell class="small-cell" title="订单号" :desc="`${order.order_number}`" />
-      <nut-cell class="small-cell" title="付款方式" :desc="order.payment_method" />
+
+      <nut-cell class="small-cell" title="订单编号" :desc="`${order.order_number}`" />
+      <nut-cell class="small-cell" title="订单时间" :desc="order.created_at" />
+      <nut-cell class="small-cell" title="订单来源" :desc="order.order_type" />
+      <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
+      <nut-cell class="small-cell" title="下单人" :desc="order.creator" />
+
       <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
-      <nut-cell class="small-cell" title="派单编号" :desc="order.pickup_number" />
-      <nut-cell-group title="收货人" desc="edit">
+
+      <nut-cell-group title="取货人" desc="edit">
         <nut-cell class="small-cell" title="收货人" :desc="contactInfo('shipping', order)" />
         <nut-cell class="small-cell" title="地址" :desc="order.shipping_address" />
         <template #desc>
@@ -43,7 +58,7 @@
 
       <nut-cell-group title="备注" desc="edit">
         <nut-cell title="我是标题" desc="描述文字">
-          <div>{{ order.note }}</div>
+          <div style="font-size: 0.75rem;">{{ order.note }}</div>
         </nut-cell>
         <template #desc>
           <nut-button
@@ -54,7 +69,7 @@
           >编辑</nut-button>
         </template>
       </nut-cell-group>
-
+      <nut-divider />
       <OrderProducts :items="order.items" />
     </nut-cell-group>
 
@@ -223,7 +238,7 @@ export default defineComponent({
   font-weight: bold;
 }
 .table-title {
-  font-weight: bold;
+  // font-weight: bold;
 }
 .print-button {
   margin-left: 10px;

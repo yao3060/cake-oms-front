@@ -1,9 +1,12 @@
 import { OrderStatusKey } from '@/types/OrderStatus'
 
+export type orderType = '预约' | '小程序外卖'
+
 interface Order {
   id: number;
   order_number: string | number;
   store_name: string;
+  order_type: orderType;
   order_status: OrderStatusKey;
   created_at: string;
   payment_method: string;
@@ -17,6 +20,7 @@ interface Order {
   shipping_phone: string;
   shipping_address: string;
   note: string;
+  creator: number;
 }
 
 
