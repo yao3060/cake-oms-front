@@ -6,6 +6,7 @@
       :status="order.order_status"
       @updateStatus="updateStatus"
     />
+
     <nut-cell-group>
       <!-- <nut-cell class="store-name" :title="order.store_name">
         <template #link>
@@ -52,7 +53,7 @@
             size="mini"
             type="primary"
             @click="() => showPopup = !showPopup"
-          >编辑</nut-button>
+          >编辑/识别</nut-button>
         </template>
       </nut-cell-group>
 
@@ -72,6 +73,8 @@
       <nut-divider />
       <OrderProducts :items="order.items" />
     </nut-cell-group>
+    <nut-divider />
+    <OrderOperations :order-id="order.id" />
 
     <nut-popup v-model:visible="showNotePopup" closeable :style="{ width: '100%' }">
       <nut-textarea v-model="order.note" />
@@ -124,6 +127,7 @@ import { useRoute } from 'vue-router'
 import { getSingleOrder, updateSingleOrder, printSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
+import OrderOperations from './components/OrderOperations.vue'
 import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
 import Order from '@/types/Order'
 import smart from 'address-smart-parse'
@@ -131,7 +135,7 @@ import smart from 'address-smart-parse'
 export default defineComponent({
   name: 'SingleOrder',
   components: {
-    OrderProducts, OrderStatusComponent
+    OrderProducts, OrderStatusComponent, OrderOperations
   },
   setup() {
     const route = useRoute()
@@ -263,4 +267,5 @@ export default defineComponent({
     }
   }
 }
+
 </style>
