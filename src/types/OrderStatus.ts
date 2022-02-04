@@ -20,7 +20,7 @@ export const OrderStatus: Record<OrderStatusKey, OrderStatusInfo> = {
   processing: {
     id: 3,
     label: "制作中",
-    type: "primary"
+    type: "info"
   },
   completed: {
     id: 4,

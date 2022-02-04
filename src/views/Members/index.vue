@@ -36,7 +36,7 @@ export default defineComponent({
       state.loading = true
       const response = await getMembers({})
       console.log('get members', response)
-      state.members = response
+      Object.assign(state.members, response)
       state.loading = false
     })
 

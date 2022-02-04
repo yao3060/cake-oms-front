@@ -3,7 +3,7 @@
   <CssLoading :loading="loading" />
   <div v-if="orders.length" class="orders-page">
     <div class="orders-container">
-      <OrderItem v-for="(o, i) in orders" :key="i" :order="o" />
+      <OrderItem v-for="(o, i) in orders" :key="i" :order="o" :status="status" />
       <nut-pagination
         v-model="query.page"
         :total-items="total"
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div v-else class="not-found">
-    <h1 v-if="!loading" style="text-align: center;">Not Found</h1>
+    <nut-empty v-if="!loading" description="没有订单"></nut-empty>
   </div>
 </template>
 

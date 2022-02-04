@@ -27,3 +27,14 @@ export function getMembers(params: Record<string, string | number>): any {
     params
   })
 }
+
+
+export  function  getFramers() {
+  return request({
+    url: '/wp/v2/users',
+    method: 'get',
+    params: {
+      roles: ['framer']
+    }
+  })
+}

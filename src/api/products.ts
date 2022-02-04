@@ -14,6 +14,10 @@ export function getOrderProduct(itemId: number, orderId: number): any {
   })
 }
 
+/**
+ * @deprecated 不需要了
+ * @param id
+ */
 export function deleteOrderProductFeaturedImage(id: number) {
   return request({
     url: `/oms/v1/order-items/${id}/image`,

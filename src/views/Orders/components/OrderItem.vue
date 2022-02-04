@@ -13,6 +13,13 @@
           :thousands="true"
           class="total"
         />
+        <nut-button
+          v-if="status === 'all'"
+          style="margin-left: 10px;"
+          size="mini"
+          shape="square"
+          :type="formatOrderStatus(order.order_status).type"
+        >{{ formatOrderStatus(order.order_status).label }}</nut-button>
       </template>
     </nut-cell>
     <!-- <nut-cell class="small-cell" title="订单号" :desc="order.order_number" /> -->
@@ -25,17 +32,33 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import Order from '@/types/Order'
-import { OrderStatus } from '@/types/OrderStatus'
+import {OrderStatus, OrderStatusKey} from '@/types/OrderStatus'
 
 export default defineComponent({
   props: {
     order: {
       type: Object as PropType<Order>,
       required: true
-    }
+    },
+    status: {
+      type: String,
+      required: true,
+    },
   },
   setup() {
-    return { OrderStatus }
+
+    const formatOrderStatus = (status: OrderStatusKey | 'trash') => {
+      if(status !== 'trash') {
+        return OrderStatus[status]
+      }
+
+      return {
+        'type': 'danger',
+        'label': '作废'
+      }
+    }
+
+    return { formatOrderStatus }
   }
 })
 </script>
