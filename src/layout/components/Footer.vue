@@ -13,6 +13,11 @@
 import { defineComponent, ref, watchEffect } from "vue";
 import { MenuItem } from "@nutui/nutui";
 import { useRoute } from "vue-router";
+import in_array from "in_array";
+
+function array_pluck<T, K extends keyof T>(objs: T[], key: K): T[K][] {
+  return objs.map(obj => obj[key]);
+}
 
 export default defineComponent({
   name: "Footer",
@@ -56,7 +61,8 @@ export default defineComponent({
     // switch foot menu according current route path
     watchEffect(() => {
       if (route.path !== "/") {
-        const index = menus.value.findIndex((item) => item.to === route.path);
+        console.log('route', route.matched, array_pluck(route.matched, 'path'))
+        const index = menus.value.findIndex((item) => in_array(item.to, array_pluck(route.matched, 'path')) );
         if (index !== -1) {
           active.value = index;
         }

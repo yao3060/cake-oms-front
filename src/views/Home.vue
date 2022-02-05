@@ -1,6 +1,8 @@
 <template>
   <div class="home-page-icons">
     <Loading message="加载中" :loading="loading" />
+    <!-- Admin can see this -->
+    <h1 v-permission="['administrator']" style="text-align: center;">Administrator</h1>
     <div v-if="showStats" class="statistics">
       <Statistics title="新订单" color="#40c9c6" icon="order" :start="0" :end="2000" />
       <Statistics title="新订单" color="#36a3f7" icon="order" :start="0" :end="1998" />
@@ -8,8 +10,6 @@
     </div>
     <div class="statistics">
       <BarChart v-bind="barChartProps" />
-      <!-- Admin can see this -->
-      <h1 v-permission="['administer']">administer</h1>
     </div>
   </div>
 </template>

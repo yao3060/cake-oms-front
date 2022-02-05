@@ -1,4 +1,5 @@
-import { createApp } from 'vue'
+import { createApp, version } from 'vue'
+console.log('Vue.version', version)
 
 // 注意：这种方式将会导入所有组件
 import NutUI from "@nutui/nutui"

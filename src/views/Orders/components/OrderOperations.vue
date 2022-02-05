@@ -1,17 +1,18 @@
 <template>
-  <div title="OrderOperations" class="OrderOperations">
+  <div class="order-operations">
     <nut-button @click="trashIt" shape="square" type="primary">作废</nut-button>
     <nut-button @click="printIt" shape="square" type="primary">打印</nut-button>
-    <nut-button @click="assignIt" shape="square" type="primary">派单</nut-button>
+    <!--    管理员和裱花管理员可以指派订单-->
+    <nut-button v-permission="['administrator', 'framer-manager']" @click="assignIt" shape="square" type="primary">派单</nut-button>
+
+    <nut-actionsheet
+      v-model:visible="isVisible"
+      :menu-items="framers"
+      description="指派裱花师"
+      cancel-txt="取消"
+      @choose="chooseItem"
+    />
   </div>
-  <nut-actionsheet
-    v-model:visible="isVisible"
-    :menu-items="framers"
-    description="指派裱花师"
-    cancel-txt="取消"
-    @choose="chooseItem"
-  >
-  </nut-actionsheet>
 </template>
 
 <script lang="ts">
@@ -94,7 +95,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.OrderOperations {
+.order-operations {
   text-align: right;
   padding-right: 16px;
 
