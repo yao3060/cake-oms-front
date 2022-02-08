@@ -2,6 +2,11 @@ import { OrderStatusKey } from '@/types/OrderStatus'
 
 export type orderType = '预约' | '小程序外卖'
 
+export type Creator = {
+  id: number;
+  display_name: string;
+}
+
 interface Order {
   id: number;
   order_number: string | number;
@@ -20,7 +25,7 @@ interface Order {
   shipping_phone: string;
   shipping_address: string;
   note: string;
-  creator: number;
+  creator: Creator | '';
 }
 
 

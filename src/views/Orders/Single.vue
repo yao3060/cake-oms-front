@@ -41,7 +41,7 @@
         <nut-cell class="small-cell" title="订单时间" :desc="order.created_at"/>
         <nut-cell class="small-cell" title="订单来源" :desc="order.order_type"/>
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name"/>
-        <nut-cell class="small-cell" title="下单人" :desc="order.creator"/>
+        <nut-cell class="small-cell" title="下单人" :desc="order.creator.display_name"/>
 
         <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time"/>
 
