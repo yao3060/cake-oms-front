@@ -18,7 +18,7 @@
 <script lang="ts">
 import {defineComponent, getCurrentInstance, reactive, toRefs} from "vue";
 import {printSingleOrder, updateSingleOrder} from "@/api/orders";
-import { Dialog, Toast } from '@nutui/nutui';
+import { Dialog } from '@nutui/nutui';
 import {getFramers} from "@/api/users";
 
 interface Framer {
@@ -62,12 +62,16 @@ export default defineComponent({
 
      const assignFramer = async (orderId: number, framerId: number) => {
       const response = await  updateSingleOrder(orderId, {framer: framerId})
+      app?.appContext.config.globalProperties.$toast.success('裱花师更新成功。');
     }
 
     const printIt = async() => {
       console.log('printIt',props.orderId)
+      const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
       const response = await printSingleOrder(props.orderId)
-      console.log('PrintIt', response)
+      console.log('PrintIt', response.msg)
+      toast.hide();
+      app?.appContext.config.globalProperties.$toast.success(response.msg);
     }
 
     const assignIt = async() => {

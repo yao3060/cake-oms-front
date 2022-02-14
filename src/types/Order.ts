@@ -25,7 +25,7 @@ interface Order {
   shipping_phone: string;
   shipping_address: string;
   note: string;
-  creator: Creator | '';
+  creator: Creator;
 }
 
 

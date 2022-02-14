@@ -16,7 +16,7 @@ export function getSingleOrder(orderId: number): AxiosPromise {
   })
 }
 
-export function printSingleOrder(id: number): AxiosPromise {
+export function printSingleOrder(id: number): any {
   return request({
     url: `/oms/v1/print/orders/${id}`,
     method: 'get',

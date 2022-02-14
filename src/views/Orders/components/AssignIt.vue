@@ -12,8 +12,7 @@
 
 <script lang="ts">
 import {defineComponent, getCurrentInstance, reactive, toRefs} from "vue";
-import {printSingleOrder, updateSingleOrder} from "@/api/orders";
-import { Dialog, Toast } from '@nutui/nutui';
+import {updateSingleOrder} from "@/api/orders";
 import {getFramers} from "@/api/users";
 
 interface Framer {

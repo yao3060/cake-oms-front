@@ -9,22 +9,6 @@
       />
 
       <nut-cell-group>
-        <!-- <nut-cell class="store-name" :title="order.store_name">
-          <template #link>
-            <nut-button
-              size="mini"
-              shape="square"
-              :type="OrderStatus[order.order_status].type"
-            >{{ OrderStatus[order.order_status].label }}</nut-button>
-            <nut-button
-              class="print-button"
-              size="mini"
-              shape="square"
-              type="success"
-              @click="printIt(order.id)"
-            >打印</nut-button>
-          </template>
-        </nut-cell>-->
         <nut-cell class="store-name" :title="`${order.billing_name}: ${order.billing_phone}`">
           <template #link>
             <nut-price
@@ -127,13 +111,13 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, toRefs, reactive} from 'vue'
+import {defineComponent, getCurrentInstance, onMounted, toRefs, reactive} from 'vue'
 import {useRoute} from 'vue-router'
 import {getSingleOrder, updateSingleOrder, printSingleOrder} from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
 import OrderOperations from './components/OrderOperations.vue'
-import {OrderStatus, OrderStatusKey} from '@/types/OrderStatus'
+import {OrderStatusKey} from '@/types/OrderStatus'
 import Order from '@/types/Order'
 import smart from 'address-smart-parse'
 
@@ -143,6 +127,8 @@ export default defineComponent({
     OrderProducts, OrderStatusComponent, OrderOperations
   },
   setup() {
+    const app = getCurrentInstance()
+
     const route = useRoute()
     const orderId = +route.params.orderId
     const order = reactive({id: 0}) as Order
@@ -215,22 +201,15 @@ export default defineComponent({
       state.showNotePopup = false
     }
 
-    const printIt = async (id: number) => {
-      const response = await printSingleOrder(id)
-      console.log('PrintIt', response)
-    }
-
     return {
       ...toRefs(state),
       labels,
       order,
       updateStatus,
-      OrderStatus,
       contactInfo,
       analysisAddress,
       updateOrderShippingInfo,
       updateOrderNote,
-      printIt
     }
   }
 })
