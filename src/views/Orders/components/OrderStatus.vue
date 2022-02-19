@@ -1,7 +1,10 @@
 <template>
-  <nut-steps :current="stepCurrent">
+  <div v-if="status == 'trash'">
+    <nut-button block type="warning" shape="square" style="margin-top: -20px;">废弃订单</nut-button>
+  </div>
+  <nut-steps v-else :current="stepCurrent">
     <nut-step
-      v-for="(status,index) in OrderStatus"
+      v-for="(status, index) in OrderStatus"
       :key="index"
       :title="status.label"
       @click="onClickStep(status.id, index)"
@@ -12,13 +15,13 @@
 <script lang="ts">
 import { getCurrentInstance, defineComponent, ref, watchEffect, PropType } from 'vue'
 import { updateSingleOrder } from '@/api/orders'
-import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
+import { OrderStatus, AllOrderStatusKey } from '@/types/OrderStatus'
 
 export default defineComponent({
   name: 'OrderStatusComponent',
   props: {
     status: {
-      type: String as PropType<OrderStatusKey>,
+      type: String as PropType<AllOrderStatusKey>,
       required: true
     },
     orderId: {
@@ -48,7 +51,9 @@ export default defineComponent({
     }
 
     watchEffect(() => {
-      stepCurrent.value = OrderStatus[props.status]?.id
+      if (props.status !== 'trash') {
+        stepCurrent.value = OrderStatus[props.status]?.id
+      }
     })
 
     return {

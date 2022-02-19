@@ -6,6 +6,8 @@ export interface OrderStatusInfo {
 
 export type OrderStatusKey = "unverified" | "verified" | "processing" | "completed";
 
+export type AllOrderStatusKey = OrderStatusKey | "trash"
+
 export const OrderStatus: Record<OrderStatusKey, OrderStatusInfo> = {
   unverified: {
     id: 1,

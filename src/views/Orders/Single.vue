@@ -222,10 +222,6 @@ export default defineComponent({
   font-weight: bold;
 }
 
-.table-title {
-  // font-weight: bold;
-}
-
 .print-button {
   margin-left: 10px;
 }
