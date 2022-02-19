@@ -15,7 +15,7 @@
         />
         <nut-button
           v-if="status === 'all'"
-          style="margin-left: 10px;"
+          style="margin-left: 10px; height:20px;line-height:1;"
           size="mini"
           shape="square"
           :type="formatOrderStatus(order.order_status).type"
@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import Order from '@/types/Order'
-import {OrderStatus, OrderStatusKey} from '@/types/OrderStatus'
+import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
 
 export default defineComponent({
   props: {
@@ -48,7 +48,7 @@ export default defineComponent({
   setup() {
 
     const formatOrderStatus = (status: OrderStatusKey | 'trash') => {
-      if(status !== 'trash') {
+      if (status !== 'trash') {
         return OrderStatus[status]
       }
 
@@ -66,6 +66,9 @@ export default defineComponent({
 <style scoped lang="scss">
 .store-name {
   font-weight: bold;
+  border-bottom: 1px solid #efefef;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .order-total {

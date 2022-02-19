@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import { useRouter } from 'vue-router'
+import { Dialog } from '@nutui/nutui'
 
 // create an axios instance
 const service = axios.create({
@@ -29,18 +31,20 @@ service.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfi
 )
 
 // response interceptor
-service.interceptors.response.use(response => {
-  // console.log('response interceptor', response.data)
-  return response.data
-}, error => {
-
-  console.log('Request:' + error) // for debug
+service.interceptors.response.use(response => response.data, error => {
 
   if (error?.response?.status < 500) {
-    const errorCodes = ['disabled_token', 'unauthorized', 'other_clients_logged_in']
-    if (error.response.data.code && errorCodes.indexOf(error.response.data.code.toLowerCase()) >= 0) {
+    if (error.response.status === 401) {
       // to re-login
-      console.log('You have been logged out, you can cancel to stay on this page, or log in again')
+      Dialog({
+        title: 'You have been logged out',
+        content: 'You can cancel to stay on this page, or log in again',
+        noCancelBtn: true,
+        onOk: () => {
+          store.dispatch('userModule/resetToken').then(() => location.reload())
+        }
+      })
+      return Promise.reject(new Error(error.response.message || 'Error'))
     } else {
       return error.response
     }

@@ -107,7 +107,7 @@
 <script lang="ts">
 import { defineComponent, getCurrentInstance, onMounted, toRefs, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { getSingleOrder, updateSingleOrder, printSingleOrder } from '@/api/orders'
+import { getSingleOrder, updateSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
 import OrderOperations from './components/OrderOperations.vue'
@@ -209,21 +209,13 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .actions {
   text-align: right;
 
   .nut-button {
     margin-left: 10px;
   }
-}
-
-.store-name {
-  font-weight: bold;
-}
-
-.print-button {
-  margin-left: 10px;
 }
 
 .order-container {

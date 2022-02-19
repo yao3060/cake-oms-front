@@ -3,7 +3,7 @@ import RootStateTypes from '@/store/interface'
 import UserModuleTypes from './interface'
 import { login, me } from '@/api/users'
 import LoginInfo from '@/types/LoginInfo'
-import { getToken, setToken } from '@/utils/auth'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const userModule: Module<UserModuleTypes, RootStateTypes> = {
   namespaced: true,
@@ -68,7 +68,17 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
           resolve(response)
         }).catch((error: any) => reject(error))
       })
-    }
+    },
+    // remove token
+    resetToken({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        removeToken()
+        resolve('')
+      })
+    },
+
   },
   getters: {
     token: (state) => {

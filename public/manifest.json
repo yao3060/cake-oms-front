@@ -1,13 +1,13 @@
 {
+    "name": "CAKE OMS",
+    "short_name": "CAKE",
+    "description": "Cake OMS",
     "theme_color": "#f69435",
     "background_color": "#f69435",
-    "display": "browser",
+    "display": "fullscreen",
+    "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
-    "name": "CAKE OMS",
-    "description": "Cake OMS",
-    "short_name": "CAKE",
-    "test": "https://www.youtube.com/watch?v=sFsRylCQblw",
     "icons": [
         {
             "src": "/assets/icon-192x192.png",
