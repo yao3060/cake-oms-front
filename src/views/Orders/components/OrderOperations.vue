@@ -1,9 +1,15 @@
 <template>
+  <nut-cell class="small-cell" title="裱花师" :desc="framerName"></nut-cell>
   <div class="order-operations">
     <nut-button @click="trashIt" shape="square" type="primary">作废</nut-button>
     <nut-button @click="printIt" shape="square" type="primary">打印</nut-button>
     <!--    管理员和裱花管理员可以指派订单-->
-    <nut-button v-permission="['administrator', 'framer-manager']" @click="assignIt" shape="square" type="primary">派单</nut-button>
+    <nut-button
+      v-permission="['administrator', 'framer-manager']"
+      @click="assignIt"
+      shape="square"
+      type="primary"
+    >派单</nut-button>
 
     <nut-actionsheet
       v-model:visible="isVisible"
@@ -16,14 +22,20 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, getCurrentInstance, reactive, toRefs} from "vue";
-import {printSingleOrder, updateSingleOrder} from "@/api/orders";
+import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, toRefs } from "vue";
+import { printSingleOrder, updateSingleOrder } from "@/api/orders";
 import { Dialog } from '@nutui/nutui';
-import {getFramers} from "@/api/users";
+import { getFramers } from "@/api/users";
 
 interface Framer {
-  id:number;
+  id: number;
   name: string;
+}
+
+interface Framer2 {
+  id: number;
+  username: string;
+  display_name: string;
 }
 
 export default defineComponent({
@@ -31,6 +43,10 @@ export default defineComponent({
   props: {
     orderId: {
       type: Number,
+      required: true
+    },
+    framer: {
+      type: Object as PropType<Framer2>,
       required: true
     }
   },
@@ -41,32 +57,38 @@ export default defineComponent({
     const state = reactive({
       loading: false,
       isVisible: false,
-      framers: [] as Framer[]
+      framers: [] as Framer[],
+      framerName: ''
     })
 
-     const trashIt =  () => {
-       console.log('trashIt', props.orderId)
-       Dialog({
-         title: '温馨提示',
-         content: '“作废”为不可逆操作，“确认”后您将再也不能看到该订单！',
-         onOk: async () => {
-           console.log('event ok');
-           const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
-           const response = await updateSingleOrder(props.orderId, {
-             status: 'trash'
-           })
-           toast.hide();
-         },
-       })
-     }
+    onMounted(() => {
+      state.framerName = props.framer.display_name ? props.framer.display_name : '未指派'
+    })
 
-     const assignFramer = async (orderId: number, framerId: number) => {
-      const response = await  updateSingleOrder(orderId, {framer: framerId})
+    const trashIt = () => {
+      console.log('trashIt', props.orderId)
+      Dialog({
+        title: '温馨提示',
+        content: '“作废”为不可逆操作，“确认”后您将再也不能看到该订单！',
+        onOk: async () => {
+          console.log('event ok');
+          const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
+          const response = await updateSingleOrder(props.orderId, {
+            status: 'trash'
+          })
+          toast.hide();
+        },
+      })
+    }
+
+    const assignFramer = async (orderId: number, framer: Framer) => {
+      const response = await updateSingleOrder(orderId, { framer: framer.id })
+      state.framerName = framer.name
       app?.appContext.config.globalProperties.$toast.success('裱花师更新成功。');
     }
 
-    const printIt = async() => {
-      console.log('printIt',props.orderId)
+    const printIt = async () => {
+      console.log('printIt', props.orderId)
       const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
       const response = await printSingleOrder(props.orderId)
       console.log('PrintIt', response.msg)
@@ -74,11 +96,11 @@ export default defineComponent({
       app?.appContext.config.globalProperties.$toast.success(response.msg);
     }
 
-    const assignIt = async() => {
+    const assignIt = async () => {
       const toast = app?.appContext.config.globalProperties.$toast.loading('加载中');
       const response = await getFramers()
       console.log('getFramers', response)
-      toast.hide();
+      // toast.hide();
       Object.assign(state.framers, response)
       state.isVisible = !state.isVisible
     }
@@ -86,13 +108,13 @@ export default defineComponent({
     const chooseItem = (itemParams: Framer) => {
       console.log('framer', itemParams)
       const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
-      assignFramer(props.orderId, itemParams.id)
+      assignFramer(props.orderId, itemParams)
       toast.hide();
     };
 
     return {
-       ...toRefs(state),
-       trashIt, printIt, assignIt, chooseItem
+      ...toRefs(state),
+      trashIt, printIt, assignIt, chooseItem
     }
   }
 })

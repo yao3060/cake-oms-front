@@ -1,5 +1,5 @@
 <template>
-  <nut-button  @click="assignIt" shape="square" type="primary">派单</nut-button>
+  <nut-button @click="assignIt" shape="square" type="primary">派单</nut-button>
 
   <nut-actionsheet
     v-model:visible="isVisible"
@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, getCurrentInstance, reactive, toRefs} from "vue";
-import {updateSingleOrder} from "@/api/orders";
-import {getFramers} from "@/api/users";
+import { defineComponent, getCurrentInstance, reactive, toRefs } from "vue";
+import { updateSingleOrder } from "@/api/orders";
+import { getFramers } from "@/api/users";
 
 interface Framer {
-  id:number;
+  id: number;
   name: string;
 }
 
@@ -39,10 +39,10 @@ export default defineComponent({
     })
 
     const assignFramer = async (orderId: number, framerId: number) => {
-      const response = await  updateSingleOrder(orderId, {framer: framerId})
+      const response = await updateSingleOrder(orderId, { framer: framerId })
     }
 
-    const assignIt = async() => {
+    const assignIt = async () => {
       const toast = app?.appContext.config.globalProperties.$toast.loading('加载中');
       const response = await getFramers()
       console.log('getFramers', response)

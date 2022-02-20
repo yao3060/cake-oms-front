@@ -59,7 +59,7 @@
         <OrderProducts :items="order.items" />
       </nut-cell-group>
       <nut-divider />
-      <OrderOperations :order-id="order.id" />
+      <OrderOperations :order-id="order.id" :framer="order.framer" />
 
       <nut-popup v-model:visible="showNotePopup" closeable :style="{ width: '100%' }">
         <nut-textarea v-model="order.note" />
