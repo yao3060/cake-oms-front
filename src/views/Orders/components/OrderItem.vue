@@ -2,7 +2,7 @@
   <nut-cell-group>
     <nut-cell
       class="store-name"
-      :title="`${order.billing_name}: ${order.billing_phone}`"
+      :title="`${order.shipping_name}: ${order.shipping_phone}`"
       :to="`/orders/${order.id}`"
     >
       <template #link>

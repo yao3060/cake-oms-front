@@ -27,12 +27,12 @@ export default defineComponent({
     };
 
     const menus = ref([
-      {
-        index: 0,
-        title: "首页",
-        icon: "home",
-        to: "/",
-      },
+      // {
+      //   index: 0,
+      //   title: "首页",
+      //   icon: "home",
+      //   to: "/",
+      // },
       {
         title: "订单",
         icon: "order",
@@ -62,7 +62,7 @@ export default defineComponent({
     watchEffect(() => {
       if (route.path !== "/") {
         console.log('route', route.matched, array_pluck(route.matched, 'path'))
-        const index = menus.value.findIndex((item) => in_array(item.to, array_pluck(route.matched, 'path')) );
+        const index = menus.value.findIndex((item) => in_array(item.to, array_pluck(route.matched, 'path')));
         if (index !== -1) {
           active.value = index;
         }

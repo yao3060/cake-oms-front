@@ -56,7 +56,7 @@ export default defineComponent({
       status: props.status,
       keyword: "",
       page: 1,
-      per_page: 5,
+      per_page: 10,
     });
 
     const pageChange = (value: number) => {
