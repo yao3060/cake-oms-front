@@ -60,12 +60,20 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
       return new Promise((resolve, reject) => {
         me().then((response: any) => {
           console.log('current user profile', response)
-          commit('SET_ID', response.id)
-          commit('SET_EMAIL', response.email)
-          commit('SET_NICENAME', response.nickname)
-          commit('SET_DISPLAY_NAME', response.nickname)
-          commit('SET_ROLES', response.roles)
-          resolve(response)
+          if(response.status  < 300) {
+            commit('SET_ID', response.id)
+            commit('SET_EMAIL', response.email)
+            commit('SET_NICENAME', response.nickname)
+            commit('SET_DISPLAY_NAME', response.nickname)
+            commit('SET_ROLES', response.roles)
+            resolve(response)
+          } else {
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            removeToken()
+            reject()
+          }
+
         }).catch((error: any) => reject(error))
       })
     },
