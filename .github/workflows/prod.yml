@@ -43,4 +43,4 @@ jobs:
         remote_host: yaoin.net
         remote_port: 22
         remote_user: root
-        remote_key: ${{ secrets.DEPLOY_KEY }}
+        remote_key: ${{ secrets.DEPLOY_STAGING_SSH_KEY }}
