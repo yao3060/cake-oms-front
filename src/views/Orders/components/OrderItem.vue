@@ -32,7 +32,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import Order from '@/types/Order'
-import { OrderStatus, OrderStatusKey } from '@/types/OrderStatus'
+import { OrderStatus, OrderStatusKey, OrderStatusKeyArr } from '@/types/OrderStatus'
+import in_array from 'in_array'
 
 export default defineComponent({
   props: {
@@ -48,13 +49,13 @@ export default defineComponent({
   setup() {
 
     const formatOrderStatus = (status: OrderStatusKey | 'trash') => {
-      if (status !== 'trash') {
+      if (status !== 'trash' && in_array(status, OrderStatusKeyArr)) {
         return OrderStatus[status]
       }
 
       return {
-        'type': 'danger',
-        'label': '作废'
+        type: 'danger',
+        label: '作废'
       }
     }
 

@@ -4,7 +4,12 @@ export interface OrderStatusInfo {
   type: string;
 }
 
-export type OrderStatusKey = "unverified" | "verified" | "processing" | "completed";
+
+export const OrderStatusKeyArr = ["unverified", "verified", "processing", "completed"] as const
+
+export type OrderStatusKey = typeof OrderStatusKeyArr[number]
+
+// export type OrderStatusKey = "unverified" | "verified" | "processing" | "completed";
 
 export type AllOrderStatusKey = OrderStatusKey | "trash"
 
