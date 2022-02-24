@@ -34,7 +34,7 @@ service.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfi
 service.interceptors.response.use(response => response.data, error => {
 
   if (error?.response?.status < 500) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 || error.response.status === 403) {
       // to re-login
       Dialog({
         title: 'You have been logged out',

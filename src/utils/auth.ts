@@ -11,7 +11,7 @@ export function getToken(): string {
 }
 
 export function setToken(token: string): string | undefined {
-  return Cookies.set(TokenKey, token)
+  return Cookies.set(TokenKey, token, { expires: 30 })
 }
 
 export function removeToken(): void {
