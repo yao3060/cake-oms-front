@@ -10,7 +10,7 @@
         :items-per-page="query.per_page"
         mode="simple"
         @change="pageChange"
-        style="padding-bottom: 100px"
+        style="padding: 0 16px 50px"
       />
     </div>
   </div>
@@ -62,6 +62,7 @@ export default defineComponent({
     const pageChange = (value: number) => {
       console.log("page changed", value);
       query.page = value;
+      window.scrollTo({ top: 0, behavior: "smooth" });
       getItems();
     };
 
