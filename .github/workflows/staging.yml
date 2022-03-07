@@ -1,13 +1,13 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Production
+name: Staging
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build2deploy:
@@ -36,7 +36,7 @@ jobs:
         switches: -avzr --delete --exclude="" --include="" --filter=""
         path: dist/
         remote_path: /var/www/cake-oms/front/
-        remote_host: 47.93.240.166
+        remote_host: yaoin.net
         remote_port: 22
         remote_user: root
-        remote_key: ${{ secrets.DEPLOY_PRODUCTION_SSH_KEY }}
+        remote_key: ${{ secrets.DEPLOY_STAGING_SSH_KEY }}
