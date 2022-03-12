@@ -9,8 +9,6 @@ export const OrderStatusKeyArr = ["unverified", "verified", "processing", "compl
 
 export type OrderStatusKey = typeof OrderStatusKeyArr[number]
 
-// export type OrderStatusKey = "unverified" | "verified" | "processing" | "completed";
-
 export type AllOrderStatusKey = OrderStatusKey | "trash"
 
 export const OrderStatus: Record<OrderStatusKey, OrderStatusInfo> = {
