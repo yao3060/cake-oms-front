@@ -16,7 +16,9 @@ interface Order {
   created_at: string;
   payment_method: string;
   items: Array<any>;
+  framer: string | number;
   total: string;
+  pickup_method: string;
   pickup_time: string;
   pickup_number: string | number;
   billing_name: string;

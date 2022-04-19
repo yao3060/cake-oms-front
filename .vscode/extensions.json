@@ -1,0 +1,15 @@
+{
+	"recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "mikestead.dotenv",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "liamhammett.inline-parameters",
+    "tabnine.tabnine-vscode",
+    "johnsoncodehk.volar",
+    "stylelint.vscode-stylelint",
+    "esbenp.prettier-vscode"
+  ]
+}

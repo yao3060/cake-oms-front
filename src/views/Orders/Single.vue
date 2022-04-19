@@ -27,6 +27,7 @@
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
         <nut-cell class="small-cell" title="下单人" :desc="order.creator.display_name" />
 
+        <nut-cell class="small-cell" title="取货方式" :desc="order.pickup_method" />
         <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
 
         <nut-cell-group title="取货人" desc="edit">
@@ -38,7 +39,9 @@
               size="mini"
               type="primary"
               @click="() => showPopup = !showPopup"
-            >编辑/识别</nut-button>
+            >
+              编辑/识别
+            </nut-button>
           </template>
         </nut-cell-group>
 
@@ -52,7 +55,9 @@
               size="mini"
               type="primary"
               @click="() => showNotePopup = !showNotePopup"
-            >编辑</nut-button>
+            >
+              编辑
+            </nut-button>
           </template>
         </nut-cell-group>
         <nut-divider />
@@ -76,12 +81,9 @@
           <nut-textarea v-model="contact" placeholder="例如：上海市徐汇区龙吴路2588弄75号802 姚迎迎 13524237599" />
         </div>
         <div v-if="Object.keys(contactObject).length" class="contact-object">
-          <nut-cell
-            v-for="(item, index) in contactObject"
-            :key="index"
-            :title="labels[index]"
-            :desc="item"
-          />
+          <nut-cell v-for="(item, index) in contactObject" :key="index" :data-label="item">
+            <nut-input v-model="contactObject[index]" :label="labels[index]" style="padding:10px 0;" />
+          </nut-cell>
         </div>
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
@@ -95,7 +97,9 @@
                 block
                 type="success"
                 @click="updateOrderShippingInfo"
-              >更新</nut-button>
+              >
+                更新
+              </nut-button>
             </nut-col>
           </nut-row>
         </div>
@@ -149,6 +153,15 @@ export default defineComponent({
       state.loading = true
       const response = await getSingleOrder(orderId)
       Object.assign(order, response)
+
+      state.contactObject.shipping_name = order.shipping_name
+      state.contactObject.shipping_phone = order.shipping_phone
+      state.contactObject.shipping_address = order.shipping_address
+
+      if (order.shipping_name && order.shipping_phone && order.shipping_phone) {
+        state.canSubmitShippingInfo = false
+      }
+
       state.loading = false
     })
 
@@ -231,6 +244,10 @@ export default defineComponent({
 }
 
 .contact-object {
+
+  .nut-input .input-text {
+    padding: 0;
+  }
   .nut-cell {
     margin: 0;
     padding: 5px 20px;
@@ -243,4 +260,6 @@ export default defineComponent({
     }
   }
 }
+
+
 </style>
