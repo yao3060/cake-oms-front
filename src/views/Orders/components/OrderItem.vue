@@ -2,7 +2,7 @@
   <nut-cell-group>
     <nut-cell
       class="store-name"
-      :title="`${order.shipping_name}: ${order.shipping_phone}`"
+      :title="itemTitle()"
       :to="`/orders/${order.id}`"
     >
       <template #link>
@@ -19,7 +19,9 @@
           size="mini"
           shape="square"
           :type="formatOrderStatus(order.order_status).type"
-        >{{ formatOrderStatus(order.order_status).label }}</nut-button>
+        >
+          {{ formatOrderStatus(order.order_status).label }}
+        </nut-button>
       </template>
     </nut-cell>
     <!-- <nut-cell class="small-cell" title="订单号" :desc="order.order_number" /> -->
@@ -46,7 +48,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
 
     const formatOrderStatus = (status: OrderStatusKey | 'trash') => {
       if (status !== 'trash' && in_array(status, OrderStatusKeyArr)) {
@@ -59,7 +61,15 @@ export default defineComponent({
       }
     }
 
-    return { formatOrderStatus }
+    const itemTitle = () => {
+      let title = `${props.order.shipping_name}: ${props.order.shipping_phone}`
+      if( props.order.pickup_method) {
+        title += ` (${props.order.pickup_method})`
+      }
+      return title
+    }
+
+    return { formatOrderStatus, itemTitle }
   }
 })
 </script>
