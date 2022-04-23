@@ -9,7 +9,7 @@
       />
 
       <nut-cell-group>
-        <nut-cell class="store-name" :title="`${order.billing_name}: ${order.billing_phone}`">
+        <nut-cell class="store-name" :title="`${order.shipping_name}: ${order.shipping_phone}`">
           <template #link>
             <nut-price
               :price="order.total"
@@ -78,12 +78,20 @@
       </nut-popup>
       <nut-popup v-model:visible="showPopup" closeable :style="{ width: '100%' }">
         <div class="contact-info">
-          <nut-textarea v-model="contact" placeholder="例如：上海市徐汇区龙吴路2588弄75号802 姚迎迎 13524237599" />
+          <nut-textarea v-model="contact" placeholder="例如：上海市黄浦区南京东路20号 陈先生 13511111111" />
         </div>
         <div v-if="Object.keys(contactObject).length" class="contact-object">
-          <nut-cell v-for="(item, index) in contactObject" :key="index" :data-label="item">
-            <nut-input v-model="contactObject[index]" :label="labels[index]" style="padding:10px 0;" />
-          </nut-cell>
+          <nut-form>
+            <nut-form-item v-for="(item, index) in contactObject" :key="index" :label="labels[index]" :data-label="item">
+              <nut-textarea
+                v-if="index == 'shipping_address'"
+                v-model="contactObject[index]"
+                class="shipping_address"
+                style="height: 50px;"
+              />
+              <input v-else v-model="contactObject[index]" class="nut-input-text" type="text">
+            </nut-form-item>
+          </nut-form>
         </div>
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
@@ -244,6 +252,9 @@ export default defineComponent({
 }
 
 .contact-object {
+
+  .shipping_address {
+  }
 
   .nut-input .input-text {
     padding: 0;
