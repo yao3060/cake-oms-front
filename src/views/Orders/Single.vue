@@ -30,10 +30,16 @@
         <nut-cell class="small-cell" title="取货方式" :desc="order.pickup_method" />
         <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
 
-        <nut-cell-group title="取货人" desc="edit">
+        <!-- 只有下单人可以编辑联系方式 -->
+        <nut-cell-group
+          v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
+          title="取货人"
+          desc="edit"
+        >
           <nut-cell class="small-cell" title="收货人" :desc="contactInfo('shipping', order)" />
           <nut-cell class="small-cell" title="地址" :desc="order.shipping_address" />
-          <template #desc>
+          <!-- 确认后不可以再编辑 -->
+          <template v-if="order.order_status == 'unverified'" #desc>
             <nut-button
               :style="{ float: 'right', marginTop: '-30px', marginRight: '15px' }"
               size="mini"
@@ -82,7 +88,12 @@
         </div>
         <div v-if="Object.keys(contactObject).length" class="contact-object">
           <nut-form>
-            <nut-form-item v-for="(item, index) in contactObject" :key="index" :label="labels[index]" :data-label="item">
+            <nut-form-item
+              v-for="(item, index) in contactObject"
+              :key="index"
+              :label="labels[index]"
+              :data-label="item"
+            >
               <nut-textarea
                 v-if="index == 'shipping_address'"
                 v-model="contactObject[index]"

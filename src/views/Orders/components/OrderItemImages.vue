@@ -1,17 +1,17 @@
 <template>
   <div class="OrderItemImages">
     <nut-uploader
+      v-model:file-list="itemGallery"
       :url="uploadUrl"
       :headers="uploadHeaders"
       :data="{ product_id: itemId, action: 'add_gallery_image' }"
-      v-model:file-list="itemGallery"
       xhr-state="201"
       maximum="4"
       multiple
       @success="onSuccess"
       @delete="onDelete"
       @file-item-click="onItemClick"
-    ></nut-uploader>
+    />
   </div>
 </template>
 

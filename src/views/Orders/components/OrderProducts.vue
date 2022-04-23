@@ -19,7 +19,9 @@
           <router-link
             class="order-item-name"
             :to="`/orders/${orderId}/items/${item.id}`"
-          >{{ item.product_name }}</router-link>
+          >
+            {{ item.product_name }}
+          </router-link>
         </nut-col>
         <nut-col :span="4">
           <nut-price :price="item.price" size="small" :need-symbol="true" :thousands="false" />
@@ -28,8 +30,16 @@
         <nut-col :span="4">
           <nut-price :price="item.total" size="small" :need-symbol="true" :thousands="false" />
         </nut-col>
-        <nut-col :span="24">
-          <OrderItemImages :order-id="orderId" :item-id="item.id" :images="item.images" />
+        <!-- 只有下单人可以上传图片 -->
+        <nut-col
+          v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
+          :span="24"
+        >
+          <OrderItemImages
+            :order-id="orderId"
+            :item-id="item.id"
+            :images="item.images"
+          />
         </nut-col>
       </nut-row>
     </nut-cell>

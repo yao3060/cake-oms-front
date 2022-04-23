@@ -1,15 +1,33 @@
 <template>
-  <nut-cell class="small-cell" title="裱花师" :desc="framerName"></nut-cell>
+  <nut-cell class="small-cell" title="裱花师" :desc="framerName" />
   <div class="order-operations">
-    <nut-button @click="trashIt" shape="square" type="primary">作废</nut-button>
-    <nut-button @click="printIt" shape="square" type="primary">打印</nut-button>
-    <!--    管理员和裱花管理员可以指派订单-->
+    <!-- 只有下单人可以废弃订单 -->
     <nut-button
-      v-permission="['administrator', 'framer-manager']"
-      @click="assignIt"
+      v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
       shape="square"
       type="primary"
-    >派单</nut-button>
+      @click="trashIt"
+    >
+      作废
+    </nut-button>
+    <!-- 只有裱花可以打印 -->
+    <nut-button
+      v-permission="['administrator', 'framer-manager', 'framer']"
+      shape="square"
+      type="primary"
+      @click="printIt"
+    >
+      打印
+    </nut-button>
+    <!-- 管理员和裱花管理员可以指派订单-->
+    <nut-button
+      v-permission="['administrator', 'framer-manager']"
+      shape="square"
+      type="primary"
+      @click="assignIt"
+    >
+      派单
+    </nut-button>
 
     <nut-actionsheet
       v-model:visible="isVisible"
