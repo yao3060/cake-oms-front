@@ -36,6 +36,7 @@ import { defineComponent, PropType } from 'vue'
 import Order from '@/types/Order'
 import { OrderStatus, OrderStatusKey, OrderStatusKeyArr } from '@/types/OrderStatus'
 import in_array from 'in_array'
+import { maskPhoneNumber } from '@/utils/functions'
 
 export default defineComponent({
   props: {
@@ -62,7 +63,12 @@ export default defineComponent({
     }
 
     const itemTitle = () => {
-      let title = `${props.order.shipping_name}: ${props.order.shipping_phone}`
+      let title = `${props.order.shipping_name}`
+      if(props.status === 'unverified') {
+        title += ':' + maskPhoneNumber(props.order.shipping_phone)
+      } else {
+        title += ':' + (props.order.shipping_phone)
+      }
       if( props.order.pickup_method) {
         title += ` (${props.order.pickup_method})`
       }

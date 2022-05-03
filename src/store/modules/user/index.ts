@@ -14,6 +14,7 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
     display_name: '',
     token: '',
     roles: [],
+    subordinates: [],
   },
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
@@ -22,20 +23,9 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
     SET_NICENAME: (state, payload) => state.nicename = payload,
     SET_DISPLAY_NAME: (state, payload) => state.display_name = payload,
     SET_ROLES: (state, payload) => state.roles = payload,
+    SET_SUBORDINATES: (state, payload) => state.subordinates = payload,
   },
   actions: {
-    async login({ commit }, LoginInfo: LoginInfo) {
-      const response = await login({
-        username: LoginInfo.username,
-        password: LoginInfo.password
-      })
-      commit('SET_TOKEN', response.token)
-      commit('SET_ID', response.id)
-      commit('SET_EMAIL', response.user_email)
-      commit('SET_NICENAME', response.user_nicename)
-      commit('SET_DISPLAY_NAME', response.user_display_name)
-      commit('SET_ROLES', response.roles)
-    },
     login2({ commit }, data: LoginInfo) {
       return new Promise((resolve, reject) => {
         login({
@@ -49,6 +39,7 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
           commit('SET_NICENAME', response.user_nicename)
           commit('SET_DISPLAY_NAME', response.user_display_name)
           commit('SET_ROLES', response.roles)
+          commit('SET_SUBORDINATES', response.subordinates) //subordinates
           setToken(response.token)
           resolve(response)
         }).catch((error: any) => reject(error))
@@ -65,6 +56,7 @@ const userModule: Module<UserModuleTypes, RootStateTypes> = {
           commit('SET_NICENAME', response.nickname)
           commit('SET_DISPLAY_NAME', response.nickname)
           commit('SET_ROLES', response.roles)
+          commit('SET_SUBORDINATES', response.subordinates) //subordinates
           resolve(response)
         }).catch((error: any) => reject(error))
       })

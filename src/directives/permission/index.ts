@@ -20,7 +20,7 @@ function checkPermission(el: HTMLElement, binding: DirectiveBinding, hook: strin
         return permissionRoles.includes(role)
       })
 
-      console.log('hasPermission', hasPermission, hook, el, el.parentElement)
+      // console.log('hasPermission', hasPermission, hook, el, el.parentElement)
       if (!hasPermission) {
         el.parentNode && el.parentNode.removeChild(el)
       }

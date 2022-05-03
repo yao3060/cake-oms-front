@@ -30,11 +30,7 @@
         <nut-col :span="4">
           <nut-price :price="item.total" size="small" :need-symbol="true" :thousands="false" />
         </nut-col>
-        <!-- 只有下单人可以上传图片 -->
-        <nut-col
-          v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
-          :span="24"
-        >
+        <nut-col :span="24">
           <OrderItemImages
             :order-id="orderId"
             :item-id="item.id"

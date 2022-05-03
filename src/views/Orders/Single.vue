@@ -27,7 +27,8 @@
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
         <nut-cell class="small-cell" title="下单人" :desc="order.creator.display_name" />
 
-        <nut-cell class="small-cell" title="取货方式" :desc="order.pickup_method" />
+        <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
+
         <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
 
         <!-- 只有下单人可以编辑联系方式 -->
@@ -70,6 +71,7 @@
         <OrderProducts :items="order.items" />
       </nut-cell-group>
       <nut-divider />
+
       <OrderOperations :order-id="order.id" :framer="order.framer" />
 
       <nut-popup v-model:visible="showNotePopup" closeable :style="{ width: '100%' }">
@@ -134,6 +136,7 @@ import { getSingleOrder, updateSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
 import OrderOperations from './components/OrderOperations.vue'
+import PickupMethod from './components/PickupMethod.vue'
 import { OrderStatusKey } from '@/types/OrderStatus'
 import Order from '@/types/Order'
 import smart from 'address-smart-parse'
@@ -141,7 +144,7 @@ import smart from 'address-smart-parse'
 export default defineComponent({
   name: 'SingleOrder',
   components: {
-    OrderProducts, OrderStatusComponent, OrderOperations
+    OrderProducts, OrderStatusComponent, OrderOperations, PickupMethod,
   },
   setup() {
     const app = getCurrentInstance()

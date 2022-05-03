@@ -5,4 +5,5 @@ export default interface UserModuleTypes {
   nicename: string,
   display_name: string,
   roles: Array<string>,
+  subordinates: Array<number|undefined>,
 }

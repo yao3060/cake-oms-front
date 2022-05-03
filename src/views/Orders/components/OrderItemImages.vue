@@ -1,5 +1,6 @@
 <template>
   <div class="OrderItemImages">
+    <!-- 只有下单人可以上传图片 v-permission="['employee', 'customer-service', 'store-manager', 'administrator']" -->
     <nut-uploader
       v-model:file-list="itemGallery"
       :url="uploadUrl"
