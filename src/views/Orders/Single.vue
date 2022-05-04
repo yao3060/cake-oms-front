@@ -28,8 +28,7 @@
         <nut-cell class="small-cell" title="下单人" :desc="order.creator.display_name" />
 
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
-
-        <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
+        <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
 
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
@@ -137,6 +136,8 @@ import OrderProducts from './components/OrderProducts.vue'
 import OrderStatusComponent from './components/OrderStatus.vue'
 import OrderOperations from './components/OrderOperations.vue'
 import PickupMethod from './components/PickupMethod.vue'
+import PickupTime from './components/PickupTime.vue'
+
 import { OrderStatusKey } from '@/types/OrderStatus'
 import Order from '@/types/Order'
 import smart from 'address-smart-parse'
@@ -144,7 +145,7 @@ import smart from 'address-smart-parse'
 export default defineComponent({
   name: 'SingleOrder',
   components: {
-    OrderProducts, OrderStatusComponent, OrderOperations, PickupMethod,
+    OrderProducts, OrderStatusComponent, OrderOperations, PickupMethod, PickupTime,
   },
   setup() {
     const app = getCurrentInstance()

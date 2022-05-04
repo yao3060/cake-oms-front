@@ -1,0 +1,83 @@
+<template>
+  <nut-cell class="small-cell" title="取货时间" :desc="pickupTime" :is-link="isEditable" @click="openForm" />
+  <nut-datepicker
+    v-model="currentDate"
+    v-model:visible="isVisible"
+    :min-date="minDate"
+    title="时间选择"
+    type="datehour"
+    :is-show-chinese="true"
+    @confirm="update"
+  />
+</template>
+
+<script lang="ts">
+import { defineComponent, getCurrentInstance, PropType, reactive, toRefs, onMounted } from 'vue'
+import { Creator } from '@/types/Order'
+import { isAdministrator, isMySubordinate, getCurrentUser } from '@/utils/functions'
+import { updateSingleOrder } from "@/api/orders"
+
+export default defineComponent({
+  name: 'PickupTime',
+
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    creator: {
+      type: Object as PropType<Creator>,
+      required: true
+    },
+    value: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+
+    const app = getCurrentInstance()
+    const state = reactive({
+      isVisible: false,
+      isEditable: false,
+      currentDate: new Date(),
+      minDate: new Date(),
+      pickupTime: props.value
+    })
+
+    onMounted(() => {
+      let currentUser = getCurrentUser()
+      console.log('PickupTime currentUser', currentUser)
+
+      // 只有管理员和自己能修改自己的订单
+      if (isAdministrator(currentUser) || isMySubordinate(currentUser, props.creator.id) || currentUser.id == props.creator.id) {
+        state.isEditable = true
+      }
+    })
+
+    const openForm = () => {
+      state.isVisible = !state.isVisible
+    }
+
+    const updateOrderPickupTime = async (orderId: number, value: string) => {
+      const response = await updateSingleOrder(orderId, { pickup_time: value })
+      console.log('updateOrderPickupTime:', response)
+    }
+
+    const update = (selected: Array<string>) => {
+      const toast = app?.appContext.config.globalProperties.$toast.loading('加载中');
+      console.log(typeof selected)
+      state.pickupTime = selected.join('')
+
+      updateOrderPickupTime(props.id, state.pickupTime)
+
+      toast.hide();
+    }
+
+    return { ...toRefs(state), openForm, update }
+  }
+})
+</script>
+
+<style scoped>
+</style>

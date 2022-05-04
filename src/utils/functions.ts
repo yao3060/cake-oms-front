@@ -1,5 +1,6 @@
 import UserModuleTypes from '@/store/modules/user/interface'
 import in_array from 'in_array'
+import { useStore } from '@/store'
 
 export function isErrorResponse(response: any): boolean {
   return typeof response.status !== undefined && response.status >= 400
@@ -35,4 +36,10 @@ export function isMySubordinate(user: UserModuleTypes, userId: number): boolean 
     return true;
   }
   return false;
+}
+
+
+export const getCurrentUser = (): UserModuleTypes => {
+  const store = useStore()
+  return store.state.userModule
 }

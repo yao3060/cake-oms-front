@@ -12,8 +12,7 @@
 import { defineComponent, getCurrentInstance, reactive, toRefs, PropType, onMounted } from 'vue'
 import { updateSingleOrder } from "@/api/orders"
 import { Creator } from '@/types/Order'
-import { useStore } from '@/store'
-import { isAdministrator, isMySubordinate } from '@/utils/functions'
+import { getCurrentUser, isAdministrator, isMySubordinate } from '@/utils/functions'
 
 interface Method {
   name: string;
@@ -39,7 +38,6 @@ export default defineComponent({
 
   setup(props) {
     const app = getCurrentInstance()
-    const store = useStore()
     const state = reactive({
       isVisible: false,
       isEditable: false,
@@ -65,10 +63,6 @@ export default defineComponent({
         state.isEditable = true
       }
     })
-
-    const getCurrentUser = () => {
-      return store.state.userModule
-    }
 
     const switchActionSheet = () => {
       state.isVisible = !state.isVisible
