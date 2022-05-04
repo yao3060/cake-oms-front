@@ -13,7 +13,7 @@ import { defineComponent, getCurrentInstance, reactive, toRefs, PropType, onMoun
 import { updateSingleOrder } from "@/api/orders"
 import { Creator } from '@/types/Order'
 import { useStore } from '@/store'
-import { isAdministrator } from '@/utils/functions'
+import { isAdministrator, isMySubordinate } from '@/utils/functions'
 
 interface Method {
   name: string;
@@ -59,9 +59,9 @@ export default defineComponent({
 
     onMounted(()=>{
       let currentUser =  getCurrentUser()
-      console.log('currentUser',currentUser)
+
       // 只有管理员和自己能修改自己的订单
-      if(isAdministrator(currentUser) || currentUser.id == props.creator.id ) {
+      if(isAdministrator(currentUser) || isMySubordinate(currentUser, props.creator.id ) || currentUser.id == props.creator.id ) {
         state.isEditable = true
       }
     })
