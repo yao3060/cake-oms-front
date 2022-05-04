@@ -67,7 +67,7 @@
           </template>
         </nut-cell-group>
         <nut-divider />
-        <OrderProducts :items="order.items" />
+        <OrderProducts :items="order.items" :creator="order.creator" />
       </nut-cell-group>
       <nut-divider />
 

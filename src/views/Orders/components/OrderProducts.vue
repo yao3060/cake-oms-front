@@ -37,6 +37,9 @@
             :images="item.images"
           />
         </nut-col>
+        <nut-col :span="24">
+          <OrderItemNote :item="item" :creator="creator" />
+        </nut-col>
       </nut-row>
     </nut-cell>
   </nut-cell-group>
@@ -45,30 +48,13 @@
 <script lang="ts">
 import { defineComponent, watchEffect, PropType, reactive, toRefs } from 'vue'
 import { getToken } from '@/utils/auth'
-import { useRoute } from 'vue-router';
-import { deleteOrderProductFeaturedImage } from '@/api/products';
-import OrderItemImages from "./OrderItemImages.vue";
-import OrderItemImage from "@/types/OrderItemImage";
+import { useRoute } from 'vue-router'
+import OrderItemImages from "./OrderItemImages.vue"
+import OrderItemNote from "./items/Note.vue"
+import OrderItem from "@/types/OrderItem"
+import FileItem from "@/types/FileItem"
+import { Creator } from '@/types/Order'
 
-interface OrderItem {
-  id: number;
-  media_id: number | string;
-  media_url: string;
-  product_name: string;
-  images: OrderItemImage[];
-  quantity: number | string;
-  price: string;
-  total: string;
-}
-
-interface FileItem {
-  id: number,
-  name: string,
-  url: string,
-  type: string,
-  status?: string,
-  message?: string,
-}
 // type uploadedMediaType
 interface uploadedMediaType {
   [key: string]: FileItem[]
@@ -76,8 +62,12 @@ interface uploadedMediaType {
 
 export default defineComponent({
   name: 'OrderProducts',
-  components: { OrderItemImages },
+  components: { OrderItemImages, OrderItemNote },
   props: {
+    creator: {
+      type: Object as PropType<Creator>,
+      required: true
+    },
     items: {
       type: Array as PropType<OrderItem[]>,
       required: true
@@ -115,13 +105,6 @@ export default defineComponent({
       fileItem.url = response.source_url
     }
 
-    const onDelete = async (file: FileItem, fileList: FileItem[]) => {
-      console.log('delete 事件触发', file, fileList);
-      uploadedMedias[file.id] = []
-      // delete item featured image by item id
-      await deleteOrderProductFeaturedImage(file.id)
-    }
-
     const onItemClick = ({ fileItem }: any) => {
       console.log('onItemClick', fileItem)
       const { url } = fileItem
@@ -155,7 +138,6 @@ export default defineComponent({
       uploadUrl,
       uploadHeaders,
       onSuccess,
-      onDelete,
       onItemClick,
       tableTitle,
       ...toRefs(imagePreviewData),

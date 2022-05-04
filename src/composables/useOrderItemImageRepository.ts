@@ -1,17 +1,13 @@
-import {ref, reactive, getCurrentInstance, onMounted, toRefs} from 'vue'
+import { ref, reactive, getCurrentInstance, onMounted, toRefs } from 'vue'
 import OrderItem from "@/types/OrderItem";
 import imgData from "@/types/imgData";
-import {getToken} from "@/utils/auth";
+import { getToken } from "@/utils/auth";
 import FileItem from "@/types/FileItem";
-import {deleteOrderProductGalleryImage} from "@/api/products";
+import { deleteOrderProductGalleryImage } from "@/api/products";
 import OrderItemImage from "@/types/OrderItemImage";
 import { ImagePreview } from '@nutui/nutui';
 
-export default function useOrderItemImageRepository(
-  orderId: number,
-  itemId: number,
-  images: OrderItemImage[]
-) {
+export default function useOrderItemImageRepository(orderId: number, itemId: number, images: OrderItemImage[]): any {
   const app = getCurrentInstance()
 
   const uploadUrl = process.env.VUE_APP_BASE_API + "/wp/v2/media";
@@ -72,7 +68,11 @@ export default function useOrderItemImageRepository(
 
   return {
     ...toRefs(state),
-    uploadUrl, uploadHeaders, placeholder: require('@/assets/placeholder.png'),
-    onItemClick, onSuccess, onDelete
+    uploadUrl,
+    uploadHeaders,
+    placeholder: require('@/assets/placeholder.png'),
+    onItemClick,
+    onSuccess,
+    onDelete
   }
 }

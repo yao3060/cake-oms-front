@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { AxiosPromise } from 'axios'
 
 export function getOrderProducts(orderId: number): any {
   return request({
@@ -11,6 +12,15 @@ export function getOrderProduct(itemId: number, orderId: number): any {
   return request({
     url: `/oms/v1/orders/${orderId}/items/${itemId}`,
     method: 'get',
+  })
+}
+
+// Update Order Item
+export function updateOrderProduct(itemId: number, data: Record<string, unknown>): AxiosPromise {
+  return request({
+    url: `/oms/v1/order-items/${itemId}`,
+    method: 'post',
+    data
   })
 }
 
