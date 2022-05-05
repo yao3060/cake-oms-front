@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import LoginInfo from '@/types/LoginInfo'
 import { AxiosPromise } from 'axios'
 
-export function login(data: LoginInfo): any {
+export function login(data: LoginInfo): AxiosPromise {
   return request({
     url: '/jwt-auth/v1/token',
     method: 'post',
@@ -20,7 +20,7 @@ export function me(): any {
   })
 }
 
-export function getMembers(params: Record<string, string | number>): any {
+export function getMembers(params: Record<string, string | number>): AxiosPromise {
   return request({
     url: '/oms/v1/members',
     method: 'get',
@@ -29,7 +29,7 @@ export function getMembers(params: Record<string, string | number>): any {
 }
 
 
-export  function  getFramers() {
+export  function  getFramers(): AxiosPromise {
   return request({
     url: '/wp/v2/users',
     method: 'get',

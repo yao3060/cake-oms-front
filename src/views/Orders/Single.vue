@@ -25,8 +25,8 @@
         <nut-cell class="small-cell" title="订单时间" :desc="order.created_at" />
         <nut-cell class="small-cell" title="订单来源" :desc="order.order_type" />
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
-        <nut-cell class="small-cell" title="下单人" :desc="order.creator.display_name" />
 
+        <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
 
@@ -129,7 +129,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, onMounted, toRefs, reactive } from 'vue'
+import { defineComponent, onMounted, toRefs, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSingleOrder, updateSingleOrder } from '@/api/orders'
 import OrderProducts from './components/OrderProducts.vue'
@@ -137,6 +137,7 @@ import OrderStatusComponent from './components/OrderStatus.vue'
 import OrderOperations from './components/OrderOperations.vue'
 import PickupMethod from './components/PickupMethod.vue'
 import PickupTime from './components/PickupTime.vue'
+import Creator from './components/Creator.vue'
 
 import { OrderStatusKey } from '@/types/OrderStatus'
 import Order from '@/types/Order'
@@ -145,10 +146,14 @@ import smart from 'address-smart-parse'
 export default defineComponent({
   name: 'SingleOrder',
   components: {
-    OrderProducts, OrderStatusComponent, OrderOperations, PickupMethod, PickupTime,
-  },
+    OrderProducts,
+    OrderStatusComponent,
+    OrderOperations,
+    PickupMethod,
+    PickupTime,
+    Creator
+},
   setup() {
-    const app = getCurrentInstance()
 
     const route = useRoute()
     const orderId = +route.params.orderId

@@ -7,16 +7,23 @@ export type Creator = {
   display_name: string;
 }
 
+export type FramerUser = {
+  id: number;
+  username: string;
+  display_name: string;
+}
+
 interface Order {
   id: number;
   order_number: string | number;
+  store_id: string;
   store_name: string;
   order_type: orderType;
   order_status: OrderStatusKey;
   created_at: string;
   payment_method: string;
   items: Array<any>;
-  framer: string | number;
+  framer: FramerUser;
   total: string;
   pickup_method: string;
   pickup_time: string;
