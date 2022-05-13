@@ -36,7 +36,7 @@ import { defineComponent, PropType } from 'vue'
 import Order from '@/types/Order'
 import { OrderStatus, OrderStatusKey, OrderStatusKeyArr } from '@/types/OrderStatus'
 import in_array from 'in_array'
-import { maskPhoneNumber } from '@/utils/functions'
+import { getCurrentUser, isFramer, maskPhoneNumber } from '@/utils/functions'
 
 export default defineComponent({
   props: {
@@ -64,7 +64,7 @@ export default defineComponent({
 
     const itemTitle = () => {
       let title = `${props.order.shipping_name}`
-      if(props.status === 'unverified') {
+      if(props.status === 'unverified' || isFramer(getCurrentUser())) {
         title += ':' + maskPhoneNumber(props.order.shipping_phone)
       } else {
         title += ':' + (props.order.shipping_phone)

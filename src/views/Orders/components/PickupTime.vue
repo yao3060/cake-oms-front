@@ -31,11 +31,11 @@ export default defineComponent({
     },
     value: {
       type: String,
-      required: true,
+      required: false,
+      default: ""
     },
   },
   setup(props) {
-
     const app = getCurrentInstance()
     const state = reactive({
       isVisible: false,
@@ -56,7 +56,11 @@ export default defineComponent({
     })
 
     const openForm = () => {
-      state.isVisible = !state.isVisible
+      if(state.isEditable){
+        state.isVisible = !state.isVisible
+      } else {
+        console.log('not editable')
+      }
     }
 
     const updateOrderPickupTime = async (orderId: number, value: string) => {

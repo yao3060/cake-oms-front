@@ -21,7 +21,7 @@
     </nut-button>
     <!-- 管理员和裱花管理员可以指派订单-->
     <nut-button
-      v-permission="['administrator', 'framer-manager']"
+      v-permission="['administrator', 'framer-manager', 'framer']"
       shape="square"
       type="primary"
       @click="assignIt"

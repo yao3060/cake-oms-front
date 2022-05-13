@@ -9,13 +9,13 @@
         :total-items="total"
         :items-per-page="query.per_page"
         mode="simple"
-        @change="pageChange"
         style="padding: 0 16px 50px"
+        @change="pageChange"
       />
     </div>
   </div>
   <div v-else class="not-found">
-    <nut-empty v-if="!loading" description="没有订单"></nut-empty>
+    <nut-empty v-if="!loading" description="没有订单" />
   </div>
 </template>
 
@@ -29,6 +29,11 @@ import SearchBar from "./SearchBar.vue";
 export default defineComponent({
   name: "OrderList",
 
+  components: {
+    OrderItem,
+    SearchBar,
+  },
+
   props: {
     status: {
       type: String,
@@ -38,12 +43,6 @@ export default defineComponent({
       type: String,
       required: true,
     },
-
-  },
-
-  components: {
-    OrderItem,
-    SearchBar,
   },
 
   setup(props) {

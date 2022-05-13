@@ -4,6 +4,7 @@ export type orderType = '预约' | '小程序外卖'
 
 export type Creator = {
   id: number;
+  username: string;
   display_name: string;
 }
 

@@ -9,7 +9,7 @@ export function getOrders(params: any): any {
   })
 }
 
-export function getSingleOrder(orderId: number): AxiosPromise {
+export function getSingleOrder(orderId: number): any {
   return request({
     url: `/oms/v1/orders/${orderId}`,
     method: 'get',

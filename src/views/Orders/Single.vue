@@ -157,7 +157,7 @@ export default defineComponent({
 
     const route = useRoute()
     const orderId = +route.params.orderId
-    const order = reactive({ id: 0 }) as Order
+    // const order = reactive({ id: 0 }) as Order
     const labels = {
       shipping_name: '姓名：',
       shipping_phone: '手机号码：',
@@ -174,19 +174,21 @@ export default defineComponent({
         shipping_phone: string;
         shipping_address: string;
       },
-      canSubmitShippingInfo: true
+      canSubmitShippingInfo: true,
+      order: {} as Order
     })
 
     onMounted(async () => {
       state.loading = true
       const response = await getSingleOrder(orderId)
-      Object.assign(order, response)
+      console.log('getSingleOrder', response)
+      Object.assign(state.order, response)
 
-      state.contactObject.shipping_name = order.shipping_name
-      state.contactObject.shipping_phone = order.shipping_phone
-      state.contactObject.shipping_address = order.shipping_address
+      state.contactObject.shipping_name = response.shipping_name
+      state.contactObject.shipping_phone = response.shipping_phone
+      state.contactObject.shipping_address = response.shipping_address
 
-      if (order.shipping_name && order.shipping_phone && order.shipping_phone) {
+      if (response.shipping_name && response.shipping_phone && response.shipping_phone) {
         state.canSubmitShippingInfo = false
       }
 
@@ -195,7 +197,7 @@ export default defineComponent({
 
     const updateStatus = (index: number, key: OrderStatusKey) => {
       console.log('update status', index, key)
-      order.order_status = key
+      state.order.order_status = key
     }
 
     const contactInfo = (type: string, order: Order) => {
@@ -223,14 +225,14 @@ export default defineComponent({
       state.loading = true
       const response = await updateSingleOrder(orderId, state.contactObject)
       console.log(response)
-      Object.assign(order, state.contactObject)
+      Object.assign(state.order, state.contactObject)
       state.loading = false
       state.showPopup = false
     }
 
     const updateOrderNote = async () => {
       state.loading = true
-      const response = await updateSingleOrder(orderId, { note: order.note })
+      const response = await updateSingleOrder(orderId, { note: state.order.note })
       console.log(response)
       state.loading = false
       state.showNotePopup = false
@@ -239,7 +241,6 @@ export default defineComponent({
     return {
       ...toRefs(state),
       labels,
-      order,
       updateStatus,
       contactInfo,
       analysisAddress,

@@ -65,7 +65,11 @@ export default defineComponent({
     })
 
     const switchActionSheet = () => {
-      state.isVisible = !state.isVisible
+      if(state.isEditable){
+        state.isVisible = !state.isVisible
+      } else {
+        console.log('not editable')
+      }
     }
 
     const updateOrderPickupMethod = async(orderId: number, method: string) => {

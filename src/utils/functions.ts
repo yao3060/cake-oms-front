@@ -15,9 +15,10 @@ export function maskPhoneNumber(number: string | null): string {
   if (number.length < 11) {
     return number
   }
+
   const data = number.match(/(\d{3})(\d{4})(\d{4})/)
   if (data) {
-    return `${data[1] || ''}****${data[3]}`
+    return `${data[1]}****${data[3]}`
   }
   return number;
 }
@@ -27,6 +28,14 @@ export function isAdministrator(user: UserModuleTypes): boolean {
   if(in_array('administrator', user.roles)) {
     return true;
   }
+  return false;
+}
+
+export function isFramer(user: UserModuleTypes): boolean {
+  if(in_array('framer', user.roles) || in_array('framer-manager', user.roles)) {
+    return true;
+  }
+
   return false;
 }
 

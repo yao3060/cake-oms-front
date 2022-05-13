@@ -62,8 +62,13 @@ export default defineComponent({
     }
 
     const switchActionSheet = () => {
-      state.isVisible = !state.isVisible
-      getCreators()
+
+      if(state.isEditable){
+        state.isVisible = !state.isVisible
+        getCreators()
+      } else {
+        console.log('not editable')
+      }
     }
 
      const chooseItem = async(item: menuItem) => {
