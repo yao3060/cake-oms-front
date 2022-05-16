@@ -19,6 +19,7 @@ import { defineComponent, ref, onMounted } from "vue";
 import OrderList from "./components/OrderList.vue";
 import { OrderStatus } from "@/types/OrderStatus";
 import { useStore } from "@/store";
+import { isFramer, getCurrentUser } from "@/utils/functions";
 
 export default defineComponent({
   name: "OrdersIndex",
@@ -26,14 +27,20 @@ export default defineComponent({
     OrderList,
   },
   setup() {
-    const tabValue = ref('pending')
+    const tabValue = ref('unverified')
     const store = useStore()
 
     onMounted(() => {
       const storeTab = store.state.ordersTab
+      console.log('storeTab', storeTab)
       if (storeTab !== tabValue.value) {
-        tabValue.value = storeTab
+          tabValue.value = storeTab
       }
+
+      if(isFramer(getCurrentUser())) {
+          tabValue.value = 'verified'
+      }
+
     })
 
     const onChange = ({ title, paneKey }: any) => {
