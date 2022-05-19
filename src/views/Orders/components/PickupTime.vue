@@ -2,7 +2,7 @@
   <nut-cell class="small-cell" title="取货时间" :desc="pickupTime" :is-link="isEditable" @click="openForm" />
   <nut-datepicker
     v-model="currentDate"
-    v-close:visible="isVisible"
+    v-model:visible="isVisible"
     :min-date="minDate"
     title="时间选择"
     type="datetime"
