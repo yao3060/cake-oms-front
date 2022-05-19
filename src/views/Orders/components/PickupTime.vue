@@ -3,9 +3,9 @@
   <nut-datepicker
     v-model="currentDate"
     v-close:visible="isVisible"
+    :min-date="minDate"
     title="时间选择"
     type="datetime"
-    :min-date="minDate"
     :is-show-chinese="true"
     :minute-step="15"
     @confirm="update"
