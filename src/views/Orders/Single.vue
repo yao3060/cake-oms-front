@@ -78,14 +78,14 @@
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
             <nut-col :span="12" :offset="12">
-              <nut-button :loading="loading" block type="success" @click="updateOrderNote">更新</nut-button>
+              <nut-button :loading="loading" block type="success" @click="updateOrderNote">保存</nut-button>
             </nut-col>
           </nut-row>
         </div>
       </nut-popup>
       <nut-popup v-model:visible="showPopup" closeable :style="{ width: '100%' }">
         <div class="contact-info">
-          <nut-textarea v-model="contact" placeholder="例如：上海市黄浦区南京东路20号 陈先生 13511111111" />
+          <nut-textarea v-model="contact" placeholder="例如：上海市黄浦区南京东路20号，陈先生，13511111111" />
         </div>
         <div v-if="Object.keys(contactObject).length" class="contact-object">
           <nut-form>
@@ -108,7 +108,7 @@
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
             <nut-col :span="12">
-              <nut-button block type="primary" @click="analysisAddress">提取信息</nut-button>
+              <nut-button block type="primary" @click="analysisAddress">智能识别</nut-button>
             </nut-col>
             <nut-col :span="12">
               <nut-button
@@ -118,7 +118,7 @@
                 type="success"
                 @click="updateOrderShippingInfo"
               >
-                更新
+                保存
               </nut-button>
             </nut-col>
           </nut-row>
