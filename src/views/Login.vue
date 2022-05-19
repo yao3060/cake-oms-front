@@ -5,7 +5,7 @@
       <div class="shape" />
     </div>
     <div class="login-form">
-      <h1 class="title">订单管理系统v2.0</h1>
+      <h1 class="title">订单管理系统 v2.0</h1>
       <h3 class="title">{{ store.state.test }}</h3>
       <nut-form ref="ruleForm" :model-value="formData">
         <nut-form-item
