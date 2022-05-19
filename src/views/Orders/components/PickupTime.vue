@@ -8,7 +8,7 @@
     type="datetime"
     startHour="8"
     endHour="22"
-    :is-show-chinese="false"
+    :is-show-chinese="true"
     :minute-step="15"
     @confirm="update"
   />
