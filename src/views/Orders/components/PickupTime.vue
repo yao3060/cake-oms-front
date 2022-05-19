@@ -41,8 +41,8 @@ export default defineComponent({
     const state = reactive({
       isVisible: false,
       isEditable: false,
-      currentDate: new Date().format('YYYY-MM-DD HH:mm'),
-      minDate: new Date().format('YYYY-MM-DD HH:mm'),
+      currentDate: moment(new Date()).format('YYYY-MM-DD HH:mm'),
+      minDate: moment(new Date()).format('YYYY-MM-DD HH:mm'),
       pickupTime: props.value
     })
 
