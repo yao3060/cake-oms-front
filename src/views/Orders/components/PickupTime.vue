@@ -8,6 +8,7 @@
     type="datetime"
     startHour="8"
     endHour="22"
+    defaultValue="2022-05-21 08:00"
     :is-show-chinese="true"
     :minute-step="15"
     @confirm="update"
