@@ -6,7 +6,7 @@
     :min-date="minDate"
     title="时间选择"
     type="datetime"
-    startHour="8" //限制开始小时
+    startHour="8" <!-- 限制开始小时  -->
     endHour="22" //限制结束小时
     :is-show-chinese="false" //不显示中文
     :minute-step="15" //分钟数递增步长设置
