@@ -13,7 +13,7 @@
       </nut-form-item>
     </nut-form>
     <nut-cell>
-      <nut-button :loading="loading" block type="success" @click="updateNote">更新</nut-button>
+      <nut-button :loading="loading" block type="success" @click="updateNote">保存</nut-button>
     </nut-cell>
   </nut-popup>
 </template>
