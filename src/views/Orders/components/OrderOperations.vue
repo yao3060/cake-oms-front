@@ -95,7 +95,6 @@ export default defineComponent({
             status: 'trash'
           })
           toast.hide();
-          this.$router.go(-1);
         },
       })
     }
