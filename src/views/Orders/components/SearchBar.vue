@@ -6,7 +6,7 @@
     input-background="#fff"
     @search="search"
   >
-    <template v-slot:rightout>刷新</template>
+    <template v-slot:rightout>查询</template>
   </nut-searchbar>
 </template>
 
