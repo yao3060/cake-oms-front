@@ -35,6 +35,7 @@
             type="primary"
             size="normal"
             style="margin:0 10px 0 90px"
+            @keyup.enter="submit"
             @click="submit"
           >{{ labels.submit }}</nut-button>
           <nut-button size="normal" @click="reset">{{ labels.reset }}</nut-button>
