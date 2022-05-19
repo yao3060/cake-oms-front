@@ -14,7 +14,7 @@
           required
           :rules="[{ required: true, message: '请填写用户名' }]"
         >
-          <input v-model="formData.username" class="nut-input-text" placeholder="Enter You Name" type="text" />
+          <input v-model="formData.username" class="nut-input-text" placeholder="Enter You U" type="text" />
         </nut-form-item>
         <nut-form-item
           label="密码"
