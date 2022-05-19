@@ -5,7 +5,7 @@
     v-model:visible="isVisible"
     :min-date="minDate"
     title="时间选择"
-    type="datehour"
+    type="datetime"
     :is-show-chinese="true"
     @confirm="update"
   />
