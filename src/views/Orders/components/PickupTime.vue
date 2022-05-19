@@ -6,10 +6,7 @@
     :min-date="minDate"
     title="时间选择"
     type="datetime"
-    startHour="8"
-    endHour="22"
-    defaultValue="2022-05-21 08:00"
-    :is-show-chinese="true"
+     :is-show-chinese="true"
     :minute-step="15"
     @confirm="update"
   />
@@ -44,8 +41,8 @@ export default defineComponent({
     const state = reactive({
       isVisible: false,
       isEditable: false,
-      currentDate: new Date(),
-      minDate: new Date(),
+      currentDate: new Date().format('YYYY-MM-DD HH:mm'),
+      minDate: new Date().format('YYYY-MM-DD HH:mm'),
       pickupTime: props.value
     })
 
