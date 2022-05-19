@@ -6,7 +6,7 @@
     :min-date="minDate"
     title="时间选择"
     type="datetime"
-    :is-show-chinese="true"
+    :is-show-chinese="false"
     @confirm="update"
   />
 </template>
