@@ -69,9 +69,9 @@ body {
     font-size: 0.75rem;
     color:#666;
     max-width: 300px;
+    white-space: nowrap;    
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 
