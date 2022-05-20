@@ -46,7 +46,7 @@ export default defineComponent({
         emit('updateStatus', index, label)
       } else {
         app?.appContext.config.globalProperties.
-          $notify.warn("请先完成上一步。")
+          $notify.warn("不能倒退操作流程。")
       }
     }
 
