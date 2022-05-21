@@ -25,7 +25,7 @@ export default defineComponent({
 <style lang="scss">
 .home-page-icons {
   .icon-name {
-    padding-top: 12px;
+    padding-top: 10px;
   }
 }
 
