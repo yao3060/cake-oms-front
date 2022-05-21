@@ -29,7 +29,7 @@ export const OrderStatus: Record<OrderStatusKey, OrderStatusInfo> = {
   },
   completed: {
     id: 4,
-    label: "已完成",
+    label: "制作完",
     type: "success"
   }
 }

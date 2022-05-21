@@ -3,6 +3,7 @@
   <div class="order-operations">
     <!-- 只有下单人可以废弃订单 -->
     <nut-button
+      v-show="showTrashIt"
       v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
       shape="square"
       type="primary"
@@ -21,6 +22,7 @@
     </nut-button>
     <!-- 管理员和裱花管理员可以指派订单-->
     <nut-button
+      v-show="showAssignIt"
       v-permission="['administrator', 'framer-manager', 'framer']"
       shape="square"
       type="primary"
@@ -44,6 +46,7 @@ import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, toR
 import { printSingleOrder, updateSingleOrder } from "@/api/orders";
 import { Dialog } from '@nutui/nutui';
 import { getFramers } from "@/api/users";
+import { OrderStatusKey } from "@/types/OrderStatus";
 
 interface Framer {
   id: number;
@@ -63,6 +66,10 @@ export default defineComponent({
       type: Number,
       required: true
     },
+    orderStatus: {
+      type: String as PropType<OrderStatusKey>,
+      required: true
+    },
     framer: {
       type: Object as PropType<Framer2>,
       required: true
@@ -76,11 +83,17 @@ export default defineComponent({
       loading: false,
       isVisible: false,
       framers: [] as Framer[],
-      framerName: ''
+      framerName: '',
+      showTrashIt: false,
+      showAssignIt: false,
     })
 
     onMounted(() => {
       state.framerName = props.framer.display_name ? props.framer.display_name : '未指派'
+      if(props.orderStatus !== "completed") {
+        state.showAssignIt = true
+        state.showTrashIt = true
+      }
     })
 
     const trashIt = () => {
@@ -91,9 +104,8 @@ export default defineComponent({
         onOk: async () => {
           console.log('event ok');
           const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
-          const response = await updateSingleOrder(props.orderId, {
-            status: 'trash'
-          })
+          const response = await updateSingleOrder(props.orderId, {status: 'trash'})
+          console.log('trash it', response)
           toast.hide();
         },
       })
@@ -101,6 +113,7 @@ export default defineComponent({
 
     const assignFramer = async (orderId: number, framer: Framer) => {
       const response = await updateSingleOrder(orderId, { framer: framer.id })
+      console.log('assignFramer', response)
       state.framerName = framer.name
       app?.appContext.config.globalProperties.$toast.success('裱花师更新成功。');
     }
