@@ -30,12 +30,16 @@
           />
         </nut-form-item>
         <nut-cell>
-          <nut-button size="normal" @click="reset">{{ labels.reset }}</nut-button>        
+          <nut-button 
+            size="normal" 
+            style="margin:0 10px 0 90px"
+            @click="reset"
+            >{{ labels.reset }}</nut-button>        
           <nut-button
             :loading="loading"
             type="primary"
             size="normal"
-            style="margin:0 10px 0 90px"
+            style="margin:0 10px 0 20px"
             @click="submit"
           >{{ labels.submit }}</nut-button>
         </nut-cell>
