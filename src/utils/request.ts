@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import { useRouter } from 'vue-router'
-import { Dialog } from '@nutui/nutui'
+import { getCurrentInstance } from 'vue'
 
 // create an axios instance
 const service = axios.create({
@@ -36,7 +36,9 @@ service.interceptors.response.use(response => response.data, error => {
   if (error?.response?.status < 500) {
     if (error.response.status === 401 || error.response.status === 403) {
       // to re-login
-      Dialog({
+      const app = getCurrentInstance()
+      console.log('request', app)
+      app?.appContext.config.globalProperties.$dialog({
         title: 'You have been logged out',
         content: 'You can cancel to stay on this page, or log in again',
         noCancelBtn: true,

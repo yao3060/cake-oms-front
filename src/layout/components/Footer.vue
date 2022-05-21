@@ -11,8 +11,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watchEffect } from "vue";
-import { MenuItem } from "@nutui/nutui";
-import { useRoute } from "vue-router";
+import { useRoute } from "vue-router"
 import in_array from "in_array";
 
 function array_pluck<T, K extends keyof T>(objs: T[], key: K): T[K][] {
@@ -22,8 +21,8 @@ function array_pluck<T, K extends keyof T>(objs: T[], key: K): T[K][] {
 export default defineComponent({
   name: "Footer",
   setup() {
-    const tabSwitch = (item: MenuItem, index: number) => {
-      console.log(item, index);
+    const tabSwitch = (item: any, index: number) => {
+      console.log('tabSwitch', item, index);
     };
 
     const menus = ref([

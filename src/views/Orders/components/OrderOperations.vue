@@ -44,7 +44,6 @@
 <script lang="ts">
 import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, toRefs } from "vue";
 import { printSingleOrder, updateSingleOrder } from "@/api/orders";
-import { Dialog } from '@nutui/nutui';
 import { getFramers } from "@/api/users";
 import { OrderStatusKey } from "@/types/OrderStatus";
 
@@ -97,8 +96,9 @@ export default defineComponent({
     })
 
     const trashIt = () => {
-      console.log('trashIt', props.orderId)
-      Dialog({
+      console.log('trashIt', props.orderId, app)
+
+      app?.appContext.config.globalProperties.$dialog({
         title: '温馨提示',
         content: '“作废”为不可逆操作，“确认”后您将再也不能看到该订单！',
         onOk: async () => {

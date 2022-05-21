@@ -31,6 +31,7 @@ export default defineComponent({
 
     const getMyProfile = async () => {
       const response = await me()
+      console.log('getMyProfile', response)
       state.me = response
     }
 

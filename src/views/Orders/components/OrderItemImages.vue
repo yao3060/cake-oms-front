@@ -17,10 +17,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue'
+import {defineComponent, onMounted, PropType} from 'vue'
 
-import OrderItemImage from "@/types/OrderItemImage";
-import useOrderItemImageRepository from "@/composables/useOrderItemImageRepository";
+import OrderItemImage from "@/types/OrderItemImage"
+import useOrderItemImageRepository from "@/composables/useOrderItemImageRepository"
+import { ImagePreview } from '@nutui/nutui'
 
 export default defineComponent({
   name: "OrderItemImages",
@@ -40,6 +41,12 @@ export default defineComponent({
   },
   setup(props) {
     const OrderItemImageRepository = useOrderItemImageRepository(props.itemId, props.orderId, props.images)
+    onMounted(()=> {
+      // ImagePreview({
+      //       show: true,
+      //       images: [{src: '//m.360buyimg.com/mobilecms/s750x366_jfs/t1/18629/34/3378/144318/5c263f64Ef0e2bff0/0d650e0aa2e852ee.jpg',}],
+      // })
+    })
     return {
       ...OrderItemImageRepository
     }

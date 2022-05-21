@@ -5,7 +5,6 @@ import { getToken } from "@/utils/auth";
 import FileItem from "@/types/FileItem";
 import { deleteOrderProductGalleryImage } from "@/api/products";
 import OrderItemImage from "@/types/OrderItemImage";
-import { ImagePreview } from '@nutui/nutui';
 
 export default function useOrderItemImageRepository(orderId: number, itemId: number, images: OrderItemImage[]): any {
   const app = getCurrentInstance()
@@ -19,19 +18,20 @@ export default function useOrderItemImageRepository(orderId: number, itemId: num
     showPreview: false,
     item: {} as OrderItem,
     imgData: [] as imgData[],
-    itemGallery: ref<FileItem[]>([])
+    itemGallery: ref<FileItem[]>([]),
   });
 
   const onItemClick = ({ fileItem }: any) => {
     console.log('onItemClick', fileItem)
     const { url } = fileItem
-    if (state.imgData.find(element => element.src == url) == undefined) {
-      // state.imgData.push({ src: url })
-      ImagePreview({
+      console.log(app?.appContext.config.globalProperties.$imagepreview)
+      app?.appContext.config.globalProperties.$imagepreview({
         show: true,
+        contentClose: true,
         images: [{ src: url }],
+        onClose: () => {  console.log('imagepreview closed')}
       })
-    }
+
   }
 
   const onSuccess = ({ responseText, option, fileItem }: any) => {
@@ -44,6 +44,7 @@ export default function useOrderItemImageRepository(orderId: number, itemId: num
     console.log('delete 事件触发', file)
     app?.appContext.config.globalProperties.$toast.loading('删除中')
     const response = await deleteOrderProductGalleryImage(file.id, itemId, orderId)
+    console.log('on delete', response)
     app?.appContext.config.globalProperties.$toast.success('成功删除')
   }
 
@@ -63,7 +64,6 @@ export default function useOrderItemImageRepository(orderId: number, itemId: num
     if (images && images.length) {
       setItemGallery(images)
     }
-    const imagepreview = app?.appContext.config.globalProperties.$imagepreview
   })
 
   return {
