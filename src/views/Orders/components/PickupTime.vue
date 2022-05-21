@@ -6,7 +6,6 @@
     :min-date="minDate"
     title="时间选择"
     type="datetime"
-    :filter="filter"
     :is-show-chinese="true"
     :minute-step="15"
     @confirm="update"
