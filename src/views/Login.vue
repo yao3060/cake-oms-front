@@ -59,7 +59,7 @@ export default defineComponent({
 
     const labels = {
       reset: '重置',   
-      submit: '提交'
+      submit: '登录'
     }
 
     const formData = reactive({
