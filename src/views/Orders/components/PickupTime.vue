@@ -82,14 +82,7 @@ export default defineComponent({
       toast.hide();
     }
 
-    const filter = (type: string, options: PickerOption[]): PickerOption[] => {
-        if (type == 'hour') {
-          return options.filter((option:PickerOption) => Number(option.value) >= 6 &&  Number(option.value) <= 22 );
-        }
-        return options;
-    }
-
-    return { ...toRefs(state), openForm, update, filter }
+    return { ...toRefs(state), openForm, update }
   }
 })
 </script>
