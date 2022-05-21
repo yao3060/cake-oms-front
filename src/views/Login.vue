@@ -32,7 +32,7 @@
         <nut-cell>
           <nut-button 
             size="normal" 
-            style="margin:0 10px 0 36px;width:100px;"
+            style="margin:0 10px 0 38px;width:100px;"
             @click="reset"
             >{{ labels.reset }}</nut-button>        
           <nut-button
