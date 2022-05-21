@@ -1,5 +1,4 @@
 import { createApp, version } from 'vue'
-console.log('Vue.version', version)
 
 // 注意：这种方式将会导入所有组件
 import NutUI from "@nutui/nutui"
@@ -19,6 +18,9 @@ import store, { key } from './store'
 // import "../mock"
 
 const app = createApp(App)
+
+console.log('Vue.version', version)
+console.log('NutUI', NutUI)
 
 app.use(store, key)
 app.use(router)

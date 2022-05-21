@@ -6,6 +6,7 @@
     :min-date="minDate"
     title="时间选择"
     type="datetime"
+    :filter="filter"
     :is-show-chinese="true"
     :minute-step="15"
     @confirm="update"
@@ -17,6 +18,8 @@ import { defineComponent, getCurrentInstance, PropType, reactive, toRefs, onMoun
 import { Creator } from '@/types/Order'
 import { isAdministrator, isMySubordinate, getCurrentUser } from '@/utils/functions'
 import { updateSingleOrder } from "@/api/orders"
+
+import { PickerOption } from '@nutui/nutui/dist/types/__VUE/picker/types'
 
 export default defineComponent({
   name: 'PickupTime',
@@ -79,7 +82,15 @@ export default defineComponent({
       toast.hide();
     }
 
-    return { ...toRefs(state), openForm, update }
+    const filter = (type: string, options: PickerOption[]): PickerOption[] => {
+        console.log('datepicker filter',type, options)
+        if (type == 'hour') {
+          return options.filter((option:PickerOption) => Number(option.value) >= 6 &&  Number(option.value) <= 22 );
+        }
+        return options;
+    }
+
+    return { ...toRefs(state), openForm, update, filter }
   }
 })
 </script>
