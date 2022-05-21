@@ -20,7 +20,6 @@ import { isAdministrator, isMySubordinate, getCurrentUser } from '@/utils/functi
 import { updateSingleOrder } from "@/api/orders"
 
 import { PickerOption } from '@nutui/nutui/dist/types/__VUE/picker/types'
-import { moment } from 'moment'
 
 export default defineComponent({
   name: 'PickupTime',
