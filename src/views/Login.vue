@@ -58,8 +58,8 @@ export default defineComponent({
     const route = useRoute()
 
     const labels = {
-      submit: '提交',
-      reset: '重置'
+      reset: '重置',   
+      submit: '提交'
     }
 
     const formData = reactive({
