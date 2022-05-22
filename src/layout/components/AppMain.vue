@@ -1,14 +1,14 @@
 <template>
-  <section class="app-main">
+  <section class="app-main" :data-key="key">
     <router-view v-slot="{ Component }">
-      <component :is="Component" />
+      <component :is="Component" v-if="userLoaded" />
     </router-view>
   </section>
 </template>
 
 <script lang="ts">
 import { getToken } from "@/utils/auth";
-import { defineComponent, computed, onMounted } from "vue";
+import { defineComponent, ref, computed, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "@/store";
 
@@ -18,6 +18,7 @@ export default defineComponent({
     const route = useRoute();
     const key = computed(() => route.path);
     const store = useStore();
+    const userLoaded = ref(false)
 
     // fill userinfo if token exist in cookie
     const reLoadUserInfo = () => {
@@ -26,12 +27,13 @@ export default defineComponent({
       if (cookieToken && !storeToken) {
         store.dispatch("userModule/me", { token: cookieToken });
       }
+      userLoaded.value = true
     };
 
-    onMounted(() => {
+    onBeforeMount(() => {
       reLoadUserInfo();
     });
-    return { key };
+    return { key, userLoaded };
   },
 });
 </script>
