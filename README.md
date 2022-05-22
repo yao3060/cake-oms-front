@@ -71,7 +71,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ---
 
 ## 截图
+### orders
 
-[orders](./docs/orders.png)
+![orders](./docs/orders.png)
 
-[order](./docs/single-order.png)
+### order
+
+![order](./docs/single-order.png)

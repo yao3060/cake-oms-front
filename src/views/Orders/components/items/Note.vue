@@ -62,7 +62,7 @@ export default defineComponent({
 
     const updateNote = async () => {
       state.loading = true
-      const response = await updateOrderProduct(props.item.order_id, { note: state.note })
+      const response = await updateOrderProduct(props.item.id, { note: state.note })
       console.log(response)
       state.loading = false
       state.isVisible = false
