@@ -72,10 +72,14 @@ export default defineComponent({
       console.log('updateOrderPickupTime:', response)
     }
 
-    const update = (selected: Array<string>) => {
+    const update = ({ selectedValue }: {selectedValue:(string | number)[]}) => {
       const toast = app?.appContext.config.globalProperties.$toast.loading('加载中');
-      console.log(typeof selected)
-      state.pickupTime = selected.join('')
+      console.log('update', selectedValue)
+
+      let date = selectedValue.slice(0, 3).join('-')
+      let time = selectedValue.slice(3).join(':')
+
+      state.pickupTime = `${date} ${time}:00`
 
       updateOrderPickupTime(props.id, state.pickupTime)
 
