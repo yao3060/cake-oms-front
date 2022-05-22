@@ -8,7 +8,6 @@
     type="datetime"
     :filter="filter"
     :is-show-chinese="true"
-    :minute-step="15"
     @confirm="update"
   />
 </template>
@@ -88,7 +87,10 @@ export default defineComponent({
 
     const filter = (type: string, options: PickerOption[]): PickerOption[] => {
         if (type == 'hour') {
-          return options.filter((option:PickerOption) => Number(option.value) >= 10 &&  Number(option.value) <= 22 );
+          return options.filter((option:PickerOption) => Number(option.value) >= 10 &&  Number(option.value) <= 22 )
+        }
+        if (type == 'minute') {
+          return options.filter((option:PickerOption) => Number(option.value) % 15 === 0)
         }
         return options;
     }
@@ -97,6 +99,6 @@ export default defineComponent({
   }
 })
 </script>
- 
+
 <style scoped>
 </style>
