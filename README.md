@@ -70,3 +70,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## 订单状态
 ---
 
+## 截图
+
+[orders](./docs/orders.png)
+
+[order](./docs/single-order.png)
