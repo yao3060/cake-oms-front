@@ -47,6 +47,11 @@ export default defineComponent({
         icon: "shop",
         to: "/stores",
       },
+      //{
+      //  title: "员工",
+      //  icon: "people",
+      //  to: "/members",
+      //}
       {
         title: "我的",
         icon: "my",
