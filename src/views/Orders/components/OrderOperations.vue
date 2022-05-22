@@ -42,10 +42,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, toRefs } from "vue";
-import { printSingleOrder, updateSingleOrder } from "@/api/orders";
-import { getFramers } from "@/api/users";
-import { OrderStatusKey } from "@/types/OrderStatus";
+import { defineComponent, getCurrentInstance, onMounted, PropType, reactive, toRefs } from "vue"
+import { printSingleOrder, updateSingleOrder } from "@/api/orders"
+import { getFramers } from "@/api/users"
+import { OrderStatusKey } from "@/types/OrderStatus"
+import { useRouter } from "vue-router"
 
 interface Framer {
   id: number;
@@ -77,6 +78,7 @@ export default defineComponent({
   setup(props) {
 
     const app = getCurrentInstance()
+    const router = useRouter()
 
     const state = reactive({
       loading: false,
@@ -96,17 +98,17 @@ export default defineComponent({
     })
 
     const trashIt = () => {
-      console.log('trashIt', props.orderId, app)
+      console.log('trashIt', props.orderId)
 
       app?.appContext.config.globalProperties.$dialog({
         title: '温馨提示',
         content: '“作废”为不可逆操作，“确认”后您将再也不能看到该订单！',
         onOk: async () => {
-          console.log('event ok');
           const toast = app?.appContext.config.globalProperties.$toast.loading('处理中');
           const response = await updateSingleOrder(props.orderId, {status: 'trash'})
           console.log('trash it', response)
           toast.hide();
+          router.go(-1)
         },
       })
     }
