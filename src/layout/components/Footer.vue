@@ -33,11 +33,6 @@ export default defineComponent({
       //   to: "/",
       // },
       {
-        title: "首页",
-        icon: "home",
-        to: "/orders",
-      },
-      {
         title: "订单",
         icon: "order",
         to: "/orders",
@@ -47,11 +42,11 @@ export default defineComponent({
         icon: "shop",
         to: "/stores",
       },
-      //{
-      //  title: "员工",
-      //  icon: "people",
-      //  to: "/members",
-      //}
+      {
+        title: "员工",
+        icon: "people",
+        to: "/members",
+      }
       {
         title: "我的",
         icon: "my",
