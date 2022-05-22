@@ -1,14 +1,14 @@
 <template>
   <nut-cell
     :style="{ 'padding-left': 0, 'padding-right': 0}"
-    title="整单备注"
+    title="备注"
     :desc="note"
     :is-link="isEditable"
     @click="baseClick"
   />
   <nut-popup v-model:visible="isVisible" pop-class="popclass" closeable :style="{ width: '100%' }" :z-index="100">
     <nut-form>
-      <nut-form-item label="整单备注">
+      <nut-form-item label="备注">
         <nut-textarea v-model="note" />
       </nut-form-item>
     </nut-form>
