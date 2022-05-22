@@ -48,7 +48,7 @@ export default defineComponent({
         to: "/members",
       },
       {
-        title: "我",
+        title: "我的",
         icon: "my",
         to: "/me",
       },
