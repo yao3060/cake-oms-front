@@ -37,7 +37,7 @@ export default defineComponent({
 </script>
 <style lang="sass" scoped>
 .flex-content
-  padding: 10px 0
+  padding: 12px 0
   text-align: center
   .icon-name
     display: block
