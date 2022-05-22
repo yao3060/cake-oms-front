@@ -34,7 +34,7 @@ export default defineComponent({
       // },
       {
         title: "首页",
-        icon: "order",
+        icon: "home",
         to: "/orders",
       },
       {
