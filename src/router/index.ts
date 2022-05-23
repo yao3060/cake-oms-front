@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/Login.vue'),
+    component: () => import(/* webpackChunkName: "Login" */'@/views/Login.vue'),
   },
   {
     path: '/',
@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        component: () => import('../views/Home.vue'),
+        component: () => import(/* webpackChunkName: "Home" */ '../views/Home.vue'),
       }
     ]
   },
@@ -34,17 +34,17 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        component: () => import('@/views/Orders/index.vue')
+        component: () => import(/* webpackChunkName: "OrdersIndex" */ '@/views/Orders/index.vue')
       },
       {
         path: ':orderId',
         name: 'SingleOrder',
-        component: () => import('@/views/Orders/Single.vue')
+        component: () => import(/* webpackChunkName: "OrdersSingle" */ '@/views/Orders/Single.vue')
       },
       {
         path: ':orderId/items/:itemId',
         name: 'OrderProduct',
-        component: () => import('@/views/Orders/Product.vue')
+        component: () => import(/* webpackChunkName: "OrdersProduct" */ '@/views/Orders/Product.vue')
       }
     ]
   },
@@ -55,7 +55,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        component: () => import('@/views/Stores/index.vue')
+        component: () => import(/* webpackChunkName: "Stores" */'@/views/Stores/index.vue')
       }
     ]
   },
@@ -66,11 +66,11 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        component: () => import('@/views/Members/index.vue')
+        component: () => import(/* webpackChunkName: "MembersIndex" */'@/views/Members/index.vue')
       },
       {
         path: ':id',
-        component: () => import('@/views/Members/Single.vue')
+        component: () => import(/* webpackChunkName: "MembersSingle" */'@/views/Members/Single.vue')
       }
     ]
   },
@@ -81,7 +81,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        component: () => import('../views/About.vue')
+        component: () => import(/* webpackChunkName: "About" */'../views/About.vue')
       }
     ]
   },
@@ -92,14 +92,14 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        component: () => import('@/views/Members/Me.vue')
+        component: () => import(/* webpackChunkName: "Me" */ '@/views/Members/Me.vue')
       }
     ]
   },
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',
-    component: () => import('@/views/NotFound.vue')
+    component: () => import(/* webpackChunkName: "NotFound" */'@/views/NotFound.vue')
   }
 ]
 
