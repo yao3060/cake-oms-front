@@ -1,7 +1,7 @@
 <template>
   <nut-cell class="small-cell" title="裱花师" :desc="framerName" />
   <div class="order-operations">
-    <!-- 只有下单人可以废弃订单 -->
+    <!-- 废弃订单:最高管理员，下单人，下单人所属部门的管理员，客服、客服管理员 -->
     <nut-button
       v-show="showTrashIt"
       v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"

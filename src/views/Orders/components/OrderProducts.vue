@@ -153,6 +153,8 @@ export default defineComponent({
   .order-item-name {
     text-decoration: none;
     color: #333;
+    padding-right: 15px;
+    display: block;
   }
 }
 </style>
