@@ -226,7 +226,7 @@ export default defineComponent({
     
     copySpecialTopicUrl (row) {
     var oInput = document.createElement('input'); //创建一个隐藏input（重要！）
-    oInput.value = row.SpecialTopicUrl;    //赋值
+    oInput.value = "11111111";    //赋值
     document.body.appendChild(oInput);
     oInput.select(); // 选择对象
     document.execCommand("Copy"); // 执行浏览器复制命令
