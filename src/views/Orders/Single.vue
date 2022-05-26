@@ -202,10 +202,10 @@ export default defineComponent({
 
     const contactInfo = (type: string, order: Order) => {
       if (type == 'billing') {
-        return `${order.billing_name} | ${order.billing_phone}`
+        return `${order.billing_name} ， ${order.billing_phone}`
       }
       if (type === 'shipping') {
-        return `${order.shipping_name} | ${order.shipping_phone}`
+        return `${order.shipping_name} ， ${order.shipping_phone}`
       }
       return ''
     }
