@@ -108,7 +108,7 @@
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
             <nut-col :span="12">
-              <nut-button block type="primary" @click="copyOdd">复制</nut-button>
+              <nut-button block type="primary" @click="analysisAddress">复制</nut-button>
             </nut-col>          
             <nut-col :span="12">
               <nut-button block type="primary" @click="analysisAddress">智能识别</nut-button>
@@ -223,21 +223,6 @@ export default defineComponent({
         state.canSubmitShippingInfo = false
       }
     }
-    const copyOdd = () =>  {
-      window.getSelection().removeAllRanges();
-      let copyDOM = this.refs.copy;//ref:是要复制的部分内容
-      let range = document.createRange();
-      range.selectNode(copyDOM);
-      window.getSelection().addRange(range);
-      try {
-      let successful = document.execCommand("copy");
-      this.toast( `{successful ? "复制成功" : "您的手机不支持自动复制，请手动复制~"}`
-      );
-      } catch (err) {
-      alert(err);
-      }
-      window.getSelection().removeAllRanges();
-      }
 
     const updateOrderShippingInfo = async () => {
       state.loading = true
