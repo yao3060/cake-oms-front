@@ -224,7 +224,7 @@ export default defineComponent({
       }
     }
     
-    copySpecialTopicUrl (row) {
+    const copySpecialTopicUrl = (row) =>  {
     var oInput = document.createElement('input'); //创建一个隐藏input（重要！）
     oInput.value = '11111111';    //赋值
     document.body.appendChild(oInput);
