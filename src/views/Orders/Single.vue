@@ -108,7 +108,13 @@
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
             <nut-col :span="12">
-              <nut-button block type="primary" @click="copySpecialTopicUrl(scope.row)">复制</nut-button>
+              <nut-button 
+              block type="primary" @click="copySpecialTopicUrl(scope.row)"
+              size="mini"
+              type="info"
+              >
+              复制
+              </nut-button>
             </nut-col>          
             <nut-col :span="12">
               <nut-button block type="primary" @click="analysisAddress">智能识别</nut-button>
