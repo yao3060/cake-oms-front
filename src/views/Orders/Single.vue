@@ -108,7 +108,7 @@
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
             <nut-col :span="12">
-              <nut-button block type="primary" @click="analysisAddress">复制</nut-button>
+              <nut-button block type="primary" @click="copySpecialTopicUrl(scope.row)">复制</nut-button>
             </nut-col>          
             <nut-col :span="12">
               <nut-button block type="primary" @click="analysisAddress">智能识别</nut-button>
@@ -222,6 +222,17 @@ export default defineComponent({
       if (address.name && address.phone && address.address) {
         state.canSubmitShippingInfo = false
       }
+    }
+    
+    copySpecialTopicUrl (row) {
+    var oInput = document.createElement('input'); //创建一个隐藏input（重要！）
+    oInput.value = row.SpecialTopicUrl;    //赋值
+    document.body.appendChild(oInput);
+    oInput.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
+    oInput.className = 'oInput';
+    oInput.style.display = 'none';
+    this.$message.success('复制成功');
     }
 
     const updateOrderShippingInfo = async () => {
