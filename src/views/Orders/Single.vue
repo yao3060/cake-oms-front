@@ -99,7 +99,7 @@
                 v-if="index == 'shipping_address'"
                 v-model="contactObject[index]"
                 class="shipping_address"
-                style="height: 50px;"
+                style="height: 80px;"
               />
               <input v-else v-model="contactObject[index]" class="nut-input-text" type="text">
             </nut-form-item>
