@@ -33,7 +33,7 @@
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
           v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
-          title="取货人"
+          title="取货信息如下"
           desc="edit"
         >
           <nut-cell class="small-cell" title="收货人" :desc="contactInfo('shipping', order)" />
