@@ -223,7 +223,7 @@ export default defineComponent({
         state.canSubmitShippingInfo = false
       }
     }
-    const copyOdd() {
+    const copyOdd = () =>  {
       window.getSelection().removeAllRanges();
       let copyDOM = this.refs.copy;//ref:是要复制的部分内容
       let range = document.createRange();
