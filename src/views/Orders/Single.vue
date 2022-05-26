@@ -108,6 +108,9 @@
         <div style="padding:20px 10px;">
           <nut-row :gutter="10">
             <nut-col :span="12">
+              <nut-button block type="primary" @click="analysisAddress">复制</nut-button>
+            </nut-col>          
+            <nut-col :span="12">
               <nut-button block type="primary" @click="analysisAddress">智能识别</nut-button>
             </nut-col>
             <nut-col :span="12">
