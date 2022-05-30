@@ -50,7 +50,7 @@ export default defineComponent({
       if(state.menuItems.length) {
         return;
       }
-      const response = await getMembers({"user-group":props.storeId })
+      const response = await getMembers({"user-type": "order-creator" })
       if(Array.isArray(response) && response.length) {
           response.map((user)=>{
             state.menuItems.push({
