@@ -1,18 +1,12 @@
 <template>
-  <nut-cell
-    class="small-cell"
-    title="下单人"
-    :desc="desc"
-    :is-link="isEditable"
-    @click="switchActionSheet"
-  />
+  <nut-cell class="small-cell" title="下单人" :desc="desc" :is-link="isEditable" @click="switchActionSheet" />
   <nut-actionsheet v-model:visible="isVisible" :menu-items="menuItems" cancel-txt="取消" @choose="chooseItem" />
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, reactive, toRefs, onMounted } from 'vue'
 import { Creator } from '@/types/Order'
-import { getCurrentUser, isAdministrator, isMySubordinate } from '@/utils/functions'
+import { getCurrentUser, isAdministrator, isCustomService, isMySubordinate } from '@/utils/functions'
 import { getMembers } from '@/api/users'
 import { updateSingleOrder } from "@/api/orders"
 
@@ -46,24 +40,24 @@ export default defineComponent({
       menuItems: [] as menuItem[]
     })
 
-    const getCreators = async() => {
-      if(state.menuItems.length) {
+    const getCreators = async () => {
+      if (state.menuItems.length) {
         return;
       }
-      const response = await getMembers({"user-type": "order-creator" })
-      if(Array.isArray(response) && response.length) {
-          response.map((user)=>{
-            state.menuItems.push({
-              id: user.id || 0,
-              name: user.display_name,
-            })
+      const response = await getMembers({ "user-type": "order-creator" })
+      if (Array.isArray(response) && response.length) {
+        response.map((user) => {
+          state.menuItems.push({
+            id: user.id || 0,
+            name: user.display_name,
           })
+        })
       }
     }
 
     const switchActionSheet = () => {
 
-      if(state.isEditable){
+      if (state.isEditable) {
         state.isVisible = !state.isVisible
         getCreators()
       } else {
@@ -71,7 +65,7 @@ export default defineComponent({
       }
     }
 
-     const chooseItem = async(item: menuItem) => {
+    const chooseItem = async (item: menuItem) => {
       console.log(item)
       state.desc = item.name
 
@@ -84,7 +78,11 @@ export default defineComponent({
       let currentUser = getCurrentUser()
 
       // 只有管理员和自己能修改自己的订单
-      if (isAdministrator(currentUser) || isMySubordinate(currentUser, props.creator.id) || currentUser.id == props.creator.id) {
+      if (
+        isAdministrator(currentUser) ||
+        isCustomService(currentUser) ||
+        isMySubordinate(currentUser, props.creator.id) ||
+        currentUser.id == props.creator.id) {
         state.isEditable = true
       }
     })

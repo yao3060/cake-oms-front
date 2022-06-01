@@ -31,6 +31,13 @@ export function isAdministrator(user: UserModuleTypes): boolean {
   return false;
 }
 
+export function isCustomService(user: UserModuleTypes): boolean {
+  if(in_array('customer-service', user.roles)) {
+    return true;
+  }
+  return false;
+}
+
 export function isFramer(user: UserModuleTypes): boolean {
   if(in_array('framer', user.roles) || in_array('framer-manager', user.roles)) {
     return true;
