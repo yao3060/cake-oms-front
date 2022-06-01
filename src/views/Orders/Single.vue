@@ -34,12 +34,12 @@
         <nut-cell-group
           v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
           title="取货信息如下"
-          desc="edit"
+          desc=""
         >
           <nut-cell class="small-cell" title="收货人" :desc="contactInfo('shipping', order)" />
           <nut-cell class="small-cell" title="地址" :desc="order.shipping_address" />
-          <!-- 确认后不可以再编辑 -->
-          <template v-if="order.order_status == 'unverified'" #desc>
+          <!-- completed 后不可以再编辑 -->
+          <template v-if="order.order_status !== 'completed'" #desc>
             <nut-button
               :style="{ float: 'right', marginTop: '-30px', marginRight: '15px' }"
               size="mini"
@@ -66,7 +66,9 @@
             </nut-button>
           </template>
         </nut-cell-group>
+
         <nut-divider />
+
         <OrderProducts :items="order.items" :creator="order.creator" />
       </nut-cell-group>
       <nut-divider />
@@ -106,7 +108,7 @@
           </nut-form>
         </div>
         <div style="padding:20px 10px;">
-          <nut-row :gutter="10">        
+          <nut-row :gutter="10">
             <nut-col :span="12">
               <nut-button block type="primary" @click="analysisAddress">智能识别</nut-button>
             </nut-col>
@@ -202,10 +204,10 @@ export default defineComponent({
 
     const contactInfo = (type: string, order: Order) => {
       if (type == 'billing') {
-        return `${order.billing_name} ， ${order.billing_phone}`
+        return `${order.billing_name}, ${order.billing_phone}`
       }
       if (type === 'shipping') {
-        return `${order.shipping_name} ， ${order.shipping_phone}`
+        return `${order.shipping_name}, ${order.shipping_phone}`
       }
       return ''
     }
@@ -220,7 +222,7 @@ export default defineComponent({
         state.canSubmitShippingInfo = false
       }
     }
-    
+
     const updateOrderShippingInfo = async () => {
       state.loading = true
       const response = await updateSingleOrder(orderId, state.contactObject)
