@@ -27,8 +27,8 @@
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
 
         <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />
+        <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />        
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
-        <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
 
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
