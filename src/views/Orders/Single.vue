@@ -26,7 +26,7 @@
         <nut-cell class="small-cell" title="订单来源" :desc="order.order_type" />
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
 
-        <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />
+        <nut-cell class="small-cell" title="下单人电话" :desc="order.mobile_phone" />
         <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
