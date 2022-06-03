@@ -30,7 +30,7 @@
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
 		
-        <nut-cell class="small-cell" style="color:red" title="出品时间" :descs="order.pickup_time" />		
+        <nut-cell class="small-cell" style="color:red" title="出品时间" :desc="order.pickup_time" />		
 
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
@@ -67,18 +67,6 @@
               编辑
             </nut-button>
           </template>
-
-          <template #descs>
-            <nut-button
-              :style="{ float: 'right', marginTop: '-30px', color: '#ff0000', marginRight: '15px' }"
-              size="mini"
-              type="primary"
-              @click="() => showNotePopup = !showNotePopup"
-            >
-              编辑
-            </nut-button>
-          </template>
-          
         </nut-cell-group>
 
         <nut-divider />
