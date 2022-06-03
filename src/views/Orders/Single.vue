@@ -26,12 +26,12 @@
         <nut-cell class="small-cell" title="订单来源" :desc="order.order_type" />
         <nut-cell class="small-cell" title="订货门店" :desc="order.store_name" />
 
-        <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />      
+        <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
-        <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />  
-        
-        <nut-cells class="small-cell" title="出品时间" :desc="order.pickup_time" />
-        
+        <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
+		
+        <nut-cell class="small-cell" style="color:red" title="出品时间" :descs="order.pickup_time" />		
+
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
           v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
@@ -67,6 +67,18 @@
               编辑
             </nut-button>
           </template>
+
+          <template #descs>
+            <nut-button
+              :style="{ float: 'right', marginTop: '-30px', color: '#ff0000', marginRight: '15px' }"
+              size="mini"
+              type="primary"
+              @click="() => showNotePopup = !showNotePopup"
+            >
+              编辑
+            </nut-button>
+          </template>
+          
         </nut-cell-group>
 
         <nut-divider />
@@ -292,18 +304,6 @@ export default defineComponent({
     }
     .nut-cell__value {
       color: #666;
-      font-size: 13px;
-    }
-  }
-  .nut-cells {
-    margin: 0;
-    padding: 5px 20px;
-    .nut-cell__title {
-      color: #ff0000;    
-      font-size: 13px;
-    }
-    .nut-cell__value {
-      color: #ff0000;
       font-size: 13px;
     }
   }
