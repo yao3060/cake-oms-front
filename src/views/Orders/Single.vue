@@ -30,6 +30,8 @@
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />  
         
+        <nut-cell class="small-cell" title="出品时间" :desc="order.pickup_time" />
+        
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
           v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
