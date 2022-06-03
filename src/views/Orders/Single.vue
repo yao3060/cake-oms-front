@@ -294,12 +294,13 @@ export default defineComponent({
       color: #666;
       font-size: 13px;
     }
-    .nut-cells {
+  }
+  .nut-cells {
     margin: 0;
     padding: 5px 20px;
     .nut-cell__title {
+      color: #ff0000;    
       font-size: 13px;
-      color: #ff0000;
     }
     .nut-cell__value {
       color: #ff0000;
