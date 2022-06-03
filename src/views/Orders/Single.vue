@@ -30,8 +30,11 @@
         <Creator :id="order.id" :creator="order.creator" :store-id="order.store_id" />
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
-		
-        <nut-cell class="small-cell" style="color:red; font-size:16px" title="出品时间" :desc="order.pickup_time" />		
+
+        <nut-cell class="small-cell red-cell" title="出品时间" :desc="order.pickup_time" />
+
+        <!-- 制作时长/制作耗时 ProduceTime -->
+        <ProduceTime :order="order" />
 
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
@@ -142,6 +145,7 @@ import OrderStatusComponent from './components/OrderStatus.vue'
 import OrderOperations from './components/OrderOperations.vue'
 import PickupMethod from './components/PickupMethod.vue'
 import PickupTime from './components/PickupTime.vue'
+import ProduceTime from './components/ProduceTime.vue'
 import Creator from './components/Creator.vue'
 
 import { OrderStatusKey } from '@/types/OrderStatus'
@@ -156,6 +160,7 @@ export default defineComponent({
     OrderOperations,
     PickupMethod,
     PickupTime,
+    ProduceTime,
     Creator
 },
   setup() {

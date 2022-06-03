@@ -1,5 +1,11 @@
 <template>
-  <nut-cell class="small-cell" style="color:red" title="取货方式" :desc="method" :is-link="isEditable" @click="switchActionSheet" />
+  <nut-cell
+    class="small-cell red-cell"
+    title="取货方式"
+    :desc="method"
+    :is-link="isEditable"
+    @click="switchActionSheet"
+  />
   <nut-actionsheet
     v-model:visible="isVisible"
     :menu-items="methods"

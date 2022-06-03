@@ -72,6 +72,13 @@ body {
   }
 }
 
+.small-cell.red-cell {
+  color:#fa2c19;
+  .nut-cell__value {
+    color:#fa2c19;
+  }
+}
+
 .loader-inner {
   margin: 50px auto;
   height:50px;

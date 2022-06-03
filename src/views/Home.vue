@@ -1,6 +1,6 @@
 <template>
   <div class="home-page-icons">
-    <Loading message="加载中" :loading="loading" />
+    <CssLoading message="加载中" :loading="loading" />
   </div>
 </template>
 

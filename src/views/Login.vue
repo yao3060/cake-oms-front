@@ -8,47 +8,32 @@
       <h1 class="title">订单管理系统 v2.0</h1>
       <h3 class="title">{{ store.state.test }}</h3>
       <nut-form ref="ruleForm" :model-value="formData">
-        <nut-form-item
-          label="用户名"
-          prop="username"
-          required
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        >
-          <input v-model="formData.username" class="nut-input-text" placeholder="Enter You User" type="text" />
+        <nut-form-item label="用户名" prop="username" required :rules="[{ required: true, message: '请填写用户名' }]">
+          <input v-model="formData.username" class="nut-input-text" placeholder="Enter You User" type="text">
         </nut-form-item>
-        <nut-form-item
-          label="密码"
-          prop="password"
-          required
-          :rules="[{ required: true, message: '请填写密码' }]"
-        >
-          <input
-            v-model="formData.password"
-            class="nut-input-text"
-            placeholder="Enter You Password"
-            type="password"
-          />
+        <nut-form-item label="密码" prop="password" required :rules="[{ required: true, message: '请填写密码' }]">
+          <input v-model="formData.password" class="nut-input-text" placeholder="Enter You Password" type="password">
         </nut-form-item>
         <nut-cell>
-          <nut-button 
-            size="normal" 
-            style="margin:0 10px 0 38px;width:100px;"
-            @click="reset"
-            >{{ labels.reset }}</nut-button>        
+          <nut-button size="normal" style="margin:0 10px 0 38px;width:100px;" @click="reset">
+            {{ labels.reset }}
+          </nut-button>
           <nut-button
             :loading="loading"
             type="primary"
             size="normal"
             style="margin:0 10px 0 10px;width:100px;"
             @click="submit"
-          >{{ labels.submit }}</nut-button>
+          >
+            {{ labels.submit }}
+          </nut-button>
         </nut-cell>
       </nut-form>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, getCurrentInstance, reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 import { useStore } from '@/store'
@@ -60,9 +45,10 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const route = useRoute()
+    const app = getCurrentInstance()
 
     const labels = {
-      reset: '重置',   
+      reset: '重置',
       submit: '登录'
     }
 
@@ -93,6 +79,9 @@ export default defineComponent({
               })
               loading.value = false
             }).catch((err: any) => {
+              app?.appContext.config.globalProperties.$toast.fail(err.data.message, {
+                duration: 3000,
+              })
               loading.value = false
             })
 
@@ -120,6 +109,7 @@ export default defineComponent({
   background-color: #080710;
   height: 100vh;
 }
+
 .background {
   width: 320px;
   height: 500px;
@@ -130,17 +120,20 @@ export default defineComponent({
   left: 50%;
   top: 50%;
 }
+
 .background .shape {
   height: 200px;
   width: 200px;
   position: absolute;
   border-radius: 50%;
 }
+
 .shape:first-child {
   background: linear-gradient(#1845ad, #23a2f6);
   left: -80px;
   top: -80px;
 }
+
 .shape:last-child {
   background: linear-gradient(to right, #ff512f, #f09819);
   right: -30px;
@@ -151,11 +144,13 @@ export default defineComponent({
   text-align: center;
   color: #fff;
 }
+
 h1.title {
   font-size: 32px;
   font-weight: 500;
   line-height: 42px;
 }
+
 .login-form {
   width: 320px;
   height: 500px;

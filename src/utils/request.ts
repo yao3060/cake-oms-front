@@ -1,8 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-import { useRouter } from 'vue-router'
-import { getCurrentInstance } from 'vue'
 
 // create an axios instance
 const service = axios.create({
@@ -35,24 +33,13 @@ service.interceptors.response.use(response => response.data, error => {
 
   if (error?.response?.status < 500) {
     if (error.response.status === 401 || error.response.status === 403) {
-      // to re-login
-      const app = getCurrentInstance()
-      console.log('request', app)
-      app?.appContext.config.globalProperties.$dialog({
-        title: 'You have been logged out',
-        content: 'You can cancel to stay on this page, or log in again',
-        noCancelBtn: true,
-        onOk: () => {
-          store.dispatch('userModule/resetToken').then(() => location.reload())
-        }
-      })
-      return Promise.reject(new Error(error.response.message || 'Error'))
+      return Promise.reject(error.response)
     } else {
       return error.response
     }
   }
 
-  return Promise.reject(error)
+  return Promise.reject(error.response)
 })
 
 export default service

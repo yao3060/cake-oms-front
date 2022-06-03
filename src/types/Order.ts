@@ -14,6 +14,25 @@ export type FramerUser = {
   display_name: string;
 }
 
+type produceTime = {
+  d: number;
+  days: number;
+  f: number;
+  first_last_day_of: number;
+  h: number;
+  have_special_relative: number;
+  have_weekday_relative: number;
+  i: number;
+  invert: number;
+  m: number;
+  s: number;
+  special_amount: number;
+  special_type: number;
+  weekday: number;
+  weekday_behavior: number;
+  y: number;
+}
+
 interface Order {
   id: number;
   order_number: string | number;
@@ -22,6 +41,7 @@ interface Order {
   order_type: orderType;
   order_status: OrderStatusKey;
   created_at: string;
+  updated_at: string;
   payment_method: string;
   items: Array<any>;
   framer: FramerUser;
@@ -36,6 +56,7 @@ interface Order {
   shipping_address: string;
   note: string;
   creator: Creator;
+  produce_time: produceTime;
 }
 
 
