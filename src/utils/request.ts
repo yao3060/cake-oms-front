@@ -33,6 +33,9 @@ service.interceptors.response.use(response => response.data, error => {
 
   if (error?.response?.status < 500) {
     if (error.response.status === 401 || error.response.status === 403) {
+      // to re-login
+      alert('登录过期，重新登录。')
+      store.dispatch('userModule/resetToken').then(() => location.reload())
       return Promise.reject(error.response)
     } else {
       return error.response
