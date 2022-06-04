@@ -35,6 +35,22 @@
         <!-- 制作时长/制作耗时 ProduceTime -->
         <ProduceTime :order="order" />
 
+        <nut-cell-group title="整单备注" desc="edit">
+          <nut-cell title="我是标题" desc="描述文字">
+            <div style="font-size: 0.75rem;">{{ order.note }}</div>
+          </nut-cell>
+          <template #desc>
+            <nut-button
+              :style="{ float: 'right', marginTop: '-30px', marginRight: '15px' }"
+              size="mini"
+              type="primary"
+              @click="() => showNotePopup = !showNotePopup"
+            >
+              编辑
+            </nut-button>
+          </template>
+        </nut-cell-group>
+
         <!-- 只有下单人可以编辑联系方式 -->
         <nut-cell-group
           v-permission="['employee', 'customer-service', 'store-manager', 'administrator']"
@@ -52,22 +68,6 @@
               @click="() => showPopup = !showPopup"
             >
               编辑/识别
-            </nut-button>
-          </template>
-        </nut-cell-group>
-
-        <nut-cell-group title="整单备注" desc="edit">
-          <nut-cell title="我是标题" desc="描述文字">
-            <div style="font-size: 0.75rem;">{{ order.note }}</div>
-          </nut-cell>
-          <template #desc>
-            <nut-button
-              :style="{ float: 'right', marginTop: '-30px', marginRight: '15px' }"
-              size="mini"
-              type="primary"
-              @click="() => showNotePopup = !showNotePopup"
-            >
-              编辑
             </nut-button>
           </template>
         </nut-cell-group>
