@@ -1,7 +1,7 @@
 <template>
   <nut-cell
     v-if="state.show"
-    class="small-cell"
+    class="small-cell red-cell-16"
     :title="state.title"
     :desc="`${state.hours} 小时 ${state.minutes} 分钟 ${state.seconds} 秒`"
   />
