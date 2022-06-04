@@ -30,7 +30,7 @@
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
 
-        <nut-cell class="small-cell red-cell" title="出品时间" :desc="order.pickup_time" />
+        <nut-cell class="small-cell red-cell-16" title="出品时间" :desc="order.pickup_time" />
 
         <!-- 制作时长/制作耗时 ProduceTime -->
         <ProduceTime :order="order" />
