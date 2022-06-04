@@ -37,7 +37,7 @@
 
         <nut-cell-group title="整单备注" desc="edit">
           <nut-cell title="我是标题" desc="描述文字">
-            <div class="small-cell red-cell-16">{{ order.note }}</div>
+            <div style="font-size: 1rem; color: #fa2c19;">{{ order.note }}</div>
           </nut-cell>
           <template #desc>
             <nut-button
