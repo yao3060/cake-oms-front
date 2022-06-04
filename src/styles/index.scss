@@ -79,6 +79,14 @@ body {
   }
 }
 
+.small-cell.red-cell-16 {
+  color:#fa2c19;
+  .nut-cell__value {
+    color:#fa2c19;
+    font-size:1rem;
+  }
+}
+
 .loader-inner {
   margin: 50px auto;
   height:50px;
