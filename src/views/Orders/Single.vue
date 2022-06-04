@@ -30,7 +30,7 @@
         <PickupMethod :id="order.id" :creator="order.creator" :value="order.pickup_method" />
         <PickupTime :id="order.id" :creator="order.creator" :value="order.pickup_time" />
 
-        <nut-cell class="small-cell red-cell-16" title="出品时间" :desc="order.pickup_time" />
+        <nut-cell class="small-cell red-cell-16" title="出品时间" :desc="order.deadline" />
 
         <!-- 制作时长/制作耗时 ProduceTime -->
         <ProduceTime :order="order" />
@@ -55,7 +55,7 @@
             </nut-button>
           </template>
         </nut-cell-group>
-        
+
         <nut-cell-group title="整单备注" desc="edit">
           <nut-cell title="我是标题" desc="描述文字">
             <div style="font-size: 1rem; color: #fa2c19;">{{ order.note }}</div>

@@ -48,6 +48,7 @@ interface Order {
   total: string;
   pickup_method: string;
   pickup_time: string;
+  deadline: string;
   pickup_number: string | number;
   billing_name: string;
   billing_phone: string;
