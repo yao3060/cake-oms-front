@@ -50,22 +50,19 @@ const state = reactive({
 
 const interval = ref(0)
 
-if (props.order.order_status === 'completed') {
-  state.title = '制作耗时'
-  state.show = true
-}
-
-if (props.order.order_status === 'processing') {
-  state.title = '制作时长'
-  state.show = true
-  countUpFromTime(props.order.updated_at)
-}
-
 watchEffect(() => {
   console.log('props.order.order_status', props.order.order_status)
 
   if (props.order.order_status === 'completed') {
+    state.title = '制作耗时'
+    state.show = true
     clearTimeout(interval.value)
+  }
+
+  if (props.order.order_status === 'processing') {
+    state.title = '制作时长'
+    state.show = true
+    countUpFromTime(props.order.updated_at)
   }
 })
 
