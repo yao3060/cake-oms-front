@@ -32,7 +32,7 @@ service.interceptors.request.use((config: AxiosRequestConfig): AxiosRequestConfi
 service.interceptors.response.use(response => response.data, error => {
 
   if (error?.response?.status < 500) {
-    if (error.response.status === 401 || error.response.status === 403) {
+    if (error.response.status === 401) {
       // to re-login
       alert('登录过期，重新登录。')
       store.dispatch('userModule/resetToken').then(() => location.reload())
