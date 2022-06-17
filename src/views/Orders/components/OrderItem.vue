@@ -25,8 +25,8 @@
       </template>
     </nut-cell>
     <!-- <nut-cell class="small-cell" title="订单号" :desc="order.order_number" /> -->
+    <nut-cell class="small-cell red-cell-16" title="取货时间" :desc="order.pickup_time" />
     <nut-cell class="small-cell" title="下单时间" :desc="order.created_at" />
-    <nut-cell class="small-cell" title="取货时间" :desc="order.pickup_time" />
     <!-- <nut-cell class="small-cell red-cell-16" title="出品时间" :desc="order.deadline" />  无法获取-->
     <nut-cell class="small-cell" title="收货地址" :desc="order.shipping_address" />
   </nut-cell-group>
